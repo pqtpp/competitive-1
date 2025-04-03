@@ -15,9 +15,9 @@
                 "-O2",
                 "${file}",
                 "-I",
-                "~/competitive/library",
+                "/workspaces/competitive/library",
                 "-o",
-                "~/competitive/a.out"
+                "/workspaces/competitive/a.out"
             ],
             "group": "build"
         }
