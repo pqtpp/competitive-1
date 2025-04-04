@@ -13,7 +13,7 @@ acc n "$clean_string"
 cd ../
 
 # `clean_string` に対応するディレクトリの `main.cpp` を、フォルダ名が大きい順に開く
-contest_dir="$HOME/competitive/atcoder/$clean_string"
+contest_dir="/workspaces/competitive/atcoder/$clean_string"
 
 if [ -d "$contest_dir" ]; then
     find "$contest_dir" -mindepth 1 -maxdepth 1 -type d | sort -r | while read -r dir; do

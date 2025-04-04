@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-cd ~/competitive/library
+cd /workspaces/competitive/library
 oj-verify run
 oj-verify docs
 cd .verify-helper/markdown

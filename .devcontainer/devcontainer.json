@@ -1,0 +1,17 @@
+{
+    "name": "C++20 with g++-12",
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {},
+    "postCreateCommand": "sudo apt update && sudo apt install -y g++-12 && sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 100 && sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 100",
+    "customizations": {
+      "vscode": {
+        "settings": {
+          "terminal.integrated.defaultProfile.linux": "bash"
+        },
+        "extensions": [
+          "ms-vscode.cpptools"
+        ]
+      }
+    }
+  }
+  
