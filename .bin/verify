@@ -2,7 +2,7 @@
 set -e
 
 cd /workspaces/competitive/library
-oj-verify run
+oj-verify --config-file /workspaces/competitive/.bin/verifyconfig run
 oj-verify docs
 cd .verify-helper/markdown
 git add .
