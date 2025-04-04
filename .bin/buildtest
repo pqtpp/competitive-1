@@ -2,7 +2,7 @@
 
 
 # ビルドの実行
-g++ -std=c++2a D poe -g -O0 -march=native "$1/main.cpp" -I /workspaces/competitive/library -o /workspaces/competitive/a.out
+g++ -std=c++2a -D poe -g -O0 -march=native "$1/main.cpp" -I /workspaces/competitive/library -o /workspaces/competitive/a.out
 
 # ビルドが成功した場合にoj testを実行
 if [ $? -eq 0 ]; then
