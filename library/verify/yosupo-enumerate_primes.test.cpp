@@ -9,7 +9,7 @@ int main() { IO();
 }
 
 void solve() {
-    int n, a, b; cin >> n >> a >> b;
+    ll n, a, b; cin >> n >> a >> b;
     vi primes;
     enumprimes(n, primes);
     int cnt = primes.size();

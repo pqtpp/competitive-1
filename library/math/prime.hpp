@@ -34,16 +34,11 @@ bool isprime(long long n) {
     return true;
 }
 // n 以下の素数を列挙する O(n log log n)
-int enumprimes(int n, vector<int>& primes) {
+void enumprimes(long long n, vector<int>& primes) {
     vector<bool> primeflag(n+1);
     for (long long i=2; i<=n; i++) {
         if (primeflag[i]) continue;
-        primes.push_back(i);
-        for (long long j=i*i; j<=n; j+=i) {
-            primeflag[j] = true;
-        }
     }
-    return primes.size();
 }
 // 素因数分解をする O(n^0.25)
 void factorize(long long n, vector<long long>& factors) {

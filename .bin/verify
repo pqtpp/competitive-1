@@ -4,8 +4,12 @@ set -e
 cd /workspaces/competitive/library
 oj-verify --config-file /workspaces/competitive/.bin/verifyconfig run
 oj-verify docs
-# マークダウンを docs にコピーしてコミット & プッシュ
-cp -r library/.verify-helper/markdown/* docs/
-git add docs
-git commit -m "Update markdown docs for GitHub Pages"
-git push
+cd ../
+if [ -d library/.verify-helper/markdown ] && [ "$(ls -A library/.verify-helper/markdown)" ]; then
+  cp -r library/.verify-helper/markdown/* docs/
+  git add docs
+  git commit -m "Update markdown docs for GitHub Pages"
+  git push
+else
+  echo "No markdown files to copy."
+fi
