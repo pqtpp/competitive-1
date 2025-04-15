@@ -10,3 +10,4 @@ if [ $? -eq 0 ]; then
 else
     echo "Build failed. Skipping oj test."
 fi
+cd ../../../
