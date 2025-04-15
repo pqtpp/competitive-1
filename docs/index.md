@@ -4,6 +4,9 @@ data:
   - name: graph
     pages:
     - icon: ':heavy_check_mark:'
+      path: graph/dijkstra.hpp
+      title: graph/dijkstra.hpp
+    - icon: ':heavy_check_mark:'
       path: graph/graphtemplate.hpp
       title: graph/graphtemplate.hpp
     - icon: ':heavy_check_mark:'
@@ -69,11 +72,11 @@ data:
       path: verify/aizu-DSL_2_E.test.cpp
       title: verify/aizu-DSL_2_E.test.cpp
     - icon: ':heavy_check_mark:'
+      path: verify/aizu-GRL_1_A.test.cpp
+      title: verify/aizu-GRL_1_A.test.cpp
+    - icon: ':heavy_check_mark:'
       path: verify/aizu-GRL_2_A.test.cpp
       title: verify/aizu-GRL_2_A.test.cpp
-    - icon: ':heavy_check_mark:'
-      path: verify/yosupo-enumerate_primes.test.cpp
-      title: verify/yosupo-enumerate_primes.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/yosupo-factorize.test.cpp
       title: verify/yosupo-factorize.test.cpp

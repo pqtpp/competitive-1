@@ -4,9 +4,6 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
-    path: verify/yosupo-enumerate_primes.test.cpp
-    title: verify/yosupo-enumerate_primes.test.cpp
-  - icon: ':heavy_check_mark:'
     path: verify/yosupo-factorize.test.cpp
     title: verify/yosupo-factorize.test.cpp
   - icon: ':heavy_check_mark:'
@@ -30,13 +27,13 @@ data:
     \            for (t = 0; t < s; ++t) {\n                if (x == n - 1) break;\n\
     \                x = x * x % n;\n            }\n            if (t == s) return\
     \ false;\n        }\n    }\n    return true;\n}\n// n \u4EE5\u4E0B\u306E\u7D20\
-    \u6570\u3092\u5217\u6319\u3059\u308B O(n log log n)\nint enumprimes(int n, vector<int>&\
-    \ primes) {\n    vector<bool> primeflag(n+1);\n    for (long long i=2; i<=n; i++)\
-    \ {\n        if (primeflag[i]) continue;\n        primes.push_back(i);\n     \
-    \   for (long long j=i*i; j<=n; j+=i) {\n            primeflag[j] = true;\n  \
-    \      }\n    }\n    return primes.size();\n}\n// \u7D20\u56E0\u6570\u5206\u89E3\
-    \u3092\u3059\u308B O(n^0.25)\nvoid factorize(long long n, vector<long long>& factors)\
-    \ {\n    if (n <= 1) return;\n    if (isprime(n)) {\n        factors.push_back(n);\n\
+    \u6570\u3092\u5217\u6319\u3059\u308B O(n log log n)\nvector<int> enumprimes(int\
+    \ n) {\n    vector<bool> primeflag(n+1);\n    vector<int> re;\n    for (long long\
+    \ i=2; i<=n; i++) {\n        if (primeflag[i]) continue;\n        re.push_back(i);\n\
+    \        for (long long j=i*i; j<=n; j+=i) {\n            primeflag[j] = true;\n\
+    \        }\n    }\n    return re;\n}\n// \u7D20\u56E0\u6570\u5206\u89E3\u3092\u3059\
+    \u308B O(n^0.25)\nvoid factorize(long long n, vector<long long>& factors) {\n\
+    \    if (n <= 1) return;\n    if (isprime(n)) {\n        factors.push_back(n);\n\
     \        return;\n    }\n    if (n % 2 == 0) {\n        while (n % 2 == 0) {\n\
     \            factors.push_back(2);\n            n /= 2;\n        }\n        factorize(n,\
     \ factors);\n        return;\n    }\n    while (true) {\n        __int128_t x\
@@ -60,11 +57,11 @@ data:
     \ for (t = 0; t < s; ++t) {\n                if (x == n - 1) break;\n        \
     \        x = x * x % n;\n            }\n            if (t == s) return false;\n\
     \        }\n    }\n    return true;\n}\n// n \u4EE5\u4E0B\u306E\u7D20\u6570\u3092\
-    \u5217\u6319\u3059\u308B O(n log log n)\nint enumprimes(int n, vector<int>& primes)\
-    \ {\n    vector<bool> primeflag(n+1);\n    for (long long i=2; i<=n; i++) {\n\
-    \        if (primeflag[i]) continue;\n        primes.push_back(i);\n        for\
-    \ (long long j=i*i; j<=n; j+=i) {\n            primeflag[j] = true;\n        }\n\
-    \    }\n    return primes.size();\n}\n// \u7D20\u56E0\u6570\u5206\u89E3\u3092\u3059\
+    \u5217\u6319\u3059\u308B O(n log log n)\nvector<int> enumprimes(int n) {\n   \
+    \ vector<bool> primeflag(n+1);\n    vector<int> re;\n    for (long long i=2; i<=n;\
+    \ i++) {\n        if (primeflag[i]) continue;\n        re.push_back(i);\n    \
+    \    for (long long j=i*i; j<=n; j+=i) {\n            primeflag[j] = true;\n \
+    \       }\n    }\n    return re;\n}\n// \u7D20\u56E0\u6570\u5206\u89E3\u3092\u3059\
     \u308B O(n^0.25)\nvoid factorize(long long n, vector<long long>& factors) {\n\
     \    if (n <= 1) return;\n    if (isprime(n)) {\n        factors.push_back(n);\n\
     \        return;\n    }\n    if (n % 2 == 0) {\n        while (n % 2 == 0) {\n\
@@ -81,10 +78,9 @@ data:
   isVerificationFile: false
   path: math/prime.hpp
   requiredBy: []
-  timestamp: '2025-04-03 17:12:39+00:00'
+  timestamp: '2025-04-15 14:08:25+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
-  - verify/yosupo-enumerate_primes.test.cpp
   - verify/yosupo-factorize.test.cpp
   - verify/yosupo-primality_test.test.cpp
 documentation_of: math/prime.hpp

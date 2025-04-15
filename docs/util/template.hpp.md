@@ -19,11 +19,11 @@ data:
     path: verify/aizu-DSL_2_E.test.cpp
     title: verify/aizu-DSL_2_E.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/aizu-GRL_1_A.test.cpp
+    title: verify/aizu-GRL_1_A.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/aizu-GRL_2_A.test.cpp
     title: verify/aizu-GRL_2_A.test.cpp
-  - icon: ':heavy_check_mark:'
-    path: verify/yosupo-enumerate_primes.test.cpp
-    title: verify/yosupo-enumerate_primes.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/yosupo-factorize.test.cpp
     title: verify/yosupo-factorize.test.cpp
@@ -165,7 +165,6 @@ data:
   verifiedWith:
   - verify/aizu-DSL_2_E.test.cpp
   - verify/aizu-GRL_2_A.test.cpp
-  - verify/yosupo-enumerate_primes.test.cpp
   - verify/yosupo-range_affine_range_sum.test.cpp
   - verify/yosupo-staticrmq.test.cpp
   - verify/yosupo-factorize.test.cpp
@@ -173,6 +172,7 @@ data:
   - verify/yosupo-unionfind.test.cpp
   - verify/aizu-DSL_1_A.test.cpp
   - verify/aizu-DSL_2_B.test.cpp
+  - verify/aizu-GRL_1_A.test.cpp
   - verify/yosupo-range_affine_point_get.test.cpp
   - verify/yosupo-primality_test.test.cpp
   - verify/yosupo-static_range_sum.test.cpp

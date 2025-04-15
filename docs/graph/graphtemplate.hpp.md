@@ -3,9 +3,15 @@ data:
   _extendedDependsOn: []
   _extendedRequiredBy:
   - icon: ':heavy_check_mark:'
+    path: graph/dijkstra.hpp
+    title: graph/dijkstra.hpp
+  - icon: ':heavy_check_mark:'
     path: graph/kruskal.hpp
     title: graph/kruskal.hpp
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/aizu-GRL_1_A.test.cpp
+    title: verify/aizu-GRL_1_A.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/aizu-GRL_2_A.test.cpp
     title: verify/aizu-GRL_2_A.test.cpp
@@ -80,10 +86,12 @@ data:
   path: graph/graphtemplate.hpp
   requiredBy:
   - graph/kruskal.hpp
+  - graph/dijkstra.hpp
   timestamp: '2025-04-15 05:08:18+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aizu-GRL_2_A.test.cpp
+  - verify/aizu-GRL_1_A.test.cpp
 documentation_of: graph/graphtemplate.hpp
 layout: document
 redirect_from:
