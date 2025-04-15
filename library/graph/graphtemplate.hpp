@@ -17,7 +17,7 @@ struct directedgraph {
     bool _weighted;
     int count;
     T sumcost;
-    graph(int n, bool weighted=false) : data(n) _weighted(weighted), sumcost(T{}) {}
+    directedgraph(int n, bool weighted=false) : data(n), _weighted(weighted), sumcost(T{}) {}
     void add_edge(int from, int to, T cost = 1, int id=-1) {
         if (id == -1) id = count;
         data[from].push_back(edge(from, to, cost, id));
@@ -25,12 +25,13 @@ struct directedgraph {
         count++;
         sumcost += cost;
     }
-    void add_edge(edge<T> eg {
+    void add_edge(edge<T> eg) {
         add_edge(eg.from, eg.to, eg.cost, eg.id);
     }
     void read(int m, int indexed = 1) {
         for (int i=0; i<m; i++) {
-            int from, to, cost=1;
+            int from, to;
+            T cost=1;
             cin >> from >> to;
             if (_weighted) cin >> cost;
             add_edge(from - indexed, to - indexed, cost);
@@ -50,13 +51,12 @@ struct undirectedgraph {
     bool _weighted;
     int count;
     T sumcost;
-    graph(int n, bool weighted=false) : data(n) _weighted(weighted), sumcost(T{}) {}
+    undirectedgraph(int n, bool weighted=false) : data(n), _weighted(weighted), sumcost(T{}) {}
     void add_edge(int from, int to, T cost = 1, int id=-1) {
         if (id == -1) id = count;
         data[from].push_back(edge(from, to, cost, id));
         _edges.push_back(edge(from, to, cost, id));
         data[from].push_back(edge(to, from, cost, id));
-        _edges.push_back(edge(to, from, cost, id));
         count++;
         sumcost += cost;
     }

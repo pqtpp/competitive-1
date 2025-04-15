@@ -33,7 +33,7 @@ mkdir -p "$OUT_DIR"
 
 # ファイル作成
 {
-    echo "#define PROBLEM \"$URL\"\n"
+    echo "#define PROBLEM \"$URL\""
     cat "$TEMPLATE"
 } > "$OUT_FILE"
 
