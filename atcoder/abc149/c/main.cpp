@@ -8,7 +8,6 @@ int main() { IO();
 
 void solve() {
     int n; cin >> n; n *= 2;
-    vi p;
-    enumprimes(n, p);
+    vi p = enumprimes(n);
     cout << *lower_bound(all(p), n/2) << nl;
 }

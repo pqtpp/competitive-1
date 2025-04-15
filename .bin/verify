@@ -7,7 +7,7 @@ oj-verify docs
 cd ../
 if [ -d library/.verify-helper/markdown ] && [ "$(ls -A library/.verify-helper/markdown)" ]; then
   cp -r library/.verify-helper/markdown/* docs/
-  git add docs
+  git add -A
   git commit -m "Update markdown docs for GitHub Pages"
   git push
 else
