@@ -129,8 +129,8 @@ data:
     \ T=int>\nundirectedgraph<T> kruskal(undirectedgraph<T>& g) {\n    undirectedgraph<T>\
     \ re(g.size(), g._weighted);\n    edges<T> _edges = g._edges;\n    sort(all(_edges),\
     \ [](edge<T> e1, edge<T> e2) { return e1.cost < e2.cost;} );\n    UnionFind uf(g.size());\n\
-    \    for (auto& es : _edges) {\n        if (uf.merge(es.from, es.to)) {\n    \
-    \        re.add_edge(es);\n        }\n    }\n    return re;\n}\n#line 5 \"verify/aizu-GRL_2_A.test.cpp\"\
+    \    for (auto& _e : _edges) {\n        if (uf.merge(_e.from, _e.to)) {\n    \
+    \        re.add_edge(_e);\n        }\n    }\n    return re;\n}\n#line 5 \"verify/aizu-GRL_2_A.test.cpp\"\
     \nint main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\
     \n}\r\n\r\nvoid solve() {\r\n    int n, m; cin >> n >> m;\r\n    undirectedgraph<int>\
     \ g(n, true);\r\n    g.read(m, 0);\r\n    cout << kruskal(g).sumcost << nl;\r\n\
@@ -149,7 +149,7 @@ data:
   isVerificationFile: true
   path: verify/aizu-GRL_2_A.test.cpp
   requiredBy: []
-  timestamp: '2025-04-15 05:08:18+00:00'
+  timestamp: '2025-04-16 06:45:02+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aizu-GRL_2_A.test.cpp

@@ -9,9 +9,9 @@ undirectedgraph<T> kruskal(undirectedgraph<T>& g) {
     edges<T> _edges = g._edges;
     sort(all(_edges), [](edge<T> e1, edge<T> e2) { return e1.cost < e2.cost;} );
     UnionFind uf(g.size());
-    for (auto& es : _edges) {
-        if (uf.merge(es.from, es.to)) {
-            re.add_edge(es);
+    for (auto& _e : _edges) {
+        if (uf.merge(_e.from, _e.to)) {
+            re.add_edge(_e);
         }
     }
     return re;

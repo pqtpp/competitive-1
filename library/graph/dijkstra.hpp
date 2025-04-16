@@ -9,10 +9,10 @@ vector<T> dijkstra(directedgraph<T>& g, int from=0) {
     q.push({T{}, from});
     while (!q.empty()) {
         auto [t, x] = q.top(); q.pop();
-        for (auto& es : g[x]) {
-            int y = es.to;
-            if (dist[x] + es.cost < dist[y]) {
-                dist[y] = dist[x] + es.cost;
+        for (auto& _e : g[x]) {
+            int y = _e.to;
+            if (dist[x] + _e.cost < dist[y]) {
+                dist[y] = dist[x] + _e.cost;
                 q.push({dist[y], y});
             }
         }
@@ -26,10 +26,10 @@ vector<T> dijkstra(undirectedgraph<T>& g, int from=0) {
     q.push({T{}, from});
     while (!q.empty()) {
         auto [t, x] = q.top(); q.pop();
-        for (auto& es : g[x]) {
-            int y = es.to;
-            if (dist[x] + es.cost < dist[y]) {
-                dist[y] = dist[x] + es.cost;
+        for (auto& _e : g[x]) {
+            int y = _e.to;
+            if (dist[x] + _e.cost < dist[y]) {
+                dist[y] = dist[x] + _e.cost;
                 q.push({dist[y], y});
             }
         }

@@ -49,16 +49,16 @@ data:
     \ {\n    vector<T> dist(g.size(), numeric_limits<T>::max()); dist[from] = T{};\n\
     \    priority_queue<pair<T, int>, vector<pair<T, int>>, greater<pair<T, int>>>\
     \ q;\n    q.push({T{}, from});\n    while (!q.empty()) {\n        auto [t, x]\
-    \ = q.top(); q.pop();\n        for (auto& es : g[x]) {\n            int y = es.to;\n\
-    \            if (dist[x] + es.cost < dist[y]) {\n                dist[y] = dist[x]\
-    \ + es.cost;\n                q.push({dist[y], y});\n            }\n        }\n\
+    \ = q.top(); q.pop();\n        for (auto& _e : g[x]) {\n            int y = _e.to;\n\
+    \            if (dist[x] + _e.cost < dist[y]) {\n                dist[y] = dist[x]\
+    \ + _e.cost;\n                q.push({dist[y], y});\n            }\n        }\n\
     \    }\n    return dist;\n}\ntemplate <class T>\nvector<T> dijkstra(undirectedgraph<T>&\
     \ g, int from=0) {\n    vector<T> dist(g.size(), numeric_limits<T>::max()); dist[from]\
     \ = T{};\n    priority_queue<pair<T, int>, vector<pair<T, int>>, greater<pair<T,\
     \ int>>> q;\n    q.push({T{}, from});\n    while (!q.empty()) {\n        auto\
-    \ [t, x] = q.top(); q.pop();\n        for (auto& es : g[x]) {\n            int\
-    \ y = es.to;\n            if (dist[x] + es.cost < dist[y]) {\n               \
-    \ dist[y] = dist[x] + es.cost;\n                q.push({dist[y], y});\n      \
+    \ [t, x] = q.top(); q.pop();\n        for (auto& _e : g[x]) {\n            int\
+    \ y = _e.to;\n            if (dist[x] + _e.cost < dist[y]) {\n               \
+    \ dist[y] = dist[x] + _e.cost;\n                q.push({dist[y], y});\n      \
     \      }\n        }\n    }\n    return dist;\n}\ntemplate <class T>\nT dijkstra(directedgraph<T>&\
     \ g, int from, int to) {\n    return dijktra(g, from)[to];\n}\ntemplate <class\
     \ T>\nT dijkstra(undirectedgraph<T>& g, int from, int to) {\n    return dijktra(g,\
@@ -68,16 +68,16 @@ data:
     \ int from=0) {\n    vector<T> dist(g.size(), numeric_limits<T>::max()); dist[from]\
     \ = T{};\n    priority_queue<pair<T, int>, vector<pair<T, int>>, greater<pair<T,\
     \ int>>> q;\n    q.push({T{}, from});\n    while (!q.empty()) {\n        auto\
-    \ [t, x] = q.top(); q.pop();\n        for (auto& es : g[x]) {\n            int\
-    \ y = es.to;\n            if (dist[x] + es.cost < dist[y]) {\n               \
-    \ dist[y] = dist[x] + es.cost;\n                q.push({dist[y], y});\n      \
+    \ [t, x] = q.top(); q.pop();\n        for (auto& _e : g[x]) {\n            int\
+    \ y = _e.to;\n            if (dist[x] + _e.cost < dist[y]) {\n               \
+    \ dist[y] = dist[x] + _e.cost;\n                q.push({dist[y], y});\n      \
     \      }\n        }\n    }\n    return dist;\n}\ntemplate <class T>\nvector<T>\
     \ dijkstra(undirectedgraph<T>& g, int from=0) {\n    vector<T> dist(g.size(),\
     \ numeric_limits<T>::max()); dist[from] = T{};\n    priority_queue<pair<T, int>,\
     \ vector<pair<T, int>>, greater<pair<T, int>>> q;\n    q.push({T{}, from});\n\
     \    while (!q.empty()) {\n        auto [t, x] = q.top(); q.pop();\n        for\
-    \ (auto& es : g[x]) {\n            int y = es.to;\n            if (dist[x] + es.cost\
-    \ < dist[y]) {\n                dist[y] = dist[x] + es.cost;\n               \
+    \ (auto& _e : g[x]) {\n            int y = _e.to;\n            if (dist[x] + _e.cost\
+    \ < dist[y]) {\n                dist[y] = dist[x] + _e.cost;\n               \
     \ q.push({dist[y], y});\n            }\n        }\n    }\n    return dist;\n}\n\
     template <class T>\nT dijkstra(directedgraph<T>& g, int from, int to) {\n    return\
     \ dijktra(g, from)[to];\n}\ntemplate <class T>\nT dijkstra(undirectedgraph<T>&\
@@ -87,7 +87,7 @@ data:
   isVerificationFile: false
   path: graph/dijkstra.hpp
   requiredBy: []
-  timestamp: '2025-04-15 06:19:02+00:00'
+  timestamp: '2025-04-16 06:46:13+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aizu-GRL_1_A.test.cpp

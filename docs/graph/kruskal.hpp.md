@@ -72,15 +72,15 @@ data:
     \nusing namespace std;\ntemplate<class T=int>\nundirectedgraph<T> kruskal(undirectedgraph<T>&\
     \ g) {\n    undirectedgraph<T> re(g.size(), g._weighted);\n    edges<T> _edges\
     \ = g._edges;\n    sort(all(_edges), [](edge<T> e1, edge<T> e2) { return e1.cost\
-    \ < e2.cost;} );\n    UnionFind uf(g.size());\n    for (auto& es : _edges) {\n\
-    \        if (uf.merge(es.from, es.to)) {\n            re.add_edge(es);\n     \
+    \ < e2.cost;} );\n    UnionFind uf(g.size());\n    for (auto& _e : _edges) {\n\
+    \        if (uf.merge(_e.from, _e.to)) {\n            re.add_edge(_e);\n     \
     \   }\n    }\n    return re;\n}\n"
   code: "#pragma once\n#include \"graphtemplate\"\n#include \"UnionFind\"\n#include<bits/stdc++.h>\n\
     using namespace std;\ntemplate<class T=int>\nundirectedgraph<T> kruskal(undirectedgraph<T>&\
     \ g) {\n    undirectedgraph<T> re(g.size(), g._weighted);\n    edges<T> _edges\
     \ = g._edges;\n    sort(all(_edges), [](edge<T> e1, edge<T> e2) { return e1.cost\
-    \ < e2.cost;} );\n    UnionFind uf(g.size());\n    for (auto& es : _edges) {\n\
-    \        if (uf.merge(es.from, es.to)) {\n            re.add_edge(es);\n     \
+    \ < e2.cost;} );\n    UnionFind uf(g.size());\n    for (auto& _e : _edges) {\n\
+    \        if (uf.merge(_e.from, _e.to)) {\n            re.add_edge(_e);\n     \
     \   }\n    }\n    return re;\n}"
   dependsOn:
   - graph/graphtemplate.hpp
@@ -88,7 +88,7 @@ data:
   isVerificationFile: false
   path: graph/kruskal.hpp
   requiredBy: []
-  timestamp: '2025-04-15 05:08:18+00:00'
+  timestamp: '2025-04-16 06:45:02+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aizu-GRL_2_A.test.cpp
