@@ -34,6 +34,9 @@ data:
   - name: string
     pages:
     - icon: ':warning:'
+      path: string/rollinghash.hpp
+      title: string/rollinghash.hpp
+    - icon: ':warning:'
       path: string/trie.hpp
       title: string/trie.hpp
   - name: structure

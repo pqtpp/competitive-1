@@ -22,7 +22,7 @@ struct Trie {
                 next_id = data.size();
                 data.push_back(datum(c));
             }
-            ++data[node_id].common;
+            data[node_id].common++;
             node_id = next_id;
         }
         data[node_id].common++;

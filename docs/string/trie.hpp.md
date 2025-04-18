@@ -17,7 +17,7 @@ data:
     \ {\n        int node_id = 0;\n        for (int i=0; i<word.size(); i++) {\n \
     \           int c = word[i] - base;\n            int &next_id = data[node_id].next[c];\n\
     \            if (next_id == -1) {\n                next_id = data.size();\n  \
-    \              data.push_back(datum(c));\n            }\n            ++data[node_id].common;\n\
+    \              data.push_back(datum(c));\n            }\n            data[node_id].common++;\n\
     \            node_id = next_id;\n        }\n        data[node_id].common++;\n\
     \        data[node_id].accept.push_back(word_id);\n    }\n    void insert(const\
     \ string &word) {\n        insert(word, data[0].common);\n    }\n    bool search(const\
@@ -38,7 +38,7 @@ data:
     \ 0;\n        for (int i=0; i<word.size(); i++) {\n            int c = word[i]\
     \ - base;\n            int &next_id = data[node_id].next[c];\n            if (next_id\
     \ == -1) {\n                next_id = data.size();\n                data.push_back(datum(c));\n\
-    \            }\n            ++data[node_id].common;\n            node_id = next_id;\n\
+    \            }\n            data[node_id].common++;\n            node_id = next_id;\n\
     \        }\n        data[node_id].common++;\n        data[node_id].accept.push_back(word_id);\n\
     \    }\n    void insert(const string &word) {\n        insert(word, data[0].common);\n\
     \    }\n    bool search(const string &word, bool prefix = false) {\n        int\
@@ -53,7 +53,7 @@ data:
   isVerificationFile: false
   path: string/trie.hpp
   requiredBy: []
-  timestamp: '2025-04-18 08:45:20+00:00'
+  timestamp: '2025-04-18 12:55:14+00:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: string/trie.hpp
