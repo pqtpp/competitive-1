@@ -3,11 +3,11 @@
 #include "UnionFind"
 #include<bits/stdc++.h>
 using namespace std;
-template<class T=int>
-undirectedgraph<T> kruskal(undirectedgraph<T>& g) {
-    undirectedgraph<T> re(g.size(), g._weighted);
+template<class T = int, bool directed = false, bool weighted = true>
+graph<T, directed, weighted> kruskal(graph<T, directed, weighted>& g) {
+    graph<T, directed, weighted> re(g.size());
     edges<T> _edges = g._edges;
-    sort(all(_edges), [](edge<T> e1, edge<T> e2) { return e1.cost < e2.cost;} );
+    sort(_edges.begin(), _edges.end(), [](edge<T> e1, edge<T> e2) { return e1.cost < e2.cost;} );
     UnionFind uf(g.size());
     for (auto& _e : _edges) {
         if (uf.merge(_e.from, _e.to)) {

@@ -10,64 +10,31 @@ struct edge {
 };
 template<class T = int>
 using edges = vector<edge<T>>;
-template<class T = int>
-struct directedgraph {
-    vector<edges<T>> data;
+template <class T = int, bool directed = false, bool weighted = false>
+struct graph {
+    bool isdirected, isweighted;
     edges<T> _edges;
-    bool _weighted;
-    int count;
+    vector<edges<T>> data;
     T sumcost;
-    directedgraph(int n, bool weighted=false) : data(n), _weighted(weighted), sumcost(T{}) {}
-    void add_edge(int from, int to, T cost = 1, int id=-1) {
-        if (id == -1) id = count;
-        data[from].push_back(edge(from, to, cost, id));
-        _edges.push_back(edge(from, to, cost, id));
-        count++;
+    graph(int n) : isdirected(directed), isweighted(weighted), data(n), sumcost(T{}) {}
+    void add_edge(int from, int to, T cost = 1, int id = -1) {
+        if (id == -1) id = _edges.size();
+        data[from].push_back(edge<T>(from, to, cost, id));
+        _edges.push_back(edge<T>(from, to, cost, id));
+        if (!isdirected) {
+            data[to].push_back(edge<T>(to, from, cost, id));
+        }
         sumcost += cost;
     }
-    void add_edge(edge<T> eg) {
-        add_edge(eg.from, eg.to, eg.cost, eg.id);
+    void add_edge(edge<T> _e) {
+        add_edge(_e.from, _e.to, _e.cost, _e.id);
     }
     void read(int m, int indexed = 1) {
         for (int i=0; i<m; i++) {
             int from, to;
-            T cost=1;
+            T cost = 1;
             cin >> from >> to;
-            if (_weighted) cin >> cost;
-            add_edge(from - indexed, to - indexed, cost);
-        }
-    }
-    int size() {
-        return data.size();
-    }
-    edges<T> operator[](int k) {
-        return data[k];
-    }
-};
-template<class T = int>
-struct undirectedgraph {
-    vector<edges<T>> data;
-    edges<T> _edges;
-    bool _weighted;
-    int count;
-    T sumcost;
-    undirectedgraph(int n, bool weighted=false) : data(n), _weighted(weighted), sumcost(T{}) {}
-    void add_edge(int from, int to, T cost = 1, int id=-1) {
-        if (id == -1) id = count;
-        data[from].push_back(edge(from, to, cost, id));
-        _edges.push_back(edge(from, to, cost, id));
-        data[from].push_back(edge(to, from, cost, id));
-        count++;
-        sumcost += cost;
-    }
-    void add_edge(edge<T> eg) {
-        add_edge(eg.from, eg.to, eg.cost, eg.id);
-    }
-    void read(int m, int indexed = 1) {
-        for (int i=0; i<m; i++) {
-            int from, to, cost=1;
-            cin >> from >> to;
-            if (_weighted) cin >> cost;
+            if (isweighted) cin >> cost;
             add_edge(from - indexed, to - indexed, cost);
         }
     }

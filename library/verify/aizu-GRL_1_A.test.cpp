@@ -10,7 +10,7 @@ int main() { IO();
 
 void solve() {
     int n, m, s; cin >> n >> m >> s;
-    directedgraph<ll> g(n, true);
+    graph<ll, true, true> g(n);
     g.read(m, 0);
     vll d = dijkstra(g, s);
     range(i, d) {

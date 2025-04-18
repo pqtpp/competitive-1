@@ -78,34 +78,22 @@ data:
     template<class T = int>\nstruct edge {\n    int from, to;\n    T cost;\n    int\
     \ id;\n    edge(int _from, int _to, T _cost = 1, int _id = -1) : from(_from),\
     \ to(_to), cost(_cost), id(_id) {}\n};\ntemplate<class T = int>\nusing edges =\
-    \ vector<edge<T>>;\ntemplate<class T = int>\nstruct directedgraph {\n    vector<edges<T>>\
-    \ data;\n    edges<T> _edges;\n    bool _weighted;\n    int count;\n    T sumcost;\n\
-    \    directedgraph(int n, bool weighted=false) : data(n), _weighted(weighted),\
-    \ sumcost(T{}) {}\n    void add_edge(int from, int to, T cost = 1, int id=-1)\
-    \ {\n        if (id == -1) id = count;\n        data[from].push_back(edge(from,\
-    \ to, cost, id));\n        _edges.push_back(edge(from, to, cost, id));\n     \
-    \   count++;\n        sumcost += cost;\n    }\n    void add_edge(edge<T> eg) {\n\
-    \        add_edge(eg.from, eg.to, eg.cost, eg.id);\n    }\n    void read(int m,\
-    \ int indexed = 1) {\n        for (int i=0; i<m; i++) {\n            int from,\
-    \ to;\n            T cost=1;\n            cin >> from >> to;\n            if (_weighted)\
-    \ cin >> cost;\n            add_edge(from - indexed, to - indexed, cost);\n  \
-    \      }\n    }\n    int size() {\n        return data.size();\n    }\n    edges<T>\
-    \ operator[](int k) {\n        return data[k];\n    }\n};\ntemplate<class T =\
-    \ int>\nstruct undirectedgraph {\n    vector<edges<T>> data;\n    edges<T> _edges;\n\
-    \    bool _weighted;\n    int count;\n    T sumcost;\n    undirectedgraph(int\
-    \ n, bool weighted=false) : data(n), _weighted(weighted), sumcost(T{}) {}\n  \
-    \  void add_edge(int from, int to, T cost = 1, int id=-1) {\n        if (id ==\
-    \ -1) id = count;\n        data[from].push_back(edge(from, to, cost, id));\n \
-    \       _edges.push_back(edge(from, to, cost, id));\n        data[from].push_back(edge(to,\
-    \ from, cost, id));\n        count++;\n        sumcost += cost;\n    }\n    void\
-    \ add_edge(edge<T> eg) {\n        add_edge(eg.from, eg.to, eg.cost, eg.id);\n\
-    \    }\n    void read(int m, int indexed = 1) {\n        for (int i=0; i<m; i++)\
-    \ {\n            int from, to, cost=1;\n            cin >> from >> to;\n     \
-    \       if (_weighted) cin >> cost;\n            add_edge(from - indexed, to -\
-    \ indexed, cost);\n        }\n    }\n    int size() {\n        return data.size();\n\
-    \    }\n    edges<T> operator[](int k) {\n        return data[k];\n    }\n};\n\
-    #line 3 \"structure/UnionFind.hpp\"\nusing namespace std;\nstruct UnionFind {\n\
-    \    int _n;\n    vector<int> data;\n    // _n \u500B\u306E\u8981\u7D20\u304B\u3089\
+    \ vector<edge<T>>;\ntemplate <class T = int, bool directed = false, bool weighted\
+    \ = false>\nstruct graph {\n    bool isdirected, isweighted;\n    edges<T> _edges;\n\
+    \    vector<edges<T>> data;\n    T sumcost;\n    graph(int n) : isdirected(directed),\
+    \ isweighted(weighted), data(n), sumcost(T{}) {}\n    void add_edge(int from,\
+    \ int to, T cost = 1, int id = -1) {\n        if (id == -1) id = _edges.size();\n\
+    \        data[from].push_back(edge<T>(from, to, cost, id));\n        _edges.push_back(edge<T>(from,\
+    \ to, cost, id));\n        if (!isdirected) {\n            data[to].push_back(edge<T>(to,\
+    \ from, cost, id));\n        }\n        sumcost += cost;\n    }\n    void add_edge(edge<T>\
+    \ _e) {\n        add_edge(_e.from, _e.to, _e.cost, _e.id);\n    }\n    void read(int\
+    \ m, int indexed = 1) {\n        for (int i=0; i<m; i++) {\n            int from,\
+    \ to;\n            T cost = 1;\n            cin >> from >> to;\n            if\
+    \ (isweighted) cin >> cost;\n            add_edge(from - indexed, to - indexed,\
+    \ cost);\n        }\n    }\n    int size() {\n        return data.size();\n  \
+    \  }\n    edges<T> operator[](int k) {\n        return data[k];\n    }\n};\n#line\
+    \ 3 \"structure/UnionFind.hpp\"\nusing namespace std;\nstruct UnionFind {\n  \
+    \  int _n;\n    vector<int> data;\n    // _n \u500B\u306E\u8981\u7D20\u304B\u3089\
     \u306A\u308BUnionFind \u3092\u69CB\u7BC9 O(n)\n    UnionFind(int n) : _n(n), data(n,\
     \ -1) {}\n    // 2 \u3064\u306E\u8981\u7D20\u3092\u4F75\u5408 O(\u03B1(n))\n \
     \   bool merge(int p, int q) {\n        p = root(p);\n        q = root(q);\n \
@@ -126,21 +114,22 @@ data:
     \ i++) re[root(i)].push_back(i);\n        re.erase(remove_if(re.begin(), re.end(),\
     \ [](vector<int>& v){ return v.empty(); }), re.end());\n        return re;\n \
     \   }\n};\n#line 5 \"graph/kruskal.hpp\"\nusing namespace std;\ntemplate<class\
-    \ T=int>\nundirectedgraph<T> kruskal(undirectedgraph<T>& g) {\n    undirectedgraph<T>\
-    \ re(g.size(), g._weighted);\n    edges<T> _edges = g._edges;\n    sort(all(_edges),\
+    \ T = int, bool directed = false, bool weighted = true>\ngraph<T, directed, weighted>\
+    \ kruskal(graph<T, directed, weighted>& g) {\n    graph<T, directed, weighted>\
+    \ re(g.size());\n    edges<T> _edges = g._edges;\n    sort(_edges.begin(), _edges.end(),\
     \ [](edge<T> e1, edge<T> e2) { return e1.cost < e2.cost;} );\n    UnionFind uf(g.size());\n\
     \    for (auto& _e : _edges) {\n        if (uf.merge(_e.from, _e.to)) {\n    \
     \        re.add_edge(_e);\n        }\n    }\n    return re;\n}\n#line 5 \"verify/aizu-GRL_2_A.test.cpp\"\
     \nint main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\
-    \n}\r\n\r\nvoid solve() {\r\n    int n, m; cin >> n >> m;\r\n    undirectedgraph<int>\
-    \ g(n, true);\r\n    g.read(m, 0);\r\n    cout << kruskal(g).sumcost << nl;\r\n\
+    \n}\r\n\r\nvoid solve() {\r\n    int n, m; cin >> n >> m;\r\n    graph<int, false,\
+    \ true> g(n);\r\n    g.read(m, 0);\r\n    cout << kruskal(g).sumcost << nl;\r\n\
     }\n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=ja\"\
     \r\n#include \"template\"\r\n#include \"graphtemplate\"\r\n#include \"kruskal\"\
     \r\nint main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--)\
-    \ solve();\r\n}\r\n\r\nvoid solve() {\r\n    int n, m; cin >> n >> m;\r\n    undirectedgraph<int>\
-    \ g(n, true);\r\n    g.read(m, 0);\r\n    cout << kruskal(g).sumcost << nl;\r\n\
-    }"
+    \ solve();\r\n}\r\n\r\nvoid solve() {\r\n    int n, m; cin >> n >> m;\r\n    graph<int,\
+    \ false, true> g(n);\r\n    g.read(m, 0);\r\n    cout << kruskal(g).sumcost <<\
+    \ nl;\r\n}"
   dependsOn:
   - util/template.hpp
   - graph/graphtemplate.hpp
@@ -149,7 +138,7 @@ data:
   isVerificationFile: true
   path: verify/aizu-GRL_2_A.test.cpp
   requiredBy: []
-  timestamp: '2025-04-16 06:45:02+00:00'
+  timestamp: '2025-04-18 03:44:48+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aizu-GRL_2_A.test.cpp

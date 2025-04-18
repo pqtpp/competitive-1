@@ -75,61 +75,42 @@ data:
     template<class T = int>\nstruct edge {\n    int from, to;\n    T cost;\n    int\
     \ id;\n    edge(int _from, int _to, T _cost = 1, int _id = -1) : from(_from),\
     \ to(_to), cost(_cost), id(_id) {}\n};\ntemplate<class T = int>\nusing edges =\
-    \ vector<edge<T>>;\ntemplate<class T = int>\nstruct directedgraph {\n    vector<edges<T>>\
-    \ data;\n    edges<T> _edges;\n    bool _weighted;\n    int count;\n    T sumcost;\n\
-    \    directedgraph(int n, bool weighted=false) : data(n), _weighted(weighted),\
-    \ sumcost(T{}) {}\n    void add_edge(int from, int to, T cost = 1, int id=-1)\
-    \ {\n        if (id == -1) id = count;\n        data[from].push_back(edge(from,\
-    \ to, cost, id));\n        _edges.push_back(edge(from, to, cost, id));\n     \
-    \   count++;\n        sumcost += cost;\n    }\n    void add_edge(edge<T> eg) {\n\
-    \        add_edge(eg.from, eg.to, eg.cost, eg.id);\n    }\n    void read(int m,\
-    \ int indexed = 1) {\n        for (int i=0; i<m; i++) {\n            int from,\
-    \ to;\n            T cost=1;\n            cin >> from >> to;\n            if (_weighted)\
-    \ cin >> cost;\n            add_edge(from - indexed, to - indexed, cost);\n  \
-    \      }\n    }\n    int size() {\n        return data.size();\n    }\n    edges<T>\
-    \ operator[](int k) {\n        return data[k];\n    }\n};\ntemplate<class T =\
-    \ int>\nstruct undirectedgraph {\n    vector<edges<T>> data;\n    edges<T> _edges;\n\
-    \    bool _weighted;\n    int count;\n    T sumcost;\n    undirectedgraph(int\
-    \ n, bool weighted=false) : data(n), _weighted(weighted), sumcost(T{}) {}\n  \
-    \  void add_edge(int from, int to, T cost = 1, int id=-1) {\n        if (id ==\
-    \ -1) id = count;\n        data[from].push_back(edge(from, to, cost, id));\n \
-    \       _edges.push_back(edge(from, to, cost, id));\n        data[from].push_back(edge(to,\
-    \ from, cost, id));\n        count++;\n        sumcost += cost;\n    }\n    void\
-    \ add_edge(edge<T> eg) {\n        add_edge(eg.from, eg.to, eg.cost, eg.id);\n\
-    \    }\n    void read(int m, int indexed = 1) {\n        for (int i=0; i<m; i++)\
-    \ {\n            int from, to, cost=1;\n            cin >> from >> to;\n     \
-    \       if (_weighted) cin >> cost;\n            add_edge(from - indexed, to -\
-    \ indexed, cost);\n        }\n    }\n    int size() {\n        return data.size();\n\
-    \    }\n    edges<T> operator[](int k) {\n        return data[k];\n    }\n};\n\
-    #line 4 \"graph/dijkstra.hpp\"\nusing namespace std;\ntemplate <class T>\nvector<T>\
-    \ dijkstra(directedgraph<T>& g, int from=0) {\n    vector<T> dist(g.size(), numeric_limits<T>::max());\
+    \ vector<edge<T>>;\ntemplate <class T = int, bool directed = false, bool weighted\
+    \ = false>\nstruct graph {\n    bool isdirected, isweighted;\n    edges<T> _edges;\n\
+    \    vector<edges<T>> data;\n    T sumcost;\n    graph(int n) : isdirected(directed),\
+    \ isweighted(weighted), data(n), sumcost(T{}) {}\n    void add_edge(int from,\
+    \ int to, T cost = 1, int id = -1) {\n        if (id == -1) id = _edges.size();\n\
+    \        data[from].push_back(edge<T>(from, to, cost, id));\n        _edges.push_back(edge<T>(from,\
+    \ to, cost, id));\n        if (!isdirected) {\n            data[to].push_back(edge<T>(to,\
+    \ from, cost, id));\n        }\n        sumcost += cost;\n    }\n    void add_edge(edge<T>\
+    \ _e) {\n        add_edge(_e.from, _e.to, _e.cost, _e.id);\n    }\n    void read(int\
+    \ m, int indexed = 1) {\n        for (int i=0; i<m; i++) {\n            int from,\
+    \ to;\n            T cost = 1;\n            cin >> from >> to;\n            if\
+    \ (isweighted) cin >> cost;\n            add_edge(from - indexed, to - indexed,\
+    \ cost);\n        }\n    }\n    int size() {\n        return data.size();\n  \
+    \  }\n    edges<T> operator[](int k) {\n        return data[k];\n    }\n};\n#line\
+    \ 4 \"graph/dijkstra.hpp\"\nusing namespace std;\ntemplate<class T = int, bool\
+    \ directed = false, bool weighted = true>\nvector<T> dijkstra(graph<T, directed,\
+    \ weighted>& g, int from = 0) {\n    vector<T> dist(g.size(), numeric_limits<T>::max());\
     \ dist[from] = T{};\n    priority_queue<pair<T, int>, vector<pair<T, int>>, greater<pair<T,\
     \ int>>> q;\n    q.push({T{}, from});\n    while (!q.empty()) {\n        auto\
-    \ [t, x] = q.top(); q.pop();\n        for (auto& _e : g[x]) {\n            int\
-    \ y = _e.to;\n            if (dist[x] + _e.cost < dist[y]) {\n               \
-    \ dist[y] = dist[x] + _e.cost;\n                q.push({dist[y], y});\n      \
-    \      }\n        }\n    }\n    return dist;\n}\ntemplate <class T>\nvector<T>\
-    \ dijkstra(undirectedgraph<T>& g, int from=0) {\n    vector<T> dist(g.size(),\
-    \ numeric_limits<T>::max()); dist[from] = T{};\n    priority_queue<pair<T, int>,\
-    \ vector<pair<T, int>>, greater<pair<T, int>>> q;\n    q.push({T{}, from});\n\
-    \    while (!q.empty()) {\n        auto [t, x] = q.top(); q.pop();\n        for\
+    \ [t, x] = q.top(); q.pop();\n        if (dist[x] < t) continue;\n        for\
     \ (auto& _e : g[x]) {\n            int y = _e.to;\n            if (dist[x] + _e.cost\
     \ < dist[y]) {\n                dist[y] = dist[x] + _e.cost;\n               \
     \ q.push({dist[y], y});\n            }\n        }\n    }\n    return dist;\n}\n\
-    template <class T>\nT dijkstra(directedgraph<T>& g, int from, int to) {\n    return\
-    \ dijktra(g, from)[to];\n}\ntemplate <class T>\nT dijkstra(undirectedgraph<T>&\
-    \ g, int from, int to) {\n    return dijktra(g, from)[to];\n}\n#line 5 \"verify/aizu-GRL_1_A.test.cpp\"\
-    \nint main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\
-    \n}\r\n\r\nvoid solve() {\r\n    int n, m, s; cin >> n >> m >> s;\r\n    directedgraph<ll>\
-    \ g(n, true);\r\n    g.read(m, 0);\r\n    vll d = dijkstra(g, s);\r\n    range(i,\
-    \ d) {\r\n        if (i == numeric_limits<ll>::max()) {\r\n            cout <<\
-    \ \"INF\" << nl;\r\n        } else {\r\n            cout << i << nl;\r\n     \
-    \   }\r\n    }\r\n}\n"
+    template <class T>\nT dijkstra(graph<T>& g, int from, int to) {\n    return dijktra(g,\
+    \ from)[to];\n}\n#line 5 \"verify/aizu-GRL_1_A.test.cpp\"\nint main() { IO();\r\
+    \n    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\n}\r\n\r\nvoid\
+    \ solve() {\r\n    int n, m, s; cin >> n >> m >> s;\r\n    graph<ll, true, true>\
+    \ g(n);\r\n    g.read(m, 0);\r\n    vll d = dijkstra(g, s);\r\n    range(i, d)\
+    \ {\r\n        if (i == numeric_limits<ll>::max()) {\r\n            cout << \"\
+    INF\" << nl;\r\n        } else {\r\n            cout << i << nl;\r\n        }\r\
+    \n    }\r\n}\n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_A&lang=ja\"\
     \r\n#include \"template\"\r\n#include \"graphtemplate\"\r\n#include \"dijkstra\"\
     \r\nint main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--)\
     \ solve();\r\n}\r\n\r\nvoid solve() {\r\n    int n, m, s; cin >> n >> m >> s;\r\
-    \n    directedgraph<ll> g(n, true);\r\n    g.read(m, 0);\r\n    vll d = dijkstra(g,\
+    \n    graph<ll, true, true> g(n);\r\n    g.read(m, 0);\r\n    vll d = dijkstra(g,\
     \ s);\r\n    range(i, d) {\r\n        if (i == numeric_limits<ll>::max()) {\r\n\
     \            cout << \"INF\" << nl;\r\n        } else {\r\n            cout <<\
     \ i << nl;\r\n        }\r\n    }\r\n}"
@@ -140,7 +121,7 @@ data:
   isVerificationFile: true
   path: verify/aizu-GRL_1_A.test.cpp
   requiredBy: []
-  timestamp: '2025-04-16 06:46:13+00:00'
+  timestamp: '2025-04-18 03:43:20+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aizu-GRL_1_A.test.cpp

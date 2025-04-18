@@ -10,7 +10,7 @@ int main() { IO();
 
 void solve() {
     int n, m; cin >> n >> m;
-    undirectedgraph<int> g(n, true);
+    graph<int, false, true> g(n);
     g.read(m, 0);
     cout << kruskal(g).sumcost << nl;
 }
