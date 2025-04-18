@@ -31,6 +31,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: math/prime.hpp
       title: math/prime.hpp
+  - name: string
+    pages:
+    - icon: ':warning:'
+      path: string/trie.hpp
+      title: string/trie.hpp
   - name: structure
     pages:
     - icon: ':heavy_check_mark:'
