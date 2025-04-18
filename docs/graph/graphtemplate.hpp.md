@@ -5,6 +5,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: graph/dijkstra.hpp
     title: graph/dijkstra.hpp
+  - icon: ':warning:'
+    path: graph/dijkstrarestore.hpp
+    title: graph/dijkstrarestore.hpp
   - icon: ':heavy_check_mark:'
     path: graph/kruskal.hpp
     title: graph/kruskal.hpp
@@ -63,6 +66,7 @@ data:
   requiredBy:
   - graph/kruskal.hpp
   - graph/dijkstra.hpp
+  - graph/dijkstrarestore.hpp
   timestamp: '2025-04-18 03:43:20+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

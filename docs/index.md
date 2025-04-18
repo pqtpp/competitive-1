@@ -6,6 +6,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: graph/dijkstra.hpp
       title: graph/dijkstra.hpp
+    - icon: ':warning:'
+      path: graph/dijkstrarestore.hpp
+      title: graph/dijkstrarestore.hpp
     - icon: ':heavy_check_mark:'
       path: graph/graphtemplate.hpp
       title: graph/graphtemplate.hpp
