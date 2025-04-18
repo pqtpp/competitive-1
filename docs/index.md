@@ -57,6 +57,9 @@ data:
   - name: util
     pages:
     - icon: ':heavy_check_mark:'
+      path: util/Mo.hpp
+      title: util/Mo.hpp
+    - icon: ':heavy_check_mark:'
       path: util/template.hpp
       title: util/template.hpp
   verificationCategories:
@@ -101,6 +104,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/yosupo-shortest_path.test.cpp
       title: verify/yosupo-shortest_path.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/yosupo-static_range_inversions_query.test.cpp
+      title: verify/yosupo-static_range_inversions_query.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/yosupo-static_range_sum.test.cpp
       title: verify/yosupo-static_range_sum.test.cpp

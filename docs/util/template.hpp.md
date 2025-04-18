@@ -46,6 +46,9 @@ data:
     path: verify/yosupo-shortest_path.test.cpp
     title: verify/yosupo-shortest_path.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/yosupo-static_range_inversions_query.test.cpp
+    title: verify/yosupo-static_range_inversions_query.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-static_range_sum.test.cpp
     title: verify/yosupo-static_range_sum.test.cpp
   - icon: ':heavy_check_mark:'
@@ -179,6 +182,7 @@ data:
   - verify/yosupo-unionfind.test.cpp
   - verify/aizu-DSL_1_A.test.cpp
   - verify/yosupo-point_set_range_composite.test.cpp
+  - verify/yosupo-static_range_inversions_query.test.cpp
   - verify/aizu-DSL_2_B.test.cpp
   - verify/aizu-GRL_1_A.test.cpp
   - verify/yosupo-range_affine_point_get.test.cpp
