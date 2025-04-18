@@ -109,41 +109,40 @@ data:
     struct Mo {\n    int n;\n    vector<pair<int, int>> queries;\n    explicit Mo(int\
     \ n) : n(n) {}\n    void add(int l, int r) {\n        queries.push_back({l, r});\n\
     \    }\n    long long hilbert_order(int x, int y, int p=20, int rotate = 0) {\n\
-    \        long long d = 0;\n        for (int s = 1 << (p - 1); s; s >>= 1) {\n\
-    \            int rx = (x & s) > 0;\n            int ry = (y & s) > 0;\n      \
-    \      int r = (rx << 1) | ry;\n            r = (r + rotate) & 3;\n          \
-    \  d = (d << 2) | r;\n            static const int rotate_delta[4] = {3, 0, 0,\
-    \ 1};\n            rotate = (rotate + rotate_delta[r]) & 3;\n        }\n     \
-    \   return d;\n    }\n    template< typename AL, typename AR, typename EL, typename\
-    \ ER, typename O >\n    void build(const AL &add_left, const AR &add_right, const\
-    \ EL &erase_left, const ER &erase_right, const O &out) {\n        int q = (int)\
-    \ queries.size();\n        vector< int > ord(q);\n        iota(begin(ord), end(ord),\
-    \ 0);\n        vector< long long > hs(q);\n        for (int i = 0; i < q; i++)\
-    \ {\n            hs[i] = hilbert_order(queries[i].first, queries[i].second);\n\
-    \        }\n        sort(begin(ord), end(ord), [&](int a, int b) {\n         \
-    \   return hs[a] < hs[b];\n        });\n        int l = 0, r = 0;\n        for(auto\
-    \ idx : ord) {\n            while(l > queries[idx].first) add_left(--l);\n   \
-    \         while(r < queries[idx].second) add_right(r++);\n            while(l\
-    \ < queries[idx].first) erase_left(l++);\n            while(r > queries[idx].second)\
-    \ erase_right(--r);\n            out(idx);\n        }\n    }\n    template< typename\
-    \ A, typename E, typename O >\n    void build(const A &add, const E &erase, const\
-    \ O &out) {\n        build(add, add, erase, erase, out);\n    }\n};\n#line 5 \"\
-    verify/yosupo-static_range_inversions_query.test.cpp\"\n\r\nint main() { IO();\r\
-    \n    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\n}\r\n\r\nvoid\
-    \ solve() {\r\n    int n, q; cin >> n >> q;\r\n    vi a(n); cin >> a;\r\n    vi\
-    \ b = a;\r\n    uniq(b);\r\n    rep(i, n) a[i] = lower_bound(b.begin(), b.end(),\
-    \ a[i]) - b.begin();\r\n    int m = b.size();\r\n    vll ans(q);\r\n    Mo mo(n);\r\
-    \n    vpi queries(q);\r\n    rep(i, q) {\r\n        int l, r; cin >> l >> r;\r\
-    \n        queries[i] = {l, r};\r\n        mo.add(l, r);\r\n    }\r\n    BIT<int>\
-    \ seg(m);\r\n    ll cnt = 0;\r\n    auto add_left = [&](int i) {\r\n        cnt\
-    \ += seg.sum(0, a[i]);\r\n        seg.add(a[i], 1);\r\n    };\r\n    auto add_right\
-    \ = [&](int i) {\r\n        cnt += seg.sum(a[i] + 1, m);\r\n        seg.add(a[i],\
-    \ 1);\r\n    };\r\n    auto erase_left = [&](int i) {\r\n        seg.add(a[i],\
-    \ -1);\r\n        cnt -= seg.sum(0, a[i]);\r\n    };\r\n    auto erase_right =\
-    \ [&](int i) {\r\n        seg.add(a[i], -1);\r\n        cnt -= seg.sum(a[i] +\
-    \ 1, m);\r\n    };\r\n    auto out = [&](int i) {\r\n        ans[i] = cnt;\r\n\
-    \    };\r\n    mo.build(add_left, add_right, erase_left, erase_right, out);\r\n\
-    \    range(i, ans) cout << i << nl;\r\n}\n"
+    \        long long d = 0;\n        for (int s=1<<(p-1); 0<s; s>>=1) {\n      \
+    \      int rx = 0 < (x & s);\n            int ry = 0 < (y & s);\n            int\
+    \ r = (rx << 1) | ry;\n            r = (r + rotate) & 3;\n            d = (d <<\
+    \ 2) | r;\n            const int rd[4] = {3, 0, 0, 1};\n            rotate = (rotate\
+    \ + rd[r]) & 3;\n        }\n        return d;\n    }\n    template< typename AL,\
+    \ typename AR, typename EL, typename ER, typename O >\n    void build(const AL\
+    \ &add_left, const AR &add_right, const EL &erase_left, const ER &erase_right,\
+    \ const O &out) {\n        int q = queries.size();\n        vector<int> ord(q);\n\
+    \        iota(begin(ord), end(ord), 0);\n        vector<long long> hs(q);\n  \
+    \      for (int i=0; i<q; i++) {\n            hs[i] = hilbert_order(queries[i].first,\
+    \ queries[i].second);\n        }\n        sort(begin(ord), end(ord), [&](int a,\
+    \ int b) {\n            return hs[a] < hs[b];\n        });\n        int l = 0,\
+    \ r = 0;\n        for(auto idx : ord) {\n            while(l > queries[idx].first)\
+    \ add_left(--l);\n            while(r < queries[idx].second) add_right(r++);\n\
+    \            while(l < queries[idx].first) erase_left(l++);\n            while(r\
+    \ > queries[idx].second) erase_right(--r);\n            out(idx);\n        }\n\
+    \    }\n    template< typename A, typename E, typename O >\n    void build(const\
+    \ A &add, const E &erase, const O &out) {\n        build(add, add, erase, erase,\
+    \ out);\n    }\n};\n#line 5 \"verify/yosupo-static_range_inversions_query.test.cpp\"\
+    \n\r\nint main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--)\
+    \ solve();\r\n}\r\n\r\nvoid solve() {\r\n    int n, q; cin >> n >> q;\r\n    vi\
+    \ a(n); cin >> a;\r\n    vi b = a;\r\n    uniq(b);\r\n    rep(i, n) a[i] = lower_bound(b.begin(),\
+    \ b.end(), a[i]) - b.begin();\r\n    int m = b.size();\r\n    vll ans(q);\r\n\
+    \    Mo mo(n);\r\n    vpi queries(q);\r\n    rep(i, q) {\r\n        int l, r;\
+    \ cin >> l >> r;\r\n        queries[i] = {l, r};\r\n        mo.add(l, r);\r\n\
+    \    }\r\n    BIT<int> seg(m);\r\n    ll cnt = 0;\r\n    auto add_left = [&](int\
+    \ i) {\r\n        cnt += seg.sum(0, a[i]);\r\n        seg.add(a[i], 1);\r\n  \
+    \  };\r\n    auto add_right = [&](int i) {\r\n        cnt += seg.sum(a[i] + 1,\
+    \ m);\r\n        seg.add(a[i], 1);\r\n    };\r\n    auto erase_left = [&](int\
+    \ i) {\r\n        seg.add(a[i], -1);\r\n        cnt -= seg.sum(0, a[i]);\r\n \
+    \   };\r\n    auto erase_right = [&](int i) {\r\n        seg.add(a[i], -1);\r\n\
+    \        cnt -= seg.sum(a[i] + 1, m);\r\n    };\r\n    auto out = [&](int i) {\r\
+    \n        ans[i] = cnt;\r\n    };\r\n    mo.build(add_left, add_right, erase_left,\
+    \ erase_right, out);\r\n    range(i, ans) cout << i << nl;\r\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/static_range_inversions_query\"\
     \r\n#include \"template\"\r\n#include \"BIT\"\r\n#include \"Mo\"\r\n\r\nint main()\
     \ { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\n\
@@ -168,7 +167,7 @@ data:
   isVerificationFile: true
   path: verify/yosupo-static_range_inversions_query.test.cpp
   requiredBy: []
-  timestamp: '2025-04-18 08:13:52+00:00'
+  timestamp: '2025-04-18 08:18:57+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-static_range_inversions_query.test.cpp
