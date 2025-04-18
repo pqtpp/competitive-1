@@ -21,8 +21,8 @@ struct Mo {
         }
         return d;
     }
-    template< typename AL, typename AR, typename EL, typename ER, typename O >
-    void build(const AL &add_left, const AR &add_right, const EL &erase_left, const ER &erase_right, const O &out) {
+    template <class AL, class AR, class EL, class ER, class OUT>
+    void build(const AL &add_left, const AR &add_right, const EL &erase_left, const ER &erase_right, const OUT &out) {
         int q = queries.size();
         vector<int> ord(q);
         iota(begin(ord), end(ord), 0);
@@ -42,8 +42,8 @@ struct Mo {
             out(idx);
         }
     }
-    template< typename A, typename E, typename O >
-    void build(const A &add, const E &erase, const O &out) {
+    template <class A, class E, class OUT>
+    void build(const A &add, const E &erase, const OUT &out) {
         build(add, add, erase, erase, out);
     }
 };

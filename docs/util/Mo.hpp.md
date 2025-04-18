@@ -19,10 +19,10 @@ data:
     \            int rx = 0 < (x & s);\n            int ry = 0 < (y & s);\n      \
     \      int r = (rx << 1) | ry;\n            r = (r + rotate) & 3;\n          \
     \  d = (d << 2) | r;\n            const int rd[4] = {3, 0, 0, 1};\n          \
-    \  rotate = (rotate + rd[r]) & 3;\n        }\n        return d;\n    }\n    template<\
-    \ typename AL, typename AR, typename EL, typename ER, typename O >\n    void build(const\
-    \ AL &add_left, const AR &add_right, const EL &erase_left, const ER &erase_right,\
-    \ const O &out) {\n        int q = queries.size();\n        vector<int> ord(q);\n\
+    \  rotate = (rotate + rd[r]) & 3;\n        }\n        return d;\n    }\n    template\
+    \ <class AL, class AR, class EL, class ER, class OUT>\n    void build(const AL\
+    \ &add_left, const AR &add_right, const EL &erase_left, const ER &erase_right,\
+    \ const OUT &out) {\n        int q = queries.size();\n        vector<int> ord(q);\n\
     \        iota(begin(ord), end(ord), 0);\n        vector<long long> hs(q);\n  \
     \      for (int i=0; i<q; i++) {\n            hs[i] = hilbert_order(queries[i].first,\
     \ queries[i].second);\n        }\n        sort(begin(ord), end(ord), [&](int a,\
@@ -31,9 +31,9 @@ data:
     \ add_left(--l);\n            while(r < queries[idx].second) add_right(r++);\n\
     \            while(l < queries[idx].first) erase_left(l++);\n            while(r\
     \ > queries[idx].second) erase_right(--r);\n            out(idx);\n        }\n\
-    \    }\n    template< typename A, typename E, typename O >\n    void build(const\
-    \ A &add, const E &erase, const O &out) {\n        build(add, add, erase, erase,\
-    \ out);\n    }\n};\n"
+    \    }\n    template <class A, class E, class OUT>\n    void build(const A &add,\
+    \ const E &erase, const OUT &out) {\n        build(add, add, erase, erase, out);\n\
+    \    }\n};\n"
   code: "#pragma once\n#include<bits/stdc++.h>\nusing namespace std;\nstruct Mo {\n\
     \    int n;\n    vector<pair<int, int>> queries;\n    explicit Mo(int n) : n(n)\
     \ {}\n    void add(int l, int r) {\n        queries.push_back({l, r});\n    }\n\
@@ -42,26 +42,26 @@ data:
     \ int rx = 0 < (x & s);\n            int ry = 0 < (y & s);\n            int r\
     \ = (rx << 1) | ry;\n            r = (r + rotate) & 3;\n            d = (d <<\
     \ 2) | r;\n            const int rd[4] = {3, 0, 0, 1};\n            rotate = (rotate\
-    \ + rd[r]) & 3;\n        }\n        return d;\n    }\n    template< typename AL,\
-    \ typename AR, typename EL, typename ER, typename O >\n    void build(const AL\
-    \ &add_left, const AR &add_right, const EL &erase_left, const ER &erase_right,\
-    \ const O &out) {\n        int q = queries.size();\n        vector<int> ord(q);\n\
-    \        iota(begin(ord), end(ord), 0);\n        vector<long long> hs(q);\n  \
-    \      for (int i=0; i<q; i++) {\n            hs[i] = hilbert_order(queries[i].first,\
+    \ + rd[r]) & 3;\n        }\n        return d;\n    }\n    template <class AL,\
+    \ class AR, class EL, class ER, class OUT>\n    void build(const AL &add_left,\
+    \ const AR &add_right, const EL &erase_left, const ER &erase_right, const OUT\
+    \ &out) {\n        int q = queries.size();\n        vector<int> ord(q);\n    \
+    \    iota(begin(ord), end(ord), 0);\n        vector<long long> hs(q);\n      \
+    \  for (int i=0; i<q; i++) {\n            hs[i] = hilbert_order(queries[i].first,\
     \ queries[i].second);\n        }\n        sort(begin(ord), end(ord), [&](int a,\
     \ int b) {\n            return hs[a] < hs[b];\n        });\n        int l = 0,\
     \ r = 0;\n        for(auto idx : ord) {\n            while(l > queries[idx].first)\
     \ add_left(--l);\n            while(r < queries[idx].second) add_right(r++);\n\
     \            while(l < queries[idx].first) erase_left(l++);\n            while(r\
     \ > queries[idx].second) erase_right(--r);\n            out(idx);\n        }\n\
-    \    }\n    template< typename A, typename E, typename O >\n    void build(const\
-    \ A &add, const E &erase, const O &out) {\n        build(add, add, erase, erase,\
-    \ out);\n    }\n};\n"
+    \    }\n    template <class A, class E, class OUT>\n    void build(const A &add,\
+    \ const E &erase, const OUT &out) {\n        build(add, add, erase, erase, out);\n\
+    \    }\n};\n"
   dependsOn: []
   isVerificationFile: false
   path: util/Mo.hpp
   requiredBy: []
-  timestamp: '2025-04-18 08:18:57+00:00'
+  timestamp: '2025-04-18 08:24:41+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-static_range_inversions_query.test.cpp
