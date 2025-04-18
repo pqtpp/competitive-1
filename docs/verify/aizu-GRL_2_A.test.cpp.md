@@ -76,16 +76,15 @@ data:
     \ IO() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    cout<<fixed<<setprecision(30);\n\
     }\n\nvoid solve();\n#line 3 \"graph/graphtemplate.hpp\"\nusing namespace std;\n\
     template<class T = int>\nstruct edge {\n    int from, to;\n    T cost;\n    int\
-    \ id;\n    edge(int _from, int _to, T _cost = 1, int _id = -1) : from(_from),\
-    \ to(_to), cost(_cost), id(_id) {}\n};\ntemplate<class T = int>\nusing edges =\
-    \ vector<edge<T>>;\ntemplate <class T = int, bool directed = false, bool weighted\
-    \ = false>\nstruct graph {\n    bool isdirected, isweighted;\n    edges<T> _edges;\n\
-    \    vector<edges<T>> data;\n    T sumcost;\n    graph(int n) : isdirected(directed),\
-    \ isweighted(weighted), data(n), sumcost(T{}) {}\n    void add_edge(int from,\
-    \ int to, T cost = 1, int id = -1) {\n        if (id == -1) id = _edges.size();\n\
-    \        data[from].push_back(edge<T>(from, to, cost, id));\n        _edges.push_back(edge<T>(from,\
-    \ to, cost, id));\n        if (!isdirected) {\n            data[to].push_back(edge<T>(to,\
-    \ from, cost, id));\n        }\n        sumcost += cost;\n    }\n    void add_edge(edge<T>\
+    \ id;\n};\ntemplate<class T = int>\nusing edges = vector<edge<T>>;\ntemplate <class\
+    \ T = int, bool directed = false, bool weighted = false>\nstruct graph {\n   \
+    \ bool isdirected, isweighted;\n    edges<T> _edges;\n    vector<edges<T>> data;\n\
+    \    T sumcost;\n    graph(int n) : isdirected(directed), isweighted(weighted),\
+    \ data(n), sumcost(T{}) {}\n    void add_edge(int from, int to, T cost = 1, int\
+    \ id = -1) {\n        if (id == -1) id = _edges.size();\n        data[from].push_back(edge<T>(from,\
+    \ to, cost, id));\n        _edges.push_back(edge<T>(from, to, cost, id));\n  \
+    \      if (!isdirected) {\n            data[to].push_back(edge<T>(to, from, cost,\
+    \ id));\n        }\n        sumcost += cost;\n    }\n    void add_edge(edge<T>\
     \ _e) {\n        add_edge(_e.from, _e.to, _e.cost, _e.id);\n    }\n    void read(int\
     \ m, int indexed = 1) {\n        for (int i=0; i<m; i++) {\n            int from,\
     \ to;\n            T cost = 1;\n            cin >> from >> to;\n            if\
@@ -138,7 +137,7 @@ data:
   isVerificationFile: true
   path: verify/aizu-GRL_2_A.test.cpp
   requiredBy: []
-  timestamp: '2025-04-18 03:44:48+00:00'
+  timestamp: '2025-04-18 06:49:55+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aizu-GRL_2_A.test.cpp

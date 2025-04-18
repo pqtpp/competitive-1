@@ -6,7 +6,6 @@ struct edge {
     int from, to;
     T cost;
     int id;
-    edge(int _from, int _to, T _cost = 1, int _id = -1) : from(_from), to(_to), cost(_cost), id(_id) {}
 };
 template<class T = int>
 using edges = vector<edge<T>>;
