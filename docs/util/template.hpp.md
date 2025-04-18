@@ -43,6 +43,9 @@ data:
     path: verify/yosupo-range_affine_range_sum.test.cpp
     title: verify/yosupo-range_affine_range_sum.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/yosupo-shortest_path.test.cpp
+    title: verify/yosupo-shortest_path.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-static_range_sum.test.cpp
     title: verify/yosupo-static_range_sum.test.cpp
   - icon: ':heavy_check_mark:'
@@ -167,6 +170,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aizu-DSL_2_E.test.cpp
+  - verify/yosupo-shortest_path.test.cpp
   - verify/aizu-GRL_2_A.test.cpp
   - verify/yosupo-range_affine_range_sum.test.cpp
   - verify/yosupo-staticrmq.test.cpp

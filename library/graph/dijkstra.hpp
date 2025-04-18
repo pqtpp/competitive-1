@@ -20,7 +20,7 @@ vector<T> dijkstra(graph<T, directed, weighted>& g, int from = 0) {
     }
     return dist;
 }
-template <class T>
-T dijkstra(graph<T>& g, int from, int to) {
-    return dijktra(g, from)[to];
+template<class T = int, bool directed = false, bool weighted = true>
+T dijkstra(graph<T, directed, weighted>& g, int from, int to) {
+    return dijkstra(g, from)[to];
 }

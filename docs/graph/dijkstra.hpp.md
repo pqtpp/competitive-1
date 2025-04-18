@@ -9,6 +9,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/aizu-GRL_1_A.test.cpp
     title: verify/aizu-GRL_1_A.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/yosupo-shortest_path.test.cpp
+    title: verify/yosupo-shortest_path.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -40,8 +43,9 @@ data:
     \ (auto& _e : g[x]) {\n            int y = _e.to;\n            if (dist[x] + _e.cost\
     \ < dist[y]) {\n                dist[y] = dist[x] + _e.cost;\n               \
     \ q.push({dist[y], y});\n            }\n        }\n    }\n    return dist;\n}\n\
-    template <class T>\nT dijkstra(graph<T>& g, int from, int to) {\n    return dijktra(g,\
-    \ from)[to];\n}\n"
+    template<class T = int, bool directed = false, bool weighted = true>\nT dijkstra(graph<T,\
+    \ directed, weighted>& g, int from, int to) {\n    return dijkstra(g, from)[to];\n\
+    }\n"
   code: "#pragma once\n#include \"graphtemplate\"\n#include <bits/stdc++.h>\nusing\
     \ namespace std;\ntemplate<class T = int, bool directed = false, bool weighted\
     \ = true>\nvector<T> dijkstra(graph<T, directed, weighted>& g, int from = 0) {\n\
@@ -52,16 +56,18 @@ data:
     \ _e : g[x]) {\n            int y = _e.to;\n            if (dist[x] + _e.cost\
     \ < dist[y]) {\n                dist[y] = dist[x] + _e.cost;\n               \
     \ q.push({dist[y], y});\n            }\n        }\n    }\n    return dist;\n}\n\
-    template <class T>\nT dijkstra(graph<T>& g, int from, int to) {\n    return dijktra(g,\
-    \ from)[to];\n}"
+    template<class T = int, bool directed = false, bool weighted = true>\nT dijkstra(graph<T,\
+    \ directed, weighted>& g, int from, int to) {\n    return dijkstra(g, from)[to];\n\
+    }"
   dependsOn:
   - graph/graphtemplate.hpp
   isVerificationFile: false
   path: graph/dijkstra.hpp
   requiredBy: []
-  timestamp: '2025-04-18 06:49:55+00:00'
+  timestamp: '2025-04-18 07:43:11+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - verify/yosupo-shortest_path.test.cpp
   - verify/aizu-GRL_1_A.test.cpp
 documentation_of: graph/dijkstra.hpp
 layout: document

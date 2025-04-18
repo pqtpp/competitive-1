@@ -5,7 +5,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: graph/dijkstra.hpp
     title: graph/dijkstra.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: graph/dijkstrarestore.hpp
     title: graph/dijkstrarestore.hpp
   - icon: ':heavy_check_mark:'
@@ -18,6 +18,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/aizu-GRL_2_A.test.cpp
     title: verify/aizu-GRL_2_A.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/yosupo-shortest_path.test.cpp
+    title: verify/yosupo-shortest_path.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
   _verificationStatusIcon: ':heavy_check_mark:'
@@ -67,6 +70,7 @@ data:
   timestamp: '2025-04-18 06:49:55+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - verify/yosupo-shortest_path.test.cpp
   - verify/aizu-GRL_2_A.test.cpp
   - verify/aizu-GRL_1_A.test.cpp
 documentation_of: graph/graphtemplate.hpp

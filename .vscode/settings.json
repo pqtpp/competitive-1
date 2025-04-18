@@ -94,6 +94,7 @@
         "stdfloat": "cpp",
         "prim": "cpp",
         "template": "cpp",
-        "graphtemplate": "cpp"
+        "graphtemplate": "cpp",
+        "dijkstrarestore": "cpp"
     }
 }

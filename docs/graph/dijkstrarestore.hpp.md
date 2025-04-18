@@ -5,10 +5,13 @@ data:
     path: graph/graphtemplate.hpp
     title: graph/graphtemplate.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/yosupo-shortest_path.test.cpp
+    title: verify/yosupo-shortest_path.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"graph/graphtemplate.hpp\"\n#include<bits/stdc++.h>\nusing\
@@ -60,8 +63,9 @@ data:
   path: graph/dijkstrarestore.hpp
   requiredBy: []
   timestamp: '2025-04-18 06:49:55+00:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - verify/yosupo-shortest_path.test.cpp
 documentation_of: graph/dijkstrarestore.hpp
 layout: document
 redirect_from:

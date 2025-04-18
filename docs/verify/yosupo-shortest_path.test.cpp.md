@@ -5,6 +5,9 @@ data:
     path: graph/dijkstra.hpp
     title: graph/dijkstra.hpp
   - icon: ':heavy_check_mark:'
+    path: graph/dijkstrarestore.hpp
+    title: graph/dijkstrarestore.hpp
+  - icon: ':heavy_check_mark:'
     path: graph/graphtemplate.hpp
     title: graph/graphtemplate.hpp
   - icon: ':heavy_check_mark:'
@@ -17,29 +20,30 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_A&lang=ja
+    PROBLEM: https://judge.yosupo.jp/problem/shortest_path
     links:
-    - https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_A&lang=ja
-  bundledCode: "#line 1 \"verify/aizu-GRL_1_A.test.cpp\"\n#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_A&lang=ja\"\
-    \r\n#line 2 \"util/template.hpp\"\n#ifdef poe\n#define debug(x) cerr<<#x<<\":\
-    \ \"<<x<<endl\n#else\n#define debug(x)\n// #pragma GCC target(\"arch=skylake-avx512\"\
-    )\n// #pragma GCC target(\"avx2\")\n// #pragma GCC optimize(\"O3\")\n// #pragma\
-    \ GCC optimize(\"unroll-loops\")\n#endif\n#include<bits/stdc++.h>\nusing namespace\
-    \ std;\nusing ll=long long;\nusing ull=unsigned long long;\nusing ld=long double;\n\
-    using pi=pair<int,int>;\nusing pll=pair<ll,ll>;\nusing str=string;\ntemplate<class\
-    \ T>using vec=vector<T>;\nusing vi=vec<int>;using vvi=vec<vi>;using vvvi=vec<vvi>;using\
-    \ vvvvi=vec<vvvi>;using vvvvvi=vec<vvvvi>;\nusing vll=vec<ll>;using vvll=vec<vll>;using\
-    \ vvvll=vec<vvll>;using vvvvll=vec<vvvll>;using vvvvvll=vec<vvvvll>;\nusing vpi=vec<pi>;using\
-    \ vvpi=vec<vpi>;using vvvpi=vec<vvpi>;using vvvvpi=vec<vvvpi>;using vvvvvpi=vec<vvvvpi>;\n\
-    using vpll=vec<pll>;using vvpll=vec<vpll>;using vvvpll=vec<vvpll>;using vvvvpll=vec<vvvpll>;using\
-    \ vvvvvpll=vec<vvvvpll>;\ntemplate<class T>using pq=priority_queue<T,vector<T>>;\n\
-    template<class T>using pqg=priority_queue<T,vector<T>,greater<T>>;\n#define rep(i,n)\
-    \ for(int i=0;i<(int)(n);i++)\n#define rep1(i,n) for(int i=1;i<=(int)(n);i++)\n\
-    #define per(i,n) for(int i=(int)(n)-1;0<=i;i--)\n#define per1(i,n) for(int i=(int)(n);0<i;i--)\n\
-    #define range(i,x) for(auto&i:x)\n#define range2(i,j,x) for(auto&[i,j]:x)\n#define\
-    \ all(x) (x).begin(),(x).end()\n#define rall(x) (x).rbegin(),(x).rend()\n#define\
-    \ Sort(x) sort((x).begin(),(x).end())\n#define troS(x) sort((x).rbegin(),(x).rend())\n\
-    #define Reverse(x) reverse((x).begin(),(x).end())\n#define uniq(x) sort((x).begin(),(x).end());(x).erase(unique((x).begin(),(x).end()),(x).end())\n\
+    - https://judge.yosupo.jp/problem/shortest_path
+  bundledCode: "#line 1 \"verify/yosupo-shortest_path.test.cpp\"\n#define PROBLEM\
+    \ \"https://judge.yosupo.jp/problem/shortest_path\"\r\n#line 2 \"util/template.hpp\"\
+    \n#ifdef poe\n#define debug(x) cerr<<#x<<\": \"<<x<<endl\n#else\n#define debug(x)\n\
+    // #pragma GCC target(\"arch=skylake-avx512\")\n// #pragma GCC target(\"avx2\"\
+    )\n// #pragma GCC optimize(\"O3\")\n// #pragma GCC optimize(\"unroll-loops\")\n\
+    #endif\n#include<bits/stdc++.h>\nusing namespace std;\nusing ll=long long;\nusing\
+    \ ull=unsigned long long;\nusing ld=long double;\nusing pi=pair<int,int>;\nusing\
+    \ pll=pair<ll,ll>;\nusing str=string;\ntemplate<class T>using vec=vector<T>;\n\
+    using vi=vec<int>;using vvi=vec<vi>;using vvvi=vec<vvi>;using vvvvi=vec<vvvi>;using\
+    \ vvvvvi=vec<vvvvi>;\nusing vll=vec<ll>;using vvll=vec<vll>;using vvvll=vec<vvll>;using\
+    \ vvvvll=vec<vvvll>;using vvvvvll=vec<vvvvll>;\nusing vpi=vec<pi>;using vvpi=vec<vpi>;using\
+    \ vvvpi=vec<vvpi>;using vvvvpi=vec<vvvpi>;using vvvvvpi=vec<vvvvpi>;\nusing vpll=vec<pll>;using\
+    \ vvpll=vec<vpll>;using vvvpll=vec<vvpll>;using vvvvpll=vec<vvvpll>;using vvvvvpll=vec<vvvvpll>;\n\
+    template<class T>using pq=priority_queue<T,vector<T>>;\ntemplate<class T>using\
+    \ pqg=priority_queue<T,vector<T>,greater<T>>;\n#define rep(i,n) for(int i=0;i<(int)(n);i++)\n\
+    #define rep1(i,n) for(int i=1;i<=(int)(n);i++)\n#define per(i,n) for(int i=(int)(n)-1;0<=i;i--)\n\
+    #define per1(i,n) for(int i=(int)(n);0<i;i--)\n#define range(i,x) for(auto&i:x)\n\
+    #define range2(i,j,x) for(auto&[i,j]:x)\n#define all(x) (x).begin(),(x).end()\n\
+    #define rall(x) (x).rbegin(),(x).rend()\n#define Sort(x) sort((x).begin(),(x).end())\n\
+    #define troS(x) sort((x).rbegin(),(x).rend())\n#define Reverse(x) reverse((x).begin(),(x).end())\n\
+    #define uniq(x) sort((x).begin(),(x).end());(x).erase(unique((x).begin(),(x).end()),(x).end())\n\
     #define nextp(x) next_permutation((x).begin(),(x).end())\n#define nextc(x,k) next_combination((x).begin(),(x).end(),k)\n\
     #define bit(x,i) (((x)>>(i))&1)\n#define pf push_front\n#define pb push_back\n\
     #define df pop_front\n#define db pop_back\n#define fi first\n#define se second\n\
@@ -99,34 +103,50 @@ data:
     \ q.push({dist[y], y});\n            }\n        }\n    }\n    return dist;\n}\n\
     template<class T = int, bool directed = false, bool weighted = true>\nT dijkstra(graph<T,\
     \ directed, weighted>& g, int from, int to) {\n    return dijkstra(g, from)[to];\n\
-    }\n#line 5 \"verify/aizu-GRL_1_A.test.cpp\"\nint main() { IO();\r\n    int T=1;\r\
-    \n    // cin >> T;\r\n    while (T--) solve();\r\n}\r\n\r\nvoid solve() {\r\n\
-    \    int n, m, s; cin >> n >> m >> s;\r\n    graph<ll, true, true> g(n);\r\n \
-    \   g.read(m, 0);\r\n    vll d = dijkstra(g, s);\r\n    range(i, d) {\r\n    \
-    \    if (i == numeric_limits<ll>::max()) {\r\n            cout << \"INF\" << nl;\r\
-    \n        } else {\r\n            cout << i << nl;\r\n        }\r\n    }\r\n}\n"
-  code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_1_A&lang=ja\"\
-    \r\n#include \"template\"\r\n#include \"graphtemplate\"\r\n#include \"dijkstra\"\
-    \r\nint main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--)\
-    \ solve();\r\n}\r\n\r\nvoid solve() {\r\n    int n, m, s; cin >> n >> m >> s;\r\
-    \n    graph<ll, true, true> g(n);\r\n    g.read(m, 0);\r\n    vll d = dijkstra(g,\
-    \ s);\r\n    range(i, d) {\r\n        if (i == numeric_limits<ll>::max()) {\r\n\
-    \            cout << \"INF\" << nl;\r\n        } else {\r\n            cout <<\
-    \ i << nl;\r\n        }\r\n    }\r\n}"
+    }\n#line 4 \"graph/dijkstrarestore.hpp\"\nusing namespace std;\ntemplate<class\
+    \ T = int, bool directed = false, bool weighted = true>\nvector<int> dijkstrarestore(graph<T,\
+    \ directed, weighted>& g, int from = 0, int to = -1) {\n    if (to == -1) to =\
+    \ g.size() - 1;\n    vector<int> prev(g.size(), -1);\n    vector<T> dist(g.size(),\
+    \ numeric_limits<T>::max()); dist[from] = T{};\n    priority_queue<pair<T, int>,\
+    \ vector<pair<T, int>>, greater<pair<T, int>>> q;\n    q.push({T{}, from});\n\
+    \    while (!q.empty()) {\n        auto [t, x] = q.top(); q.pop();\n        if\
+    \ (dist[x] < t) continue;\n        for (auto& _e : g[x]) {\n            int y\
+    \ = _e.to;\n            if (dist[x] + _e.cost < dist[y]) {\n                dist[y]\
+    \ = dist[x] + _e.cost;\n                q.push({dist[y], y});\n              \
+    \  prev[y] = x;\n            }\n        }\n    }\n    vector<int> path;\n    for\
+    \ (int i=to; i!=-1; i=prev[i]) path.push_back(i);\n    reverse(path.begin(), path.end());\n\
+    \    return path;\n}\n#line 6 \"verify/yosupo-shortest_path.test.cpp\"\n\r\nint\
+    \ main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\
+    \n}\r\n\r\nvoid solve() {\r\n    int n, m, s, t; cin >> n >> m >> s >> t;\r\n\
+    \    graph<ll, true, true> g(n);\r\n    g.read(m, 0);\r\n    vi a = dijkstrarestore(g,\
+    \ s, t);\r\n    if (2 <= a.size()) {\r\n        cout << dijkstra(g, s, t) << sp\
+    \ << a.size()-1 << nl;\r\n        rep(i, a.size()-1) {\r\n            cout <<\
+    \ a[i] << sp << a[i+1] << nl;\r\n        }\r\n    } else {\r\n        cout <<\
+    \ -1 << nl;\r\n    }\r\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/shortest_path\"\r\n#include\
+    \ \"template\"\r\n#include \"graphtemplate\"\r\n#include \"dijkstra\"\r\n#include\
+    \ \"dijkstrarestore\"\r\n\r\nint main() { IO();\r\n    int T=1;\r\n    // cin\
+    \ >> T;\r\n    while (T--) solve();\r\n}\r\n\r\nvoid solve() {\r\n    int n, m,\
+    \ s, t; cin >> n >> m >> s >> t;\r\n    graph<ll, true, true> g(n);\r\n    g.read(m,\
+    \ 0);\r\n    vi a = dijkstrarestore(g, s, t);\r\n    if (2 <= a.size()) {\r\n\
+    \        cout << dijkstra(g, s, t) << sp << a.size()-1 << nl;\r\n        rep(i,\
+    \ a.size()-1) {\r\n            cout << a[i] << sp << a[i+1] << nl;\r\n       \
+    \ }\r\n    } else {\r\n        cout << -1 << nl;\r\n    }\r\n}"
   dependsOn:
   - util/template.hpp
   - graph/graphtemplate.hpp
   - graph/dijkstra.hpp
+  - graph/dijkstrarestore.hpp
   isVerificationFile: true
-  path: verify/aizu-GRL_1_A.test.cpp
+  path: verify/yosupo-shortest_path.test.cpp
   requiredBy: []
-  timestamp: '2025-04-18 07:43:11+00:00'
+  timestamp: '2025-04-18 07:45:24+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: verify/aizu-GRL_1_A.test.cpp
+documentation_of: verify/yosupo-shortest_path.test.cpp
 layout: document
 redirect_from:
-- /verify/verify/aizu-GRL_1_A.test.cpp
-- /verify/verify/aizu-GRL_1_A.test.cpp.html
-title: verify/aizu-GRL_1_A.test.cpp
+- /verify/verify/yosupo-shortest_path.test.cpp
+- /verify/verify/yosupo-shortest_path.test.cpp.html
+title: verify/yosupo-shortest_path.test.cpp
 ---
