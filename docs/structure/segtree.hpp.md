@@ -7,6 +7,9 @@ data:
     path: verify/aizu-DSL_2_A.test.cpp
     title: verify/aizu-DSL_2_A.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/yosupo-point_set_range_composite.test.cpp
+    title: verify/yosupo-point_set_range_composite.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-static_range_sum.test.cpp
     title: verify/yosupo-static_range_sum.test.cpp
   _isVerificationFailed: false
@@ -117,6 +120,7 @@ data:
   timestamp: '2025-04-03 17:12:39+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - verify/yosupo-point_set_range_composite.test.cpp
   - verify/yosupo-static_range_sum.test.cpp
   - verify/aizu-DSL_2_A.test.cpp
 documentation_of: structure/segtree.hpp

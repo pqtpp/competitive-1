@@ -4,6 +4,9 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: verify/yosupo-point_set_range_composite.test.cpp
+    title: verify/yosupo-point_set_range_composite.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-range_affine_point_get.test.cpp
     title: verify/yosupo-range_affine_point_get.test.cpp
   - icon: ':heavy_check_mark:'
@@ -116,6 +119,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-range_affine_range_sum.test.cpp
+  - verify/yosupo-point_set_range_composite.test.cpp
   - verify/yosupo-range_affine_point_get.test.cpp
 documentation_of: math/modint.hpp
 layout: document
