@@ -93,14 +93,18 @@ int main() { IO();
 }
 
 void solve() {
-    int n; cin >> n;
-    vi a(n); cin >> a;
-    vi ans(n);
-    stack<int> s; s.push(inf);
-    per(i, n) {
-        ans[i] = s.size() - 1;
-        while (s.top() < a[i]) s.pop();
-        s.push(a[i]);
+    int n, m; cin >> n >> m;
+    vll cnt(n * 3);
+    ll s = (ll)m * (m - 1) / 2;
+    rep(i, m) {
+        ll a, b; cin >> a >> b;
+        if (a > b) swap(a, b);
+        if (n+3-a <= b) {
+            cnt[a+b-n]++;
+        } else {
+            cnt[a+b]++;
+        }
     }
-    cout << ans;
+    range(i, cnt) s -= (ll)i * (i - 1) / 2;
+    cout << s << nl;
 }

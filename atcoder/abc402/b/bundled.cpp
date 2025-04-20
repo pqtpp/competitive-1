@@ -92,19 +92,17 @@ int main() { IO();
     while (T--) solve();
 }
 
-
 void solve() {
-    int m; cin >> m;
-    vi ans;
-    vll pw(21); pw[0] = 1;
-    rep(i, 20) pw[i+1] = pw[i] * 3;
-    while (m) {
-        int t = 20;
-        while (m < pw[t]) t--;
-        m -= pw[t];
-        ans.pb(t);
+    int q; cin >> q;
+    queue<int> qu;
+    while (q--) {
+        int x; cin >> x;
+        if (x == 1) {
+            int y; cin >> y;
+            qu.push(y);
+        } else {
+            cout << qu.front() << nl;
+            qu.pop();
+        }
     }
-    Sort(ans);
-    cout << ans.size() << nl;
-    cout << ans;
 }

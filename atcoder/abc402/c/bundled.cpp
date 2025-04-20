@@ -93,33 +93,30 @@ int main() { IO();
 }
 
 void solve() {
-    int n, q; cin >> n >> q;
-    str s; cin >> s;
-    int ans = 0;
-    rep(i, n-2) {
-        if (s[i] == 'A' && s[i+1] == 'B' && s[i+2] == 'C') {
-            ans++;
+    int n, m; cin >> n >> m;
+    vvi a(m);
+    rep(i, m) {
+        int k; cin >> k;
+        rep(j, k) {
+            int x; cin >> x;
+            a[i].pb(x-1);
         }
     }
-    while (q--) {
-        int x; char c; cin >> x >> c;
-        rep(i, 3) {
-            int y = x - 3 + i;
-            if (0 <= y && y < n-2) {
-                if (s[y] == 'A' && s[y+1] == 'B' && s[y+2] == 'C') {
-                    ans--;
-                }
-            }
+    vi b(n); cin >> b;
+    vi c(n);
+    rep(i, n) c[b[i]-1] = i;
+    vi ans(n);
+    rep(i, m) {
+        rep(j, a[i].size()) {
+            a[i][j] = c[a[i][j]];
         }
-        s[x-1] = c;
-        rep(i, 3) {
-            int y = x - 3 + i;
-            if (0 <= y && y < n-2) {
-                if (s[y] == 'A' && s[y+1] == 'B' && s[y+2] == 'C') {
-                    ans++;
-                }
-            }
-        }
-        cout << ans << nl;
+        ans[Max(a[i])]++;
     }
+    int o = m;
+    vi ans2(n);
+    per(i, n) {
+        ans2[i] = o;
+        o -= ans[i];
+    }
+    rep(i, n) cout << ans2[i] << nl;
 }

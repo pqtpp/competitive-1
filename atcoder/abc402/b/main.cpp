@@ -7,4 +7,16 @@ int main() { IO();
 }
 
 void solve() {
+    int q; cin >> q;
+    queue<int> qu;
+    while (q--) {
+        int x; cin >> x;
+        if (x == 1) {
+            int y; cin >> y;
+            qu.push(y);
+        } else {
+            cout << qu.front() << nl;
+            qu.pop();
+        }
+    }
 }
