@@ -60,32 +60,4 @@ struct graph {
             }
         }
     }
-    template <class F, class G>
-    void dfs(int v, F f, G g) {
-        vector<bool> visited(size()); visited[v] = true;
-        stack<pair<int, int>> s; s.push({v, -1});
-        if (!f(v, -1)) return;
-        while (!s.empty()) {
-            auto [v, x] = s.top(); s.pop();
-            vector<int> path;
-            for (auto _e : data[v]) {
-                if (!visited[e.to]) {
-                    visited[e.to] = true;
-                    path.push_back(e.to);
-                    if (f(_e.to, _e.from)) {
-                        path.push_back(_e.to);
-                    }
-                }
-            }
-            for (int i=0; i<path.size()-1; i++) {
-                s.push({path[i], -1});
-            }
-            if (path.size()) {
-                s.push({path.back(), v});
-            }
-            if (x != -1) {
-                g(v, x);
-            }
-        }
-    }
 };
