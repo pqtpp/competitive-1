@@ -43,21 +43,4 @@ struct graph {
     edges<T> operator[](int k) {
         return data[k];
     }
-    template <class F>
-    void dfs(int v, F f) {
-        vector<bool> visited(size()); visited[v] = true;
-        stack<int> s; s.push(v);
-        if (!f(v, -1)) return;
-        while (!s.empty()) {
-            int v = s.top(); s.pop();
-            for (auto _e : data[v]) {
-                if (!visited[e.to]) {
-                    visited[e.to] = true;
-                    if (f(_e.to, _e.from)) {
-                        s.push(e.to);
-                    }
-                }
-            }
-        }
-    }
 };
