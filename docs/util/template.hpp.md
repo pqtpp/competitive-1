@@ -22,6 +22,9 @@ data:
     path: verify/aizu-GRL_1_A.test.cpp
     title: verify/aizu-GRL_1_A.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/aizu-GRL_1_C.test.cpp
+    title: verify/aizu-GRL_1_C.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/aizu-GRL_2_A.test.cpp
     title: verify/aizu-GRL_2_A.test.cpp
   - icon: ':heavy_check_mark:'
@@ -182,6 +185,7 @@ data:
   - verify/yosupo-staticrmq.test.cpp
   - verify/yosupo-factorize.test.cpp
   - verify/yosupo-point_add_range_sum.test.cpp
+  - verify/aizu-GRL_1_C.test.cpp
   - verify/yosupo-unionfind.test.cpp
   - verify/aizu-DSL_1_A.test.cpp
   - verify/yosupo-point_set_range_composite.test.cpp

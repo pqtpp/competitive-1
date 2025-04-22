@@ -14,10 +14,16 @@ data:
   - icon: ':heavy_check_mark:'
     path: graph/scc.hpp
     title: graph/scc.hpp
+  - icon: ':heavy_check_mark:'
+    path: graph/warshallfloyd.hpp
+    title: graph/warshallfloyd.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/aizu-GRL_1_A.test.cpp
     title: verify/aizu-GRL_1_A.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/aizu-GRL_1_C.test.cpp
+    title: verify/aizu-GRL_1_C.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/aizu-GRL_2_A.test.cpp
     title: verify/aizu-GRL_2_A.test.cpp
@@ -83,6 +89,7 @@ data:
   isVerificationFile: false
   path: graph/graphtemplate.hpp
   requiredBy:
+  - graph/warshallfloyd.hpp
   - graph/kruskal.hpp
   - graph/scc.hpp
   - graph/dijkstra.hpp
@@ -92,6 +99,7 @@ data:
   verifiedWith:
   - verify/yosupo-shortest_path.test.cpp
   - verify/aizu-GRL_2_A.test.cpp
+  - verify/aizu-GRL_1_C.test.cpp
   - verify/aizu-GRL_1_A.test.cpp
   - verify/yosupo-scc.test.cpp
 documentation_of: graph/graphtemplate.hpp

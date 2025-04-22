@@ -18,6 +18,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: graph/scc.hpp
       title: graph/scc.hpp
+    - icon: ':heavy_check_mark:'
+      path: graph/warshallfloyd.hpp
+      title: graph/warshallfloyd.hpp
   - name: .
     pages:
     - icon: ':warning:'
@@ -91,6 +94,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/aizu-GRL_1_A.test.cpp
       title: verify/aizu-GRL_1_A.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/aizu-GRL_1_C.test.cpp
+      title: verify/aizu-GRL_1_C.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/aizu-GRL_2_A.test.cpp
       title: verify/aizu-GRL_2_A.test.cpp
