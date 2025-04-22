@@ -40,9 +40,9 @@ data:
     \  return data[k];\n    }\n};\n#line 4 \"graph/bellmanford.hpp\"\nusing namespace\
     \ std;\n// \u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5\u3067\u5358\u4E00\
     \u59CB\u70B9\u6700\u77ED\u7D4C\u8DEF\u3092\u6C42\u3081\u308B \u8CA0\u9589\u8DEF\
-    \u304C\u3042\u308B\u5834\u5408\u306F re[from] < 0\ntemplate <typename T, bool\
-    \ directed = true, bool weighted = true>\nvector<T> bellmanford(graph<T, directed,\
-    \ weighted>& g, int from = 0) {\n    vector<T> d(g.size(), numeric_limits<T>::max());\n\
+    \u304C\u3042\u308B\u5834\u5408\u306F re[from] < 0 O(nm)\ntemplate <typename T,\
+    \ bool directed = true, bool weighted = true>\nvector<T> bellmanford(graph<T,\
+    \ directed, weighted>& g, int from = 0) {\n    vector<T> d(g.size(), numeric_limits<T>::max());\n\
     \    d[from] = 0;\n    for (int i=0; i<g.size(); i++) {\n        bool update =\
     \ false;\n        for (int j=0; j<g.size(); j++) {\n            for (auto& _e\
     \ : g[j]) {\n                if (d[j] != numeric_limits<T>::max() && d[j] + _e.cost\
@@ -61,8 +61,8 @@ data:
   code: "#pragma once\n#include \"graphtemplate\"\n#include <bits/stdc++.h>\nusing\
     \ namespace std;\n// \u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5\u3067\
     \u5358\u4E00\u59CB\u70B9\u6700\u77ED\u7D4C\u8DEF\u3092\u6C42\u3081\u308B \u8CA0\
-    \u9589\u8DEF\u304C\u3042\u308B\u5834\u5408\u306F re[from] < 0\ntemplate <typename\
-    \ T, bool directed = true, bool weighted = true>\nvector<T> bellmanford(graph<T,\
+    \u9589\u8DEF\u304C\u3042\u308B\u5834\u5408\u306F re[from] < 0 O(nm)\ntemplate\
+    \ <typename T, bool directed = true, bool weighted = true>\nvector<T> bellmanford(graph<T,\
     \ directed, weighted>& g, int from = 0) {\n    vector<T> d(g.size(), numeric_limits<T>::max());\n\
     \    d[from] = 0;\n    for (int i=0; i<g.size(); i++) {\n        bool update =\
     \ false;\n        for (int j=0; j<g.size(); j++) {\n            for (auto& _e\
@@ -84,7 +84,7 @@ data:
   isVerificationFile: false
   path: graph/bellmanford.hpp
   requiredBy: []
-  timestamp: '2025-04-22 08:18:30+00:00'
+  timestamp: '2025-04-22 08:33:36+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aizu-GRL_1_B.test.cpp

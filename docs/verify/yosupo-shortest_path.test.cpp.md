@@ -101,7 +101,7 @@ data:
     \ namespace std;\n// \u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\u3092\u7528\u3044\
     \u3066\u5358\u4E00\u59CB\u70B9\u6700\u77ED\u7D4C\u8DEF\u3092\u6C42\u3081\u308B\
     \ \u305F\u3060\u3057\u3001\u8CA0\u8FBA\u304C\u5B58\u5728\u3057\u306A\u3044\u3053\
-    \u3068 O(E log V)\ntemplate<class T = int, bool directed = false, bool weighted\
+    \u3068 O(m log n)\ntemplate<class T = int, bool directed = false, bool weighted\
     \ = true>\nvector<T> dijkstra(graph<T, directed, weighted>& g, int from = 0) {\n\
     \    vector<T> dist(g.size(), numeric_limits<T>::max()); dist[from] = T{};\n \
     \   vector<bool> visited(g.size());\n    priority_queue<pair<T, int>, vector<pair<T,\
@@ -113,13 +113,13 @@ data:
     \      }\n        }\n    }\n    return dist;\n}\n// \u30C0\u30A4\u30AF\u30B9\u30C8\
     \u30E9\u6CD5\u3092\u7528\u3044\u3066\u4E8C\u70B9\u9593\u6700\u77ED\u7D4C\u8DEF\
     \u3092\u6C42\u3081\u308B \u305F\u3060\u3057\u3001\u8CA0\u9589\u8DEF\u304C\u5B58\
-    \u5728\u3057\u306A\u3044\u3053\u3068 O(E log V)\ntemplate<class T = int, bool\
+    \u5728\u3057\u306A\u3044\u3053\u3068 O(m log n)\ntemplate<class T = int, bool\
     \ directed = false, bool weighted = true>\nT dijkstra(graph<T, directed, weighted>&\
     \ g, int from, int to) {\n    return dijkstra(g, from)[to];\n}\n#line 4 \"graph/dijkstrarestore.hpp\"\
     \nusing namespace std;\n// \u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\u3092\u7528\
     \u3044\u3066\u4E8C\u70B9\u9593\u6700\u77ED\u7D4C\u8DEF\u306E\u901A\u308B\u9802\
     \u70B9\u3092\u8FD4\u3059 \u305F\u3060\u3057\u3001\u8CA0\u9589\u8DEF\u304C\u5B58\
-    \u5728\u3057\u306A\u3044\u3053\u3068 O(E log V)\ntemplate<class T = int, bool\
+    \u5728\u3057\u306A\u3044\u3053\u3068 O(m log n)\ntemplate<class T = int, bool\
     \ directed = false, bool weighted = true>\nvector<int> dijkstrarestore(graph<T,\
     \ directed, weighted>& g, int from = 0, int to = -1) {\n    if (to == -1) to =\
     \ g.size() - 1;\n    vector<int> prev(g.size(), -1);\n    vector<T> dist(g.size(),\
@@ -157,7 +157,7 @@ data:
   isVerificationFile: true
   path: verify/yosupo-shortest_path.test.cpp
   requiredBy: []
-  timestamp: '2025-04-22 07:54:57+00:00'
+  timestamp: '2025-04-22 08:34:00+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-shortest_path.test.cpp

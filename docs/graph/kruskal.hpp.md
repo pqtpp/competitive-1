@@ -63,7 +63,7 @@ data:
     \ re.end(), [](vector<int>& v){ return v.empty(); }), re.end());\n        return\
     \ re;\n    }\n};\n#line 5 \"graph/kruskal.hpp\"\nusing namespace std;\n// \u30AF\
     \u30E9\u30B9\u30AB\u30EB\u6CD5\u3092\u7528\u3044\u3066\u6700\u5C0F\u5168\u57DF\
-    \u6728\u3092\u6C42\u3081\u308B O(E log E)\ntemplate<class T = int, bool directed\
+    \u6728\u3092\u6C42\u3081\u308B O(m log m)\ntemplate<class T = int, bool directed\
     \ = false, bool weighted = true>\ngraph<T, directed, weighted> kruskal(graph<T,\
     \ directed, weighted>& g) {\n    graph<T, directed, weighted> re(g.size());\n\
     \    edges<T> _edges = g._edges;\n    sort(_edges.begin(), _edges.end(), [](edge<T>\
@@ -72,7 +72,7 @@ data:
     \        re.add_edge(_e);\n        }\n    }\n    return re;\n}\n"
   code: "#pragma once\n#include \"graphtemplate\"\n#include \"UnionFind\"\n#include<bits/stdc++.h>\n\
     using namespace std;\n// \u30AF\u30E9\u30B9\u30AB\u30EB\u6CD5\u3092\u7528\u3044\
-    \u3066\u6700\u5C0F\u5168\u57DF\u6728\u3092\u6C42\u3081\u308B O(E log E)\ntemplate<class\
+    \u3066\u6700\u5C0F\u5168\u57DF\u6728\u3092\u6C42\u3081\u308B O(m log m)\ntemplate<class\
     \ T = int, bool directed = false, bool weighted = true>\ngraph<T, directed, weighted>\
     \ kruskal(graph<T, directed, weighted>& g) {\n    graph<T, directed, weighted>\
     \ re(g.size());\n    edges<T> _edges = g._edges;\n    sort(_edges.begin(), _edges.end(),\
@@ -85,7 +85,7 @@ data:
   isVerificationFile: false
   path: graph/kruskal.hpp
   requiredBy: []
-  timestamp: '2025-04-22 03:49:36+00:00'
+  timestamp: '2025-04-22 08:34:17+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aizu-GRL_2_A.test.cpp

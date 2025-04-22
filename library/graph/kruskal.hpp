@@ -3,7 +3,7 @@
 #include "UnionFind"
 #include<bits/stdc++.h>
 using namespace std;
-// クラスカル法を用いて最小全域木を求める O(E log E)
+// クラスカル法を用いて最小全域木を求める O(m log m)
 template<class T = int, bool directed = false, bool weighted = true>
 graph<T, directed, weighted> kruskal(graph<T, directed, weighted>& g) {
     graph<T, directed, weighted> re(g.size());

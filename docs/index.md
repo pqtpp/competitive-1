@@ -24,6 +24,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: graph/warshallfloyd.hpp
       title: graph/warshallfloyd.hpp
+    - icon: ':warning:'
+      path: graph/warshallfloydrestore.hpp
+      title: graph/warshallfloydrestore.hpp
   - name: .
     pages:
     - icon: ':warning:'

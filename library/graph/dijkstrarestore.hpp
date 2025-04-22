@@ -2,7 +2,7 @@
 #include "graphtemplate"
 #include <bits/stdc++.h>
 using namespace std;
-// ダイクストラ法を用いて二点間最短経路の通る頂点を返す ただし、負閉路が存在しないこと O(E log V)
+// ダイクストラ法を用いて二点間最短経路の通る頂点を返す ただし、負閉路が存在しないこと O(m log n)
 template<class T = int, bool directed = false, bool weighted = true>
 vector<int> dijkstrarestore(graph<T, directed, weighted>& g, int from = 0, int to = -1) {
     if (to == -1) to = g.size() - 1;

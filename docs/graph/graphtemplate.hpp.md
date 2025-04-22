@@ -20,6 +20,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: graph/warshallfloyd.hpp
     title: graph/warshallfloyd.hpp
+  - icon: ':warning:'
+    path: graph/warshallfloydrestore.hpp
+    title: graph/warshallfloydrestore.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/aizu-GRL_1_A.test.cpp
@@ -99,6 +102,7 @@ data:
   - graph/kruskal.hpp
   - graph/scc.hpp
   - graph/bellmanford.hpp
+  - graph/warshallfloydrestore.hpp
   - graph/dijkstra.hpp
   - graph/dijkstrarestore.hpp
   timestamp: '2025-04-22 03:48:04+00:00'

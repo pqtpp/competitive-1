@@ -95,14 +95,14 @@ data:
     \ data.size();\n    }\n    // \u9802\u70B9\u3092\u8FD4\u3059\n    edges<T> operator[](int\
     \ k) {\n        return data[k];\n    }\n};\n#line 4 \"graph/warshallfloyd.hpp\"\
     \nusing namespace std;\n// \u30B0\u30E9\u30D5\u306E\u5168\u70B9\u9593\u6700\u77ED\
-    \u7D4C\u8DEF\u3092\u6C42\u3081\u308B O(V^3)\ntemplate <class T>\nvector<vector<T>>\
+    \u7D4C\u8DEF\u3092\u6C42\u3081\u308B O(n^3)\ntemplate <class T>\nvector<vector<T>>\
     \ warshallfloyd(vector<vector<T>>& g) {\n    vector<vector<T>> d = g;\n    for\
     \ (int k=0; k<g.size(); k++) {\n        for (int i=0; i<g.size(); i++) {\n   \
     \         for (int j=0; j<g.size(); j++) {\n                if (d[i][k] < numeric_limits<T>::max()/2\
     \ && d[k][j] < numeric_limits<T>::max()/2) {\n                    d[i][j] = min(d[i][j],\
     \ d[i][k] + d[k][j]);\n                }\n            }\n        }\n    }\n  \
     \  return d;\n}\n// \u30B0\u30E9\u30D5\u306E\u5168\u70B9\u9593\u6700\u77ED\u7D4C\
-    \u8DEF\u3092\u6C42\u3081\u308B O(V^3)\ntemplate<class T = int, bool directed =\
+    \u8DEF\u3092\u6C42\u3081\u308B O(n^3)\ntemplate<class T = int, bool directed =\
     \ false, bool weighted = true>\nvector<vector<T>> warshallfloyd(graph<T, directed,\
     \ weighted>& g) {\n    vector<vector<T>> d(g.size(), vector<T>(g.size(), numeric_limits<T>::max()));\n\
     \    for (int i=0; i<g.size(); i++) {\n        d[i][i] = T{};\n        for (auto&\
@@ -135,7 +135,7 @@ data:
   isVerificationFile: true
   path: verify/aizu-GRL_1_C.test.cpp
   requiredBy: []
-  timestamp: '2025-04-22 07:58:24+00:00'
+  timestamp: '2025-04-22 08:34:23+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aizu-GRL_1_C.test.cpp

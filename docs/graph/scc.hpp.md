@@ -40,7 +40,7 @@ data:
     \  return data[k];\n    }\n};\n#line 4 \"graph/scc.hpp\"\nusing namespace std;\n\
     // \u30B0\u30E9\u30D5\u3092\u5F37\u9023\u7D50\u6210\u5206\u5206\u89E3\u3057\u3001\
     \u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u9806\u306B\u4E26\u3079\u305F\u3082\u306E\
-    \u3092\u8FD4\u3059 O(V + E)\ntemplate<class T = int, bool directed = true, bool\
+    \u3092\u8FD4\u3059 O(n + m)\ntemplate<class T = int, bool directed = true, bool\
     \ weighted = false>\nvector<vector<int>> scc(graph<T, directed, weighted>& g)\
     \ {\n    int n = g.size();\n    vector<int> low(n), num(n, -1), stack;\n    vector<bool>\
     \ onStack(n);\n    vector<vector<int>> re;\n    auto dfs = [&](auto& self, int\
@@ -58,7 +58,7 @@ data:
   code: "#pragma once\n#include \"graphtemplate\"\n#include <bits/stdc++.h>\nusing\
     \ namespace std;\n// \u30B0\u30E9\u30D5\u3092\u5F37\u9023\u7D50\u6210\u5206\u5206\
     \u89E3\u3057\u3001\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u9806\u306B\u4E26\u3079\
-    \u305F\u3082\u306E\u3092\u8FD4\u3059 O(V + E)\ntemplate<class T = int, bool directed\
+    \u305F\u3082\u306E\u3092\u8FD4\u3059 O(n + m)\ntemplate<class T = int, bool directed\
     \ = true, bool weighted = false>\nvector<vector<int>> scc(graph<T, directed, weighted>&\
     \ g) {\n    int n = g.size();\n    vector<int> low(n), num(n, -1), stack;\n  \
     \  vector<bool> onStack(n);\n    vector<vector<int>> re;\n    auto dfs = [&](auto&\
@@ -78,7 +78,7 @@ data:
   isVerificationFile: false
   path: graph/scc.hpp
   requiredBy: []
-  timestamp: '2025-04-22 03:50:29+00:00'
+  timestamp: '2025-04-22 08:34:15+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-scc.test.cpp
