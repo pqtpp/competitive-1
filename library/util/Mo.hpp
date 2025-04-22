@@ -1,10 +1,12 @@
 #pragma once
 #include<bits/stdc++.h>
 using namespace std;
+// Mo's algorithm
 struct Mo {
     int n;
     vector<pair<int, int>> queries;
     explicit Mo(int n) : n(n) {}
+    // クエリを追加する
     void add(int l, int r) {
         queries.push_back({l, r});
     }
@@ -21,6 +23,7 @@ struct Mo {
         }
         return d;
     }
+    // クエリを実行する O((n+q) sqrt(n))
     template <class AL, class AR, class EL, class ER, class OUT>
     void build(const AL &add_left, const AR &add_right, const EL &erase_left, const ER &erase_right, const OUT &out) {
         int q = queries.size();
@@ -42,6 +45,7 @@ struct Mo {
             out(idx);
         }
     }
+    // クエリを実行する O((n+q) sqrt(n))
     template <class A, class E, class OUT>
     void build(const A &add, const E &erase, const OUT &out) {
         build(add, add, erase, erase, out);
