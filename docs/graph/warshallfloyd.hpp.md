@@ -40,39 +40,39 @@ data:
     \  return data[k];\n    }\n};\n#line 4 \"graph/warshallfloyd.hpp\"\nusing namespace\
     \ std;\n// \u30B0\u30E9\u30D5\u306E\u5168\u70B9\u9593\u6700\u77ED\u7D4C\u8DEF\u3092\
     \u6C42\u3081\u308B O(V^3)\ntemplate <class T>\nvector<vector<T>> warshallfloyd(vector<vector<T>>&\
-    \ g) {\n    int n = g.size();\n    vector<vector<T>> d = g;\n    for (int k=0;\
-    \ k<n; k++) {\n        for (int i=0; i<n; i++) {\n            for (int j=0; j<n;\
+    \ g) {\n    vector<vector<T>> d = g;\n    for (int k=0; k<g.size(); k++) {\n \
+    \       for (int i=0; i<g.size(); i++) {\n            for (int j=0; j<g.size();\
     \ j++) {\n                if (d[i][k] < numeric_limits<T>::max()/2 && d[k][j]\
     \ < numeric_limits<T>::max()/2) {\n                    d[i][j] = min(d[i][j],\
     \ d[i][k] + d[k][j]);\n                }\n            }\n        }\n    }\n  \
     \  return d;\n}\n// \u30B0\u30E9\u30D5\u306E\u5168\u70B9\u9593\u6700\u77ED\u7D4C\
     \u8DEF\u3092\u6C42\u3081\u308B O(V^3)\ntemplate<class T = int, bool directed =\
     \ false, bool weighted = true>\nvector<vector<T>> warshallfloyd(graph<T, directed,\
-    \ weighted>& g) {\n    int n = g.size();\n    vector<vector<T>> d(n, vector<T>(n,\
-    \ numeric_limits<T>::max()));\n    for (int i=0; i<n; i++) d[i][i] = T{};\n  \
-    \  for (int i=0; i<n; i++) {\n        for (auto& _e : g[i]) {\n            d[i][_e.to]\
-    \ = _e.cost;\n        }\n    }\n    return warshallfloyd(d);\n}\n"
+    \ weighted>& g) {\n    vector<vector<T>> d(g.size(), vector<T>(g.size(), numeric_limits<T>::max()));\n\
+    \    for (int i=0; i<g.size(); i++) {\n        d[i][i] = T{};\n        for (auto&\
+    \ _e : g[i]) {\n            d[i][_e.to] = _e.cost;\n        }\n    }\n    return\
+    \ warshallfloyd(d);\n}\n"
   code: "#pragma once\n#include \"graphtemplate\"\n#include <bits/stdc++.h>\nusing\
     \ namespace std;\n// \u30B0\u30E9\u30D5\u306E\u5168\u70B9\u9593\u6700\u77ED\u7D4C\
     \u8DEF\u3092\u6C42\u3081\u308B O(V^3)\ntemplate <class T>\nvector<vector<T>> warshallfloyd(vector<vector<T>>&\
-    \ g) {\n    int n = g.size();\n    vector<vector<T>> d = g;\n    for (int k=0;\
-    \ k<n; k++) {\n        for (int i=0; i<n; i++) {\n            for (int j=0; j<n;\
+    \ g) {\n    vector<vector<T>> d = g;\n    for (int k=0; k<g.size(); k++) {\n \
+    \       for (int i=0; i<g.size(); i++) {\n            for (int j=0; j<g.size();\
     \ j++) {\n                if (d[i][k] < numeric_limits<T>::max()/2 && d[k][j]\
     \ < numeric_limits<T>::max()/2) {\n                    d[i][j] = min(d[i][j],\
     \ d[i][k] + d[k][j]);\n                }\n            }\n        }\n    }\n  \
     \  return d;\n}\n// \u30B0\u30E9\u30D5\u306E\u5168\u70B9\u9593\u6700\u77ED\u7D4C\
     \u8DEF\u3092\u6C42\u3081\u308B O(V^3)\ntemplate<class T = int, bool directed =\
     \ false, bool weighted = true>\nvector<vector<T>> warshallfloyd(graph<T, directed,\
-    \ weighted>& g) {\n    int n = g.size();\n    vector<vector<T>> d(n, vector<T>(n,\
-    \ numeric_limits<T>::max()));\n    for (int i=0; i<n; i++) d[i][i] = T{};\n  \
-    \  for (int i=0; i<n; i++) {\n        for (auto& _e : g[i]) {\n            d[i][_e.to]\
-    \ = _e.cost;\n        }\n    }\n    return warshallfloyd(d);\n}"
+    \ weighted>& g) {\n    vector<vector<T>> d(g.size(), vector<T>(g.size(), numeric_limits<T>::max()));\n\
+    \    for (int i=0; i<g.size(); i++) {\n        d[i][i] = T{};\n        for (auto&\
+    \ _e : g[i]) {\n            d[i][_e.to] = _e.cost;\n        }\n    }\n    return\
+    \ warshallfloyd(d);\n}"
   dependsOn:
   - graph/graphtemplate.hpp
   isVerificationFile: false
   path: graph/warshallfloyd.hpp
   requiredBy: []
-  timestamp: '2025-04-22 07:37:43+00:00'
+  timestamp: '2025-04-22 07:58:24+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aizu-GRL_1_C.test.cpp

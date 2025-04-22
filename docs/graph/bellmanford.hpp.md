@@ -39,19 +39,31 @@ data:
     \u59CB\u70B9\u6700\u77ED\u7D4C\u8DEF\u3092\u6C42\u3081\u308B \u8CA0\u9589\u8DEF\
     \u304C\u3042\u308B\u5834\u5408\u306F d[from] < 0\ntemplate <typename T, bool directed\
     \ = true, bool weighted = true>\nvector<T> bellmanford(graph<T, directed, weighted>&\
-    \ g, int from = 0) {\n    ;\n}\n"
+    \ g, int from = 0) {\n    vector<T> d(g.size(), numeric_limits<T>::max());\n \
+    \   d[from] = 0;\n    for (int i=0; i<g.size(); i++) {\n        bool update =\
+    \ false;\n        for (int j=0; j<g.size(); j++) {\n            for (auto& e :\
+    \ g[j]) {\n                if (d[j] != numeric_limits<T>::max() && d[e.to] > d[j]\
+    \ + e.cost) {\n                    d[e.to] = d[j] + e.cost;\n                \
+    \    update = true;\n                }\n            }\n        }\n        if (!update)\
+    \ break;\n    }\n}\n"
   code: "#pragma once\n#include \"graphtemplate\"\n#include <bits/stdc++.h>\nusing\
     \ namespace std;\n// \u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5\u3067\
     \u5358\u4E00\u59CB\u70B9\u6700\u77ED\u7D4C\u8DEF\u3092\u6C42\u3081\u308B \u8CA0\
     \u9589\u8DEF\u304C\u3042\u308B\u5834\u5408\u306F d[from] < 0\ntemplate <typename\
     \ T, bool directed = true, bool weighted = true>\nvector<T> bellmanford(graph<T,\
-    \ directed, weighted>& g, int from = 0) {\n    ;\n}"
+    \ directed, weighted>& g, int from = 0) {\n    vector<T> d(g.size(), numeric_limits<T>::max());\n\
+    \    d[from] = 0;\n    for (int i=0; i<g.size(); i++) {\n        bool update =\
+    \ false;\n        for (int j=0; j<g.size(); j++) {\n            for (auto& e :\
+    \ g[j]) {\n                if (d[j] != numeric_limits<T>::max() && d[e.to] > d[j]\
+    \ + e.cost) {\n                    d[e.to] = d[j] + e.cost;\n                \
+    \    update = true;\n                }\n            }\n        }\n        if (!update)\
+    \ break;\n    }\n}"
   dependsOn:
   - graph/graphtemplate.hpp
   isVerificationFile: false
   path: graph/bellmanford.hpp
   requiredBy: []
-  timestamp: '2025-04-22 07:50:26+00:00'
+  timestamp: '2025-04-22 07:58:40+00:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: graph/bellmanford.hpp
