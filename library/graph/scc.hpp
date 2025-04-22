@@ -2,6 +2,7 @@
 #include "graphtemplate"
 #include <bits/stdc++.h>
 using namespace std;
+// グラフを強連結成分分解し、トポロジカル順に並べたものを返す O(V + E)
 template<class T = int, bool directed = true, bool weighted = false>
 vector<vector<int>> scc(graph<T, directed, weighted>& g) {
     int n = g.size();

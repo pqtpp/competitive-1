@@ -2,6 +2,7 @@
 #include "graphtemplate"
 #include <bits/stdc++.h>
 using namespace std;
+// ダイクストラ法を用いて単一始点最短経路を求める ただし、負閉路が存在しないこと O(E log V)
 template<class T = int, bool directed = false, bool weighted = true>
 vector<T> dijkstra(graph<T, directed, weighted>& g, int from = 0) {
     vector<T> dist(g.size(), numeric_limits<T>::max()); dist[from] = T{};
@@ -20,6 +21,7 @@ vector<T> dijkstra(graph<T, directed, weighted>& g, int from = 0) {
     }
     return dist;
 }
+// ダイクストラ法を用いて二点間最短経路を求める ただし、負閉路が存在しないこと O(E log V)
 template<class T = int, bool directed = false, bool weighted = true>
 T dijkstra(graph<T, directed, weighted>& g, int from, int to) {
     return dijkstra(g, from)[to];
