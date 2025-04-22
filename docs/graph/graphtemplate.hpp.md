@@ -2,6 +2,9 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
+  - icon: ':warning:'
+    path: graph/bellmanford.hpp
+    title: graph/bellmanford.hpp
   - icon: ':heavy_check_mark:'
     path: graph/dijkstra.hpp
     title: graph/dijkstra.hpp
@@ -92,6 +95,7 @@ data:
   - graph/warshallfloyd.hpp
   - graph/kruskal.hpp
   - graph/scc.hpp
+  - graph/bellmanford.hpp
   - graph/dijkstra.hpp
   - graph/dijkstrarestore.hpp
   timestamp: '2025-04-22 03:48:04+00:00'

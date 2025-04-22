@@ -45,14 +45,15 @@ data:
     \ bool weighted = true>\nvector<int> dijkstrarestore(graph<T, directed, weighted>&\
     \ g, int from = 0, int to = -1) {\n    if (to == -1) to = g.size() - 1;\n    vector<int>\
     \ prev(g.size(), -1);\n    vector<T> dist(g.size(), numeric_limits<T>::max());\
-    \ dist[from] = T{};\n    priority_queue<pair<T, int>, vector<pair<T, int>>, greater<pair<T,\
-    \ int>>> q;\n    q.push({T{}, from});\n    while (!q.empty()) {\n        auto\
-    \ [t, x] = q.top(); q.pop();\n        if (dist[x] < t) continue;\n        for\
-    \ (auto& _e : g[x]) {\n            int y = _e.to;\n            if (dist[x] + _e.cost\
-    \ < dist[y]) {\n                dist[y] = dist[x] + _e.cost;\n               \
-    \ q.push({dist[y], y});\n                prev[y] = x;\n            }\n       \
-    \ }\n    }\n    vector<int> path;\n    for (int i=to; i!=-1; i=prev[i]) path.push_back(i);\n\
-    \    reverse(path.begin(), path.end());\n    return path;\n}\n"
+    \ dist[from] = T{};\n    vector<bool> visited(g.size());\n    priority_queue<pair<T,\
+    \ int>, vector<pair<T, int>>, greater<pair<T, int>>> q;\n    q.push({T{}, from});\n\
+    \    while (!q.empty()) {\n        auto [t, x] = q.top(); q.pop();\n        if\
+    \ (visited[x]) continue;\n        visited[x] = true;\n        for (auto& _e :\
+    \ g[x]) {\n            int y = _e.to;\n            if (dist[x] + _e.cost < dist[y])\
+    \ {\n                dist[y] = dist[x] + _e.cost;\n                q.push({dist[y],\
+    \ y});\n                prev[y] = x;\n            }\n        }\n    }\n    vector<int>\
+    \ path;\n    for (int i=to; i!=-1; i=prev[i]) path.push_back(i);\n    reverse(path.begin(),\
+    \ path.end());\n    return path;\n}\n"
   code: "#pragma once\n#include \"graphtemplate\"\n#include <bits/stdc++.h>\nusing\
     \ namespace std;\n// \u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\u3092\u7528\u3044\
     \u3066\u4E8C\u70B9\u9593\u6700\u77ED\u7D4C\u8DEF\u306E\u901A\u308B\u9802\u70B9\
@@ -61,20 +62,21 @@ data:
     \ = false, bool weighted = true>\nvector<int> dijkstrarestore(graph<T, directed,\
     \ weighted>& g, int from = 0, int to = -1) {\n    if (to == -1) to = g.size()\
     \ - 1;\n    vector<int> prev(g.size(), -1);\n    vector<T> dist(g.size(), numeric_limits<T>::max());\
-    \ dist[from] = T{};\n    priority_queue<pair<T, int>, vector<pair<T, int>>, greater<pair<T,\
-    \ int>>> q;\n    q.push({T{}, from});\n    while (!q.empty()) {\n        auto\
-    \ [t, x] = q.top(); q.pop();\n        if (dist[x] < t) continue;\n        for\
-    \ (auto& _e : g[x]) {\n            int y = _e.to;\n            if (dist[x] + _e.cost\
-    \ < dist[y]) {\n                dist[y] = dist[x] + _e.cost;\n               \
-    \ q.push({dist[y], y});\n                prev[y] = x;\n            }\n       \
-    \ }\n    }\n    vector<int> path;\n    for (int i=to; i!=-1; i=prev[i]) path.push_back(i);\n\
-    \    reverse(path.begin(), path.end());\n    return path;\n}"
+    \ dist[from] = T{};\n    vector<bool> visited(g.size());\n    priority_queue<pair<T,\
+    \ int>, vector<pair<T, int>>, greater<pair<T, int>>> q;\n    q.push({T{}, from});\n\
+    \    while (!q.empty()) {\n        auto [t, x] = q.top(); q.pop();\n        if\
+    \ (visited[x]) continue;\n        visited[x] = true;\n        for (auto& _e :\
+    \ g[x]) {\n            int y = _e.to;\n            if (dist[x] + _e.cost < dist[y])\
+    \ {\n                dist[y] = dist[x] + _e.cost;\n                q.push({dist[y],\
+    \ y});\n                prev[y] = x;\n            }\n        }\n    }\n    vector<int>\
+    \ path;\n    for (int i=to; i!=-1; i=prev[i]) path.push_back(i);\n    reverse(path.begin(),\
+    \ path.end());\n    return path;\n}"
   dependsOn:
   - graph/graphtemplate.hpp
   isVerificationFile: false
   path: graph/dijkstrarestore.hpp
   requiredBy: []
-  timestamp: '2025-04-22 03:48:04+00:00'
+  timestamp: '2025-04-22 07:54:57+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-shortest_path.test.cpp

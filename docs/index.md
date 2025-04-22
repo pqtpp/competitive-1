@@ -3,6 +3,9 @@ data:
   libraryCategories:
   - name: graph
     pages:
+    - icon: ':warning:'
+      path: graph/bellmanford.hpp
+      title: graph/bellmanford.hpp
     - icon: ':heavy_check_mark:'
       path: graph/dijkstra.hpp
       title: graph/dijkstra.hpp
