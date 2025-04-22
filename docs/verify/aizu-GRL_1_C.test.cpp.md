@@ -94,18 +94,20 @@ data:
     \    // \u9802\u70B9\u6570\u3092\u8FD4\u3059\n    int size() {\n        return\
     \ data.size();\n    }\n    // \u9802\u70B9\u3092\u8FD4\u3059\n    edges<T> operator[](int\
     \ k) {\n        return data[k];\n    }\n};\n#line 4 \"graph/warshallfloyd.hpp\"\
-    \nusing namespace std;\ntemplate <class T>\nvector<vector<T>> warshallfloyd(vector<vector<T>>&\
-    \ g) {\n    int n = g.size();\n    vector<vector<T>> d = g;\n    for (int k=0;\
-    \ k<n; k++) {\n        for (int i=0; i<n; i++) {\n            for (int j=0; j<n;\
-    \ j++) {\n                if (d[i][k] < numeric_limits<T>::max()/2 && d[k][j]\
-    \ < numeric_limits<T>::max()/2) {\n                    d[i][j] = min(d[i][j],\
+    \nusing namespace std;\n// \u30B0\u30E9\u30D5\u306E\u5168\u70B9\u9593\u6700\u77ED\
+    \u7D4C\u8DEF\u3092\u6C42\u3081\u308B O(V^3)\ntemplate <class T>\nvector<vector<T>>\
+    \ warshallfloyd(vector<vector<T>>& g) {\n    int n = g.size();\n    vector<vector<T>>\
+    \ d = g;\n    for (int k=0; k<n; k++) {\n        for (int i=0; i<n; i++) {\n \
+    \           for (int j=0; j<n; j++) {\n                if (d[i][k] < numeric_limits<T>::max()/2\
+    \ && d[k][j] < numeric_limits<T>::max()/2) {\n                    d[i][j] = min(d[i][j],\
     \ d[i][k] + d[k][j]);\n                }\n            }\n        }\n    }\n  \
-    \  return d;\n}\ntemplate<class T = int, bool directed = false, bool weighted\
-    \ = true>\nvector<vector<T>> warshallfloyd(graph<T, directed, weighted>& g) {\n\
-    \    int n = g.size();\n    vector<vector<T>> d(n, vector<T>(n, numeric_limits<T>::max()));\n\
-    \    for (int i=0; i<n; i++) d[i][i] = T{};\n    for (int i=0; i<n; i++) {\n \
-    \       for (auto& _e : g[i]) {\n            d[i][_e.to] = _e.cost;\n        }\n\
-    \    }\n    return warshallfloyd(d);\n}\n#line 5 \"verify/aizu-GRL_1_C.test.cpp\"\
+    \  return d;\n}\n// \u30B0\u30E9\u30D5\u306E\u5168\u70B9\u9593\u6700\u77ED\u7D4C\
+    \u8DEF\u3092\u6C42\u3081\u308B O(V^3)\ntemplate<class T = int, bool directed =\
+    \ false, bool weighted = true>\nvector<vector<T>> warshallfloyd(graph<T, directed,\
+    \ weighted>& g) {\n    int n = g.size();\n    vector<vector<T>> d(n, vector<T>(n,\
+    \ numeric_limits<T>::max()));\n    for (int i=0; i<n; i++) d[i][i] = T{};\n  \
+    \  for (int i=0; i<n; i++) {\n        for (auto& _e : g[i]) {\n            d[i][_e.to]\
+    \ = _e.cost;\n        }\n    }\n    return warshallfloyd(d);\n}\n#line 5 \"verify/aizu-GRL_1_C.test.cpp\"\
     \n\r\nint main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--)\
     \ solve();\r\n}\r\n\r\nvoid solve() {\r\n    int n, m; cin >> n >> m;\r\n    graph<ll,\
     \ true, true> g(n);\r\n    g.read(m, 0);\r\n    vvll d = warshallfloyd(g);\r\n\
@@ -133,7 +135,7 @@ data:
   isVerificationFile: true
   path: verify/aizu-GRL_1_C.test.cpp
   requiredBy: []
-  timestamp: '2025-04-22 07:36:31+00:00'
+  timestamp: '2025-04-22 07:37:43+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aizu-GRL_1_C.test.cpp
