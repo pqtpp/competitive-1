@@ -35,61 +35,65 @@ data:
     \u3092\u8FD4\u3059\n    int size() {\n        return data.size();\n    }\n   \
     \ // \u9802\u70B9\u3092\u8FD4\u3059\n    edges<T> operator[](int k) {\n      \
     \  return data[k];\n    }\n};\n#line 4 \"graph/warshallfloydrestore.hpp\"\nusing\
-    \ namespace std;\n\nvector<vector<int>> warshallfloydrestore_d;\nvector<vector<int>>\
-    \ warshallfloydrestore_p;\n// \u30EF\u30FC\u30B7\u30E3\u30EB\u30D5\u30ED\u30A4\
-    \u30C9\u6CD5\u3067\u6C42\u3081\u305F\u6700\u77ED\u7D4C\u8DEF\u306E\u5FA9\u5143\
-    \ O(n^3)\ntemplate<class T = int, bool directed = false, bool weighted = true>\n\
-    vector<int> warshallfloydrestorebuild(graph<T, directed, weighted>& g, int from,\
-    \ int to) {\n    warshallfloydrestore_d = vector<vector<int>>(g.size(), vector<int>(g.size(),\
+    \ namespace std;\nvector<vector<int>> warshallfloydrestore_p;\nvector<vector<bool>>\
+    \ warshallfloydrestore_unreachable;\n// \u30EF\u30FC\u30B7\u30E3\u30EB\u30D5\u30ED\
+    \u30A4\u30C9\u6CD5\u3067\u6C42\u3081\u305F\u6700\u77ED\u7D4C\u8DEF\u306E\u5FA9\
+    \u5143 O(n^3)\ntemplate<class T = int, bool directed = false, bool weighted =\
+    \ true>\nvector<T> warshallfloydrestorebuild(graph<T, directed, weighted>& g,\
+    \ int from, int to) {\n    d = vector<vector<int>>(g.size(), vector<int>(g.size(),\
     \ numeric_limits<int>::max()));\n    warshallfloydrestore_p = vector<vector<int>>(g.size(),\
-    \ vector<int>(g.size(), -1));\n    for (int i=0; i<g.size(); i++) {\n        warshallfloydrestore_d[i][i]\
-    \ = 0;\n        for (auto& _e : g[i]) {\n            warshallfloydrestore_d[i][_e.to]\
-    \ = _e.cost;\n            warshallfloydrestore_p[i][_e.to] = i;\n        }\n \
-    \   }\n    for (int k=0; k<g.size(); k++) {\n        for (int i=0; i<g.size();\
-    \ i++) {\n            for (int j=0; j<g.size(); j++) {\n                if (warshallfloydrestore_d[i][k]\
-    \ < numeric_limits<int>::max()/2 && warshallfloydrestore_d[k][j] < numeric_limits<int>::max()/2)\
-    \ {\n                    if (warshallfloydrestore_d[i][j] > warshallfloydrestore_d[i][k]\
-    \ + warshallfloydrestore_d[k][j]) {\n                        warshallfloydrestore_d[i][j]\
-    \ = warshallfloydrestore_d[i][k] + warshallfloydrestore_d[k][j];\n           \
-    \             warshallfloydrestore_p[i][j] = k;\n                    }\n     \
-    \           }\n            }\n        }\n    }\n    return warshallfloydrestore_d[from][to];\n\
-    }\n// \u30EF\u30FC\u30B7\u30E3\u30EB\u30D5\u30ED\u30A4\u30C9\u6CD5\u3067\u6C42\
-    \u3081\u305F\u6700\u77ED\u7D4C\u8DEF\u306E\u5FA9\u5143 O(n)\nvector<int> warshallfloydrestore(int\
-    \ from, int to) {\n    vector<int> path;\n    if (warshallfloydrestore_d[from][to]\
-    \ == numeric_limits<int>::max()) return path;\n    for (int i=to; i!=-1; i=warshallfloydrestore_p[from][i])\
-    \ path.push_back(i);\n    reverse(path.begin(), path.end());\n    return path;\n\
-    }\n"
+    \ vector<int>(g.size(), -1));\n    for (int i=0; i<g.size(); i++) {\n        d[i][i]\
+    \ = 0;\n        for (auto& _e : g[i]) {\n            d[i][_e.to] = _e.cost;\n\
+    \            warshallfloydrestore_p[i][_e.to] = i;\n        }\n    }\n    for\
+    \ (int k=0; k<g.size(); k++) {\n        for (int i=0; i<g.size(); i++) {\n   \
+    \         for (int j=0; j<g.size(); j++) {\n                if (d[i][k] < numeric_limits<int>::max()/2\
+    \ && d[k][j] < numeric_limits<int>::max()/2) {\n                    if (d[i][j]\
+    \ > d[i][k] + d[k][j]) {\n                        d[i][j] = d[i][k] + d[k][j];\n\
+    \                        warshallfloydrestore_p[i][j] = k;\n                 \
+    \   }\n                }\n            }\n        }\n    }\n    warshallfloydrestore_unreachable\
+    \ = vector<vector<bool>>(g.size(), vector<bool>(g.size(), false));\n    for (int\
+    \ i=0; i<g.size(); i++) {\n        for (int j=0; j<g.size(); j++) {\n        \
+    \    if (d[i][j] == numeric_limits<int>::max()) {\n                warshallfloydrestore_unreachable[i][j]\
+    \ = true;\n            }\n        }\n    }\n    return d[from][to];\n}\n// \u30EF\
+    \u30FC\u30B7\u30E3\u30EB\u30D5\u30ED\u30A4\u30C9\u6CD5\u3067\u6C42\u3081\u305F\
+    \u6700\u77ED\u7D4C\u8DEF\u306E\u5FA9\u5143 O(n)\nvector<int> warshallfloydrestore(int\
+    \ from, int to) {\n    vector<int> path;\n    if (warshallfloydrestore_unreachable[from][to])\
+    \ return path;\n    for (int i=to; i!=from; i=warshallfloydrestore_p[from][i])\
+    \ path.push_back(i);\n    path.push_back(from);\n    reverse(path.begin(), path.end());\n\
+    \    return path;\n}\n"
   code: "#pragma once\n#include \"graphtemplate\"\n#include <bits/stdc++.h>\nusing\
-    \ namespace std;\n\nvector<vector<int>> warshallfloydrestore_d;\nvector<vector<int>>\
-    \ warshallfloydrestore_p;\n// \u30EF\u30FC\u30B7\u30E3\u30EB\u30D5\u30ED\u30A4\
-    \u30C9\u6CD5\u3067\u6C42\u3081\u305F\u6700\u77ED\u7D4C\u8DEF\u306E\u5FA9\u5143\
-    \ O(n^3)\ntemplate<class T = int, bool directed = false, bool weighted = true>\n\
-    vector<int> warshallfloydrestorebuild(graph<T, directed, weighted>& g, int from,\
-    \ int to) {\n    warshallfloydrestore_d = vector<vector<int>>(g.size(), vector<int>(g.size(),\
+    \ namespace std;\nvector<vector<int>> warshallfloydrestore_p;\nvector<vector<bool>>\
+    \ warshallfloydrestore_unreachable;\n// \u30EF\u30FC\u30B7\u30E3\u30EB\u30D5\u30ED\
+    \u30A4\u30C9\u6CD5\u3067\u6C42\u3081\u305F\u6700\u77ED\u7D4C\u8DEF\u306E\u5FA9\
+    \u5143 O(n^3)\ntemplate<class T = int, bool directed = false, bool weighted =\
+    \ true>\nvector<T> warshallfloydrestorebuild(graph<T, directed, weighted>& g,\
+    \ int from, int to) {\n    d = vector<vector<int>>(g.size(), vector<int>(g.size(),\
     \ numeric_limits<int>::max()));\n    warshallfloydrestore_p = vector<vector<int>>(g.size(),\
-    \ vector<int>(g.size(), -1));\n    for (int i=0; i<g.size(); i++) {\n        warshallfloydrestore_d[i][i]\
-    \ = 0;\n        for (auto& _e : g[i]) {\n            warshallfloydrestore_d[i][_e.to]\
-    \ = _e.cost;\n            warshallfloydrestore_p[i][_e.to] = i;\n        }\n \
-    \   }\n    for (int k=0; k<g.size(); k++) {\n        for (int i=0; i<g.size();\
-    \ i++) {\n            for (int j=0; j<g.size(); j++) {\n                if (warshallfloydrestore_d[i][k]\
-    \ < numeric_limits<int>::max()/2 && warshallfloydrestore_d[k][j] < numeric_limits<int>::max()/2)\
-    \ {\n                    if (warshallfloydrestore_d[i][j] > warshallfloydrestore_d[i][k]\
-    \ + warshallfloydrestore_d[k][j]) {\n                        warshallfloydrestore_d[i][j]\
-    \ = warshallfloydrestore_d[i][k] + warshallfloydrestore_d[k][j];\n           \
-    \             warshallfloydrestore_p[i][j] = k;\n                    }\n     \
-    \           }\n            }\n        }\n    }\n    return warshallfloydrestore_d[from][to];\n\
-    }\n// \u30EF\u30FC\u30B7\u30E3\u30EB\u30D5\u30ED\u30A4\u30C9\u6CD5\u3067\u6C42\
-    \u3081\u305F\u6700\u77ED\u7D4C\u8DEF\u306E\u5FA9\u5143 O(n)\nvector<int> warshallfloydrestore(int\
-    \ from, int to) {\n    vector<int> path;\n    if (warshallfloydrestore_d[from][to]\
-    \ == numeric_limits<int>::max()) return path;\n    for (int i=to; i!=-1; i=warshallfloydrestore_p[from][i])\
-    \ path.push_back(i);\n    reverse(path.begin(), path.end());\n    return path;\n\
-    }"
+    \ vector<int>(g.size(), -1));\n    for (int i=0; i<g.size(); i++) {\n        d[i][i]\
+    \ = 0;\n        for (auto& _e : g[i]) {\n            d[i][_e.to] = _e.cost;\n\
+    \            warshallfloydrestore_p[i][_e.to] = i;\n        }\n    }\n    for\
+    \ (int k=0; k<g.size(); k++) {\n        for (int i=0; i<g.size(); i++) {\n   \
+    \         for (int j=0; j<g.size(); j++) {\n                if (d[i][k] < numeric_limits<int>::max()/2\
+    \ && d[k][j] < numeric_limits<int>::max()/2) {\n                    if (d[i][j]\
+    \ > d[i][k] + d[k][j]) {\n                        d[i][j] = d[i][k] + d[k][j];\n\
+    \                        warshallfloydrestore_p[i][j] = k;\n                 \
+    \   }\n                }\n            }\n        }\n    }\n    warshallfloydrestore_unreachable\
+    \ = vector<vector<bool>>(g.size(), vector<bool>(g.size(), false));\n    for (int\
+    \ i=0; i<g.size(); i++) {\n        for (int j=0; j<g.size(); j++) {\n        \
+    \    if (d[i][j] == numeric_limits<int>::max()) {\n                warshallfloydrestore_unreachable[i][j]\
+    \ = true;\n            }\n        }\n    }\n    return d[from][to];\n}\n// \u30EF\
+    \u30FC\u30B7\u30E3\u30EB\u30D5\u30ED\u30A4\u30C9\u6CD5\u3067\u6C42\u3081\u305F\
+    \u6700\u77ED\u7D4C\u8DEF\u306E\u5FA9\u5143 O(n)\nvector<int> warshallfloydrestore(int\
+    \ from, int to) {\n    vector<int> path;\n    if (warshallfloydrestore_unreachable[from][to])\
+    \ return path;\n    for (int i=to; i!=from; i=warshallfloydrestore_p[from][i])\
+    \ path.push_back(i);\n    path.push_back(from);\n    reverse(path.begin(), path.end());\n\
+    \    return path;\n}"
   dependsOn:
   - graph/graphtemplate.hpp
   isVerificationFile: false
   path: graph/warshallfloydrestore.hpp
   requiredBy: []
-  timestamp: '2025-04-22 08:35:38+00:00'
+  timestamp: '2025-04-22 08:44:32+00:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: graph/warshallfloydrestore.hpp
