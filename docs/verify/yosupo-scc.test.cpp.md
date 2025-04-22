@@ -5,11 +5,8 @@ data:
     path: graph/graphtemplate.hpp
     title: graph/graphtemplate.hpp
   - icon: ':heavy_check_mark:'
-    path: graph/kruskal.hpp
-    title: graph/kruskal.hpp
-  - icon: ':heavy_check_mark:'
-    path: structure/UnionFind.hpp
-    title: structure/UnionFind.hpp
+    path: graph/scc.hpp
+    title: graph/scc.hpp
   - icon: ':heavy_check_mark:'
     path: util/template.hpp
     title: util/template.hpp
@@ -20,10 +17,10 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     '*NOT_SPECIAL_COMMENTS*': ''
-    PROBLEM: https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=ja
+    PROBLEM: https://judge.yosupo.jp/problem/scc
     links:
-    - https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=ja
-  bundledCode: "#line 1 \"verify/aizu-GRL_2_A.test.cpp\"\n#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=ja\"\
+    - https://judge.yosupo.jp/problem/scc
+  bundledCode: "#line 1 \"verify/yosupo-scc.test.cpp\"\n#define PROBLEM \"https://judge.yosupo.jp/problem/scc\"\
     \r\n#line 2 \"util/template.hpp\"\n#ifdef poe\n#define debug(x) cerr<<#x<<\":\
     \ \"<<x<<endl\n#else\n#define debug(x)\n// #pragma GCC target(\"arch=skylake-avx512\"\
     )\n// #pragma GCC target(\"avx2\")\n// #pragma GCC optimize(\"O3\")\n// #pragma\
@@ -91,59 +88,47 @@ data:
     \ (isweighted) cin >> cost;\n            add_edge(from - indexed, to - indexed,\
     \ cost);\n        }\n    }\n    int size() {\n        return data.size();\n  \
     \  }\n    edges<T> operator[](int k) {\n        return data[k];\n    }\n};\n#line\
-    \ 3 \"structure/UnionFind.hpp\"\nusing namespace std;\nstruct UnionFind {\n  \
-    \  int _n;\n    vector<int> data;\n    // _n \u500B\u306E\u8981\u7D20\u304B\u3089\
-    \u306A\u308BUnionFind \u3092\u69CB\u7BC9 O(n)\n    UnionFind(int n) : _n(n), data(n,\
-    \ -1) {}\n    // 2 \u3064\u306E\u8981\u7D20\u3092\u4F75\u5408 O(\u03B1(n))\n \
-    \   bool merge(int p, int q) {\n        p = root(p);\n        q = root(q);\n \
-    \       if (p == q) return false;\n        if (q < p) swap(p, q);\n        data[p]\
-    \ += data[q];\n        data[q] = p;\n        return true;\n    }\n    // \u89AA\
-    \u8981\u7D20\u3092\u53D6\u5F97 O(\u03B1(n))\n    int root(int p) {\n        assert(0\
-    \ <= p && p < _n);\n        if (data[p] < 0) {\n            return p;\n      \
-    \  } else {\n            data[p] = root(data[p]);\n            return data[p];\n\
-    \        }\n    }\n    // \u89AA\u8981\u7D20\u3092\u53D6\u5F97 O(\u03B1(n))\n\
-    \    int operator[](int p) {\n        return root(p);\n    }\n    // 2 \u3064\u306E\
-    \u8981\u7D20\u304C\u540C\u3058\u96C6\u5408\u306B\u542B\u307E\u308C\u308B\u304B\
-    \u5224\u5B9A O(\u03B1(n))\n    bool same(int p, int q) {\n        return root(p)\
-    \ == root(q);\n    }\n    // \u8981\u7D20\u304C\u5C5E\u3059\u308B\u96C6\u5408\u306E\
-    \u5927\u304D\u3055\u3092\u8FD4\u3059 O(\u03B1(n))\n    int size(int p) {\n   \
-    \     return -data[root(p)];\n    }\n    // UnionFind \u306E\u9023\u7D50\u6210\
-    \u5206\u306Evector \u3092\u8FD4\u3059 O(n \u03B1(n))\n    vector<vector<int>>\
-    \ groups() {\n        vector<vector<int>> re(_n);\n        for (int i=0; i<_n;\
-    \ i++) re[root(i)].push_back(i);\n        re.erase(remove_if(re.begin(), re.end(),\
-    \ [](vector<int>& v){ return v.empty(); }), re.end());\n        return re;\n \
-    \   }\n};\n#line 5 \"graph/kruskal.hpp\"\nusing namespace std;\ntemplate<class\
-    \ T = int, bool directed = false, bool weighted = true>\ngraph<T, directed, weighted>\
-    \ kruskal(graph<T, directed, weighted>& g) {\n    graph<T, directed, weighted>\
-    \ re(g.size());\n    edges<T> _edges = g._edges;\n    sort(_edges.begin(), _edges.end(),\
-    \ [](edge<T> e1, edge<T> e2) { return e1.cost < e2.cost;} );\n    UnionFind uf(g.size());\n\
-    \    for (auto& _e : _edges) {\n        if (uf.merge(_e.from, _e.to)) {\n    \
-    \        re.add_edge(_e);\n        }\n    }\n    return re;\n}\n#line 5 \"verify/aizu-GRL_2_A.test.cpp\"\
+    \ 4 \"graph/scc.hpp\"\nusing namespace std;\ntemplate<class T = int, bool directed\
+    \ = true, bool weighted = false>\nvector<vector<int>> scc(graph<T, directed, weighted>&\
+    \ g) {\n    int n = g.size();\n    vector<int> low(n), num(n, -1), stack;\n  \
+    \  vector<bool> onStack(n);\n    vector<vector<int>> re;\n    auto dfs = [&](auto&\
+    \ self, int x) -> void {\n        low[x] = num[x] = stack.size();\n        stack.push_back(x);\n\
+    \        onStack[x] = true;\n        for (auto& _e : g[x]) {\n            int\
+    \ y = _e.to;\n            if (num[y] == -1) {\n                self(self, y);\n\
+    \                low[x] = min(low[x], low[y]);\n            } else if (onStack[y])\
+    \ {\n                low[x] = min(low[x], num[y]);\n            }\n        }\n\
+    \        if (low[x] == num[x]) {\n            vector<int> component;\n       \
+    \     while (true) {\n                int y = stack.back(); stack.pop_back();\
+    \ onStack[y] = false;\n                component.push_back(y);\n             \
+    \   if (y == x) break;\n            }\n            re.push_back(component);\n\
+    \        }\n    };\n    for (int i=0; i<n; i++) if (num[i] == -1) dfs(dfs, i);\n\
+    \    reverse(re.begin(), re.end());\n    return re;\n}\n#line 5 \"verify/yosupo-scc.test.cpp\"\
     \nint main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\
-    \n}\r\n\r\nvoid solve() {\r\n    int n, m; cin >> n >> m;\r\n    graph<int, false,\
-    \ true> g(n);\r\n    g.read(m, 0);\r\n    cout << kruskal(g).sumcost << nl;\r\n\
-    }\n"
-  code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_2_A&lang=ja\"\
-    \r\n#include \"template\"\r\n#include \"graphtemplate\"\r\n#include \"kruskal\"\
-    \r\nint main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--)\
-    \ solve();\r\n}\r\n\r\nvoid solve() {\r\n    int n, m; cin >> n >> m;\r\n    graph<int,\
-    \ false, true> g(n);\r\n    g.read(m, 0);\r\n    cout << kruskal(g).sumcost <<\
-    \ nl;\r\n}"
+    \n}\r\n\r\nvoid solve() {\r\n    int n, m; cin >> n >> m;\r\n    graph<int, true,\
+    \ false> g(n);\r\n    g.read(m, 0);\r\n    vvi h = scc(g);\r\n    cout << h.size()\
+    \ << nl;\r\n    range(i, h) {\r\n        cout << i.size() << sp;\r\n        cout\
+    \ << i;\r\n    }\r\n}\n"
+  code: "#define PROBLEM \"https://judge.yosupo.jp/problem/scc\"\r\n#include \"template\"\
+    \r\n#include \"scc\"\r\n#include \"graphtemplate\"\r\nint main() { IO();\r\n \
+    \   int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\n}\r\n\r\nvoid\
+    \ solve() {\r\n    int n, m; cin >> n >> m;\r\n    graph<int, true, false> g(n);\r\
+    \n    g.read(m, 0);\r\n    vvi h = scc(g);\r\n    cout << h.size() << nl;\r\n\
+    \    range(i, h) {\r\n        cout << i.size() << sp;\r\n        cout << i;\r\n\
+    \    }\r\n}"
   dependsOn:
   - util/template.hpp
+  - graph/scc.hpp
   - graph/graphtemplate.hpp
-  - graph/kruskal.hpp
-  - structure/UnionFind.hpp
   isVerificationFile: true
-  path: verify/aizu-GRL_2_A.test.cpp
+  path: verify/yosupo-scc.test.cpp
   requiredBy: []
-  timestamp: '2025-04-21 09:38:09+00:00'
+  timestamp: '2025-04-22 03:33:46+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
-documentation_of: verify/aizu-GRL_2_A.test.cpp
+documentation_of: verify/yosupo-scc.test.cpp
 layout: document
 redirect_from:
-- /verify/verify/aizu-GRL_2_A.test.cpp
-- /verify/verify/aizu-GRL_2_A.test.cpp.html
-title: verify/aizu-GRL_2_A.test.cpp
+- /verify/verify/yosupo-scc.test.cpp
+- /verify/verify/yosupo-scc.test.cpp.html
+title: verify/yosupo-scc.test.cpp
 ---

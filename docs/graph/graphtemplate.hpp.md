@@ -11,6 +11,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: graph/kruskal.hpp
     title: graph/kruskal.hpp
+  - icon: ':heavy_check_mark:'
+    path: graph/scc.hpp
+    title: graph/scc.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/aizu-GRL_1_A.test.cpp
@@ -18,6 +21,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/aizu-GRL_2_A.test.cpp
     title: verify/aizu-GRL_2_A.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/yosupo-scc.test.cpp
+    title: verify/yosupo-scc.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/yosupo-shortest_path.test.cpp
     title: verify/yosupo-shortest_path.test.cpp
@@ -65,14 +71,16 @@ data:
   path: graph/graphtemplate.hpp
   requiredBy:
   - graph/kruskal.hpp
+  - graph/scc.hpp
   - graph/dijkstra.hpp
   - graph/dijkstrarestore.hpp
-  timestamp: '2025-04-18 06:49:55+00:00'
+  timestamp: '2025-04-21 09:38:09+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-shortest_path.test.cpp
   - verify/aizu-GRL_2_A.test.cpp
   - verify/aizu-GRL_1_A.test.cpp
+  - verify/yosupo-scc.test.cpp
 documentation_of: graph/graphtemplate.hpp
 layout: document
 redirect_from:

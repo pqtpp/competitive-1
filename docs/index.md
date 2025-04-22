@@ -15,6 +15,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: graph/kruskal.hpp
       title: graph/kruskal.hpp
+    - icon: ':heavy_check_mark:'
+      path: graph/scc.hpp
+      title: graph/scc.hpp
   - name: .
     pages:
     - icon: ':warning:'
@@ -109,6 +112,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/yosupo-range_affine_range_sum.test.cpp
       title: verify/yosupo-range_affine_range_sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/yosupo-scc.test.cpp
+      title: verify/yosupo-scc.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/yosupo-shortest_path.test.cpp
       title: verify/yosupo-shortest_path.test.cpp

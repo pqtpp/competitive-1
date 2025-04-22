@@ -62,7 +62,7 @@ data:
   isVerificationFile: false
   path: graph/dijkstrarestore.hpp
   requiredBy: []
-  timestamp: '2025-04-18 06:49:55+00:00'
+  timestamp: '2025-04-21 09:38:09+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-shortest_path.test.cpp

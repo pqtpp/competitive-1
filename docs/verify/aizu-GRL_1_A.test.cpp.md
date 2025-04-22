@@ -120,7 +120,7 @@ data:
   isVerificationFile: true
   path: verify/aizu-GRL_1_A.test.cpp
   requiredBy: []
-  timestamp: '2025-04-18 07:43:11+00:00'
+  timestamp: '2025-04-21 09:38:09+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aizu-GRL_1_A.test.cpp
