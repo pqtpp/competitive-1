@@ -3,7 +3,7 @@ data:
   libraryCategories:
   - name: graph
     pages:
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: graph/bellmanford.hpp
       title: graph/bellmanford.hpp
     - icon: ':heavy_check_mark:'
@@ -97,6 +97,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/aizu-GRL_1_A.test.cpp
       title: verify/aizu-GRL_1_A.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/aizu-GRL_1_B.test.cpp
+      title: verify/aizu-GRL_1_B.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/aizu-GRL_1_C.test.cpp
       title: verify/aizu-GRL_1_C.test.cpp

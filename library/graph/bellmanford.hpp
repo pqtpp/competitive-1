@@ -2,7 +2,7 @@
 #include "graphtemplate"
 #include <bits/stdc++.h>
 using namespace std;
-// ベルマンフォード法で単一始点最短経路を求める 負閉路がある場合は d[from] < 0
+// ベルマンフォード法で単一始点最短経路を求める 負閉路がある場合は re[from] < 0
 template <typename T, bool directed = true, bool weighted = true>
 vector<T> bellmanford(graph<T, directed, weighted>& g, int from = 0) {
     vector<T> d(g.size(), numeric_limits<T>::max());
@@ -10,13 +10,29 @@ vector<T> bellmanford(graph<T, directed, weighted>& g, int from = 0) {
     for (int i=0; i<g.size(); i++) {
         bool update = false;
         for (int j=0; j<g.size(); j++) {
-            for (auto& e : g[j]) {
-                if (d[j] != numeric_limits<T>::max() && d[e.to] > d[j] + e.cost) {
-                    d[e.to] = d[j] + e.cost;
+            for (auto& _e : g[j]) {
+                if (d[j] != numeric_limits<T>::max() && d[j] + _e.cost < d[_e.to]) {
+                    d[_e.to] = d[j] + _e.cost;
                     update = true;
                 }
             }
         }
         if (!update) break;
     }
+    for (int i=0; i<g.size(); i++) {
+        for (auto& _e : g[i]) {
+            if (d[i] != numeric_limits<T>::max() && d[i] + _e.cost < d[_e.to]) {
+                d[from] = -1;
+            }
+        }
+    }
+    return d;
+}
+// ベルマンフォード法で二点間最短経路を求める 負閉路がある場合は re < 0
+template <typename T, bool directed = true, bool weighted = true>
+T bellmanford(graph<T, directed, weighted>& g, int from, int to) {
+    if (to == -1) to = g.size()-1;
+    vector<T> d = bellmanford(g, from);
+    if (d[from] < 0) return -1;
+    return d[to];
 }

@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: graph/bellmanford.hpp
     title: graph/bellmanford.hpp
   - icon: ':heavy_check_mark:'
@@ -24,6 +24,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/aizu-GRL_1_A.test.cpp
     title: verify/aizu-GRL_1_A.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/aizu-GRL_1_B.test.cpp
+    title: verify/aizu-GRL_1_B.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/aizu-GRL_1_C.test.cpp
     title: verify/aizu-GRL_1_C.test.cpp
@@ -104,6 +107,7 @@ data:
   - verify/yosupo-shortest_path.test.cpp
   - verify/aizu-GRL_2_A.test.cpp
   - verify/aizu-GRL_1_C.test.cpp
+  - verify/aizu-GRL_1_B.test.cpp
   - verify/aizu-GRL_1_A.test.cpp
   - verify/yosupo-scc.test.cpp
 documentation_of: graph/graphtemplate.hpp
