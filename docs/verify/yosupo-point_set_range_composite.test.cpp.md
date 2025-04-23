@@ -149,16 +149,16 @@ data:
     \ re(_n);\n        for (int i=0; i<_n; i++) re[i] = data[size+i];\n        return\
     \ re;\n    }\n    void update(int p) {\n        data[p] = op(data[2*p], data[2*p+1]);\n\
     \    }\n    // f(op([l, r)))=true \u3068\u306A\u308B\u6700\u5927\u306Er \u3092\
-    \u8FD4\u3059 O(log n)\n    template<auto f>\n    int max_right(int l) {\n    \
-    \    assert(f(_e));\n        assert(0 <= l && l <= _n);\n        if (l == _n)\
-    \ return l;\n        l += size;\n        S s = _e;\n        do {\n           \
-    \ while (l % 2 == 0) l >>= 1;\n            if (!f(op(s, data[l]))) {\n       \
-    \         while (l < size) {\n                    l = 2 * l;\n               \
-    \     if (f(op(s, data[l]))) s = op(s, data[l++]);\n                }\n      \
-    \          return l - size;\n            }\n            s = op(s, data[l]);\n\
+    \u8FD4\u3059 O(log n)\n    template <class F>\n    int max_right(int l, F f) {\n\
+    \        assert(f(_e));\n        assert(0 <= l && l <= _n);\n        if (l ==\
+    \ _n) return l;\n        l += size;\n        S s = _e;\n        do {\n       \
+    \     while (l % 2 == 0) l >>= 1;\n            if (!f(op(s, data[l]))) {\n   \
+    \             while (l < size) {\n                    l = 2 * l;\n           \
+    \         if (f(op(s, data[l]))) s = op(s, data[l++]);\n                }\n  \
+    \              return l - size;\n            }\n            s = op(s, data[l]);\n\
     \            l++;\n        } while (l != (l & -l));\n        return _n;\n    }\n\
     \    // f(op([l, r)))=true \u3068\u306A\u308B\u6700\u5C0F\u306El \u3092\u8FD4\u3059\
-    \ O(log n)\n    template<auto f>\n    int min_left(int r) {\n        assert(f(_e));\n\
+    \ O(log n)\n    template <class F>\n    int min_left(int r, F f) {\n        assert(f(_e));\n\
     \        assert(0 <= r && r <= _n);\n        if (r == 0) return r;\n        r\
     \ += size;\n        S s = _e;\n        do {\n            r--;\n            while\
     \ (r % 2 == 1) r >>= 1;\n            if (!f(op(data[r], s))) {\n             \
@@ -195,7 +195,7 @@ data:
   isVerificationFile: true
   path: verify/yosupo-point_set_range_composite.test.cpp
   requiredBy: []
-  timestamp: '2025-04-18 07:29:35+00:00'
+  timestamp: '2025-04-23 04:44:01+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-point_set_range_composite.test.cpp
