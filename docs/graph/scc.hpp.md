@@ -42,43 +42,43 @@ data:
     \u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u9806\u306B\u4E26\u3079\u305F\u3082\u306E\
     \u3092\u8FD4\u3059 O(n + m)\ntemplate<class T = int, bool directed = true, bool\
     \ weighted = false>\nvector<vector<int>> scc(graph<T, directed, weighted>& g)\
-    \ {\n    int n = g.size();\n    vector<int> low(n), num(n, -1), stack;\n    vector<bool>\
-    \ onStack(n);\n    vector<vector<int>> re;\n    auto dfs = [&](auto& self, int\
-    \ x) -> void {\n        low[x] = num[x] = stack.size();\n        stack.push_back(x);\n\
-    \        onStack[x] = true;\n        for (auto& _e : g[x]) {\n            int\
-    \ y = _e.to;\n            if (num[y] == -1) {\n                self(self, y);\n\
-    \                low[x] = min(low[x], low[y]);\n            } else if (onStack[y])\
-    \ {\n                low[x] = min(low[x], num[y]);\n            }\n        }\n\
-    \        if (low[x] == num[x]) {\n            vector<int> component;\n       \
-    \     while (true) {\n                int y = stack.back(); stack.pop_back();\
-    \ onStack[y] = false;\n                component.push_back(y);\n             \
-    \   if (y == x) break;\n            }\n            re.push_back(component);\n\
-    \        }\n    };\n    for (int i=0; i<n; i++) if (num[i] == -1) dfs(dfs, i);\n\
-    \    reverse(re.begin(), re.end());\n    return re;\n}\n"
+    \ {\n    int n = g.size();\n    vector<int> low(n), num(n, -1);\n    stack<int>\
+    \ st;\n    vector<bool> onStack(n);\n    vector<vector<int>> re;\n    auto dfs\
+    \ = [&](auto& self, int x) -> void {\n        low[x] = num[x] = st.size();\n \
+    \       st.push(x);\n        onStack[x] = true;\n        for (auto& _e : g[x])\
+    \ {\n            int y = _e.to;\n            if (num[y] == -1) {\n           \
+    \     self(self, y);\n                low[x] = min(low[x], low[y]);\n        \
+    \    } else if (onStack[y]) {\n                low[x] = min(low[x], num[y]);\n\
+    \            }\n        }\n        if (low[x] == num[x]) {\n            vector<int>\
+    \ component;\n            int y = -1;\n            while (y != x) {\n        \
+    \        y = st.top(); st.pop(); onStack[y] = false;\n                component.push_back(y);\n\
+    \            }\n            re.push_back(component);\n        }\n    };\n    for\
+    \ (int i=0; i<n; i++) if (num[i] == -1) dfs(dfs, i);\n    reverse(re.begin(),\
+    \ re.end());\n    return re;\n}\n"
   code: "#pragma once\n#include \"graphtemplate\"\n#include <bits/stdc++.h>\nusing\
     \ namespace std;\n// \u30B0\u30E9\u30D5\u3092\u5F37\u9023\u7D50\u6210\u5206\u5206\
     \u89E3\u3057\u3001\u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u9806\u306B\u4E26\u3079\
     \u305F\u3082\u306E\u3092\u8FD4\u3059 O(n + m)\ntemplate<class T = int, bool directed\
     \ = true, bool weighted = false>\nvector<vector<int>> scc(graph<T, directed, weighted>&\
-    \ g) {\n    int n = g.size();\n    vector<int> low(n), num(n, -1), stack;\n  \
-    \  vector<bool> onStack(n);\n    vector<vector<int>> re;\n    auto dfs = [&](auto&\
-    \ self, int x) -> void {\n        low[x] = num[x] = stack.size();\n        stack.push_back(x);\n\
-    \        onStack[x] = true;\n        for (auto& _e : g[x]) {\n            int\
-    \ y = _e.to;\n            if (num[y] == -1) {\n                self(self, y);\n\
-    \                low[x] = min(low[x], low[y]);\n            } else if (onStack[y])\
-    \ {\n                low[x] = min(low[x], num[y]);\n            }\n        }\n\
-    \        if (low[x] == num[x]) {\n            vector<int> component;\n       \
-    \     while (true) {\n                int y = stack.back(); stack.pop_back();\
-    \ onStack[y] = false;\n                component.push_back(y);\n             \
-    \   if (y == x) break;\n            }\n            re.push_back(component);\n\
-    \        }\n    };\n    for (int i=0; i<n; i++) if (num[i] == -1) dfs(dfs, i);\n\
-    \    reverse(re.begin(), re.end());\n    return re;\n}"
+    \ g) {\n    int n = g.size();\n    vector<int> low(n), num(n, -1);\n    stack<int>\
+    \ st;\n    vector<bool> onStack(n);\n    vector<vector<int>> re;\n    auto dfs\
+    \ = [&](auto& self, int x) -> void {\n        low[x] = num[x] = st.size();\n \
+    \       st.push(x);\n        onStack[x] = true;\n        for (auto& _e : g[x])\
+    \ {\n            int y = _e.to;\n            if (num[y] == -1) {\n           \
+    \     self(self, y);\n                low[x] = min(low[x], low[y]);\n        \
+    \    } else if (onStack[y]) {\n                low[x] = min(low[x], num[y]);\n\
+    \            }\n        }\n        if (low[x] == num[x]) {\n            vector<int>\
+    \ component;\n            int y = -1;\n            while (y != x) {\n        \
+    \        y = st.top(); st.pop(); onStack[y] = false;\n                component.push_back(y);\n\
+    \            }\n            re.push_back(component);\n        }\n    };\n    for\
+    \ (int i=0; i<n; i++) if (num[i] == -1) dfs(dfs, i);\n    reverse(re.begin(),\
+    \ re.end());\n    return re;\n}"
   dependsOn:
   - graph/graphtemplate.hpp
   isVerificationFile: false
   path: graph/scc.hpp
   requiredBy: []
-  timestamp: '2025-04-22 08:34:15+00:00'
+  timestamp: '2025-04-24 03:38:09+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-scc.test.cpp
