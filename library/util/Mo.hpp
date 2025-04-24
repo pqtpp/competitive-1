@@ -10,6 +10,11 @@ struct Mo {
     void add(int l, int r) {
         queries.push_back({l, r});
     }
+    void add(vector<pair<int, int>>& qs) {
+        for(auto& q : qs) {
+            queries.push_back(q);
+        }
+    }
     long long hilbert_order(int x, int y, int p=20, int rotate = 0) {
         long long d = 0;
         for (int s=1<<(p-1); 0<s; s>>=1) {

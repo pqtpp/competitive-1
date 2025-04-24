@@ -35,8 +35,14 @@ data:
   - name: math
     pages:
     - icon: ':warning:'
+      path: math/FFT.hpp
+      title: math/FFT.hpp
+    - icon: ':warning:'
       path: math/dynamicmodint.hpp
       title: math/dynamicmodint.hpp
+    - icon: ':warning:'
+      path: math/isqrt.hpp
+      title: math/isqrt.hpp
     - icon: ':heavy_check_mark:'
       path: math/modint.hpp
       title: math/modint.hpp
