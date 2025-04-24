@@ -59,6 +59,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: structure/UnionFind.hpp
       title: structure/UnionFind.hpp
+    - icon: ':warning:'
+      path: structure/abstractBIT.hpp
+      title: structure/abstractBIT.hpp
     - icon: ':heavy_check_mark:'
       path: structure/lazysegtree.hpp
       title: structure/lazysegtree.hpp
@@ -71,9 +74,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: structure/sparsetable.hpp
       title: structure/sparsetable.hpp
-    - icon: ':warning:'
-      path: structure/xorBIT.hpp
-      title: structure/xorBIT.hpp
   - name: util
     pages:
     - icon: ':heavy_check_mark:'
