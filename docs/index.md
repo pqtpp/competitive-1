@@ -38,6 +38,9 @@ data:
       path: math/FFT.hpp
       title: math/FFT.hpp
     - icon: ':warning:'
+      path: math/convolution.hpp
+      title: math/convolution.hpp
+    - icon: ':warning:'
       path: math/dynamicmodint.hpp
       title: math/dynamicmodint.hpp
     - icon: ':warning:'
