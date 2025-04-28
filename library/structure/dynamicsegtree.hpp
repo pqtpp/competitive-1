@@ -9,14 +9,14 @@ struct dynamicsegtree {
     unordered_map<long long, S> data;
     // 大きさn, 単位元e(省略するとS{} になる) のセグ木を構築 O(n)
     dynamicsegtree(long long n, S e = S{}) : _n(n), _e(e) {
-        size = 0;
+        size = 1;
         while (size < _n) size <<= 1;
     }
     // p 番目の要素をx にする O(log n)
     void set(long long p, S x) {
         p += size;
         data[p] = x;
-        while (p<<=1; 0<p; p<<=1) update(p);
+        for (p>>=1; 0<p; p>>=1) update(p);
     }
     // p 番目の要素を取得する O(1)
     S get(long long p) {

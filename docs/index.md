@@ -71,7 +71,7 @@ data:
     - icon: ':warning:'
       path: structure/abstractBIT.hpp
       title: structure/abstractBIT.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: structure/dynamicsegtree.hpp
       title: structure/dynamicsegtree.hpp
     - icon: ':heavy_check_mark:'
@@ -127,6 +127,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/yosupo-point_add_range_sum.test.cpp
       title: verify/yosupo-point_add_range_sum.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/yosupo-point_add_range_sum_2.test.cpp
+      title: verify/yosupo-point_add_range_sum_2.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/yosupo-point_set_range_composite.test.cpp
       title: verify/yosupo-point_set_range_composite.test.cpp
