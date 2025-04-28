@@ -71,6 +71,9 @@ data:
     - icon: ':warning:'
       path: structure/abstractBIT.hpp
       title: structure/abstractBIT.hpp
+    - icon: ':warning:'
+      path: structure/dynamicsegtree.hpp
+      title: structure/dynamicsegtree.hpp
     - icon: ':heavy_check_mark:'
       path: structure/lazysegtree.hpp
       title: structure/lazysegtree.hpp
