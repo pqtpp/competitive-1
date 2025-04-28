@@ -75,8 +75,8 @@ data:
     \ dynamicsegtree {\n    long long _n, size;\n    S _e;\n    unordered_map<long\
     \ long, S> data;\n    // \u5927\u304D\u3055n, \u5358\u4F4D\u5143e(\u7701\u7565\
     \u3059\u308B\u3068S{} \u306B\u306A\u308B) \u306E\u30BB\u30B0\u6728\u3092\u69CB\
-    \u7BC9 O(n)\n    dynamicsegtree(long long n, S e = S{}) : _n(n), _e(e) {\n   \
-    \     size = 1;\n        while (size < _n) size <<= 1;\n    }\n    // p \u756A\
+    \u7BC9 O(log n)\n    dynamicsegtree(long long n, S e = S{}) : _n(n), _e(e) {\n\
+    \        size = 1;\n        while (size < _n) size <<= 1;\n    }\n    // p \u756A\
     \u76EE\u306E\u8981\u7D20\u3092x \u306B\u3059\u308B O(log n)\n    void set(long\
     \ long p, S x) {\n        p += size;\n        data[p] = x;\n        for (p>>=1;\
     \ 0<p; p>>=1) update(p);\n    }\n    // p \u756A\u76EE\u306E\u8981\u7D20\u3092\
@@ -117,7 +117,7 @@ data:
   isVerificationFile: true
   path: verify/yosupo-point_add_range_sum_2.test.cpp
   requiredBy: []
-  timestamp: '2025-04-28 08:11:36+00:00'
+  timestamp: '2025-04-28 08:13:09+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-point_add_range_sum_2.test.cpp

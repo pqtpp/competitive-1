@@ -7,7 +7,7 @@ struct dynamicsegtree {
     long long _n, size;
     S _e;
     unordered_map<long long, S> data;
-    // 大きさn, 単位元e(省略するとS{} になる) のセグ木を構築 O(n)
+    // 大きさn, 単位元e(省略するとS{} になる) のセグ木を構築 O(log n)
     dynamicsegtree(long long n, S e = S{}) : _n(n), _e(e) {
         size = 1;
         while (size < _n) size <<= 1;

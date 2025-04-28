@@ -17,8 +17,8 @@ data:
     \ op>\nstruct dynamicsegtree {\n    long long _n, size;\n    S _e;\n    unordered_map<long\
     \ long, S> data;\n    // \u5927\u304D\u3055n, \u5358\u4F4D\u5143e(\u7701\u7565\
     \u3059\u308B\u3068S{} \u306B\u306A\u308B) \u306E\u30BB\u30B0\u6728\u3092\u69CB\
-    \u7BC9 O(n)\n    dynamicsegtree(long long n, S e = S{}) : _n(n), _e(e) {\n   \
-    \     size = 1;\n        while (size < _n) size <<= 1;\n    }\n    // p \u756A\
+    \u7BC9 O(log n)\n    dynamicsegtree(long long n, S e = S{}) : _n(n), _e(e) {\n\
+    \        size = 1;\n        while (size < _n) size <<= 1;\n    }\n    // p \u756A\
     \u76EE\u306E\u8981\u7D20\u3092x \u306B\u3059\u308B O(log n)\n    void set(long\
     \ long p, S x) {\n        p += size;\n        data[p] = x;\n        for (p>>=1;\
     \ 0<p; p>>=1) update(p);\n    }\n    // p \u756A\u76EE\u306E\u8981\u7D20\u3092\
@@ -42,17 +42,17 @@ data:
     \u308B(\u7D50\u5408\u5F8B)\ntemplate<class S, auto op>\nstruct dynamicsegtree\
     \ {\n    long long _n, size;\n    S _e;\n    unordered_map<long long, S> data;\n\
     \    // \u5927\u304D\u3055n, \u5358\u4F4D\u5143e(\u7701\u7565\u3059\u308B\u3068\
-    S{} \u306B\u306A\u308B) \u306E\u30BB\u30B0\u6728\u3092\u69CB\u7BC9 O(n)\n    dynamicsegtree(long\
-    \ long n, S e = S{}) : _n(n), _e(e) {\n        size = 1;\n        while (size\
-    \ < _n) size <<= 1;\n    }\n    // p \u756A\u76EE\u306E\u8981\u7D20\u3092x \u306B\
-    \u3059\u308B O(log n)\n    void set(long long p, S x) {\n        p += size;\n\
-    \        data[p] = x;\n        for (p>>=1; 0<p; p>>=1) update(p);\n    }\n   \
-    \ // p \u756A\u76EE\u306E\u8981\u7D20\u3092\u53D6\u5F97\u3059\u308B O(1)\n   \
-    \ S get(long long p) {\n        return data[size+p];\n    }\n    // p \u756A\u76EE\
-    \u306E\u8981\u7D20\u3092\u53D6\u5F97\u3059\u308B O(1)\n    S operator[](long long\
-    \ p) {\n        return data[size+p];\n    }\n    // [l, r) \u306E\u533A\u9593\u30AF\
-    \u30A8\u30EA\u306B\u7B54\u3048\u308B O(log n)\n    S prod(long long l, long long\
-    \ r) {\n        S ll = _e, rr = _e;\n        l += size;\n        r += size;\n\
+    S{} \u306B\u306A\u308B) \u306E\u30BB\u30B0\u6728\u3092\u69CB\u7BC9 O(log n)\n\
+    \    dynamicsegtree(long long n, S e = S{}) : _n(n), _e(e) {\n        size = 1;\n\
+    \        while (size < _n) size <<= 1;\n    }\n    // p \u756A\u76EE\u306E\u8981\
+    \u7D20\u3092x \u306B\u3059\u308B O(log n)\n    void set(long long p, S x) {\n\
+    \        p += size;\n        data[p] = x;\n        for (p>>=1; 0<p; p>>=1) update(p);\n\
+    \    }\n    // p \u756A\u76EE\u306E\u8981\u7D20\u3092\u53D6\u5F97\u3059\u308B\
+    \ O(1)\n    S get(long long p) {\n        return data[size+p];\n    }\n    //\
+    \ p \u756A\u76EE\u306E\u8981\u7D20\u3092\u53D6\u5F97\u3059\u308B O(1)\n    S operator[](long\
+    \ long p) {\n        return data[size+p];\n    }\n    // [l, r) \u306E\u533A\u9593\
+    \u30AF\u30A8\u30EA\u306B\u7B54\u3048\u308B O(log n)\n    S prod(long long l, long\
+    \ long r) {\n        S ll = _e, rr = _e;\n        l += size;\n        r += size;\n\
     \        while (l < r) {\n            if (l & 1) {\n                if (data.count(l))\
     \ {\n                    ll = op(ll, data[l++]);\n                }\n        \
     \    }\n            if (r & 1) {\n                if (data.count(r-1)) {\n   \
@@ -67,7 +67,7 @@ data:
   isVerificationFile: false
   path: structure/dynamicsegtree.hpp
   requiredBy: []
-  timestamp: '2025-04-28 08:11:36+00:00'
+  timestamp: '2025-04-28 08:13:09+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-point_add_range_sum_2.test.cpp
