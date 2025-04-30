@@ -1,72 +1,72 @@
 [
-    {
-      "key": "ctrl+,",
-      "command": "command-runner.run",
-      "args": {
-        "command": "accnew"
-      }
-    },
-    {
-      "key": "ctrl+.",
-      "command": "command-runner.run",
-      "args": {
-        "command": "buildtest ${fileDirname}"
-      }
-    },
-    {
-      "key": "ctrl+/",
-      "command": "command-runner.run",
-      "args": {
-        "command": "cd ${fileDirname} && oj-bundle -I ~/competitive/library ${file} | grep -v '^#line' > ${fileDirname}/bundled.cpp && acc submit ${fileDirname}/bundled.cpp -- -y && cd ~/competitive || cd ~/competitive"
-      }
-    },
-    {
-      "key": "ctrl+n",
-      "command": "command-runner.run",
-      "args": {
-        "command": "gentest"
-      }
-    },
-    {
-      "key": "ctrl+m",
-      "command": "command-runner.run",
-      "args": {
-        "command": "verify"
-      }
-    },
-    {
-      "key": "alt+,",
-      "command": "command-runner.run",
-      "args": {
-        "command": "accnew"
-      }
-    },
-    {
-      "key": "alt+.",
-      "command": "command-runner.run",
-      "args": {
-        "command": "buildtest ${fileDirname}"
-      }
-    },
-    {
-      "key": "alt+/",
-      "command": "command-runner.run",
-      "args": {
-        "command": "cd ${fileDirname} && oj-bundle -I ~/competitive/library ${file} | grep -v '^#line' > ${fileDirname}/bundled.cpp && acc submit ${fileDirname}/bundled.cpp -- -y && cd ~/competitive || cd ~/competitive"
-      }
-    },
-    {
-      "key": "alt+n",
-      "command": "command-runner.run",
-      "args": {
-        "command": "gentest"
-      }
-    },
-    {
-      "key": "alt+m",
-      "command": "command-runner.run",
-      "args": {
-        "command": "verify"
-      }
+  {
+    "key": "ctrl+,",
+    "command": "command-runner.run",
+    "args": {
+      "command": "accnew"
     }
+  },
+  {
+    "key": "ctrl+.",
+    "command": "command-runner.run",
+    "args": {
+      "command": "buildtest ${fileDirname}"
+    }
+  },
+  {
+    "key": "ctrl+/",
+    "command": "command-runner.run",
+    "args": {
+      "command": "cd ${fileDirname} && oj-bundle -I /workspaces/competitive/library ${file} | grep -v '^#line' > ${fileDirname}/bundled.cpp && acc submit ${fileDirname}/bundled.cpp -- -y && cd /workspaces/competitive || cd /workspaces/competitive"
+    }
+  },
+  {
+    "key": "ctrl+n",
+    "command": "command-runner.run",
+    "args": {
+      "command": "gentest"
+    }
+  },
+  {
+    "key": "ctrl+m",
+    "command": "command-runner.run",
+    "args": {
+      "command": "verify"
+    }
+  },
+  {
+    "key": "alt+,",
+    "command": "command-runner.run",
+    "args": {
+      "command": "accnew"
+    }
+  },
+  {
+    "key": "alt+.",
+    "command": "command-runner.run",
+    "args": {
+      "command": "buildtest ${fileDirname}"
+    }
+  },
+  {
+    "key": "alt+/",
+    "command": "command-runner.run",
+    "args": {
+      "command": "cd ${fileDirname} && oj-bundle -I /workspaces/competitive/library ${file} | grep -v '^#line' > ${fileDirname}/bundled.cpp && acc submit ${fileDirname}/bundled.cpp -- -y && cd /workspaces/competitive || cd /workspaces/competitive"
+    }
+  },
+  {
+    "key": "alt+n",
+    "command": "command-runner.run",
+    "args": {
+      "command": "gentest"
+    }
+  },
+  {
+    "key": "alt+m",
+    "command": "command-runner.run",
+    "args": {
+      "command": "verify"
+    }
+  }
 ]
