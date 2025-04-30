@@ -49,9 +49,9 @@ template<class T>using pqg=priority_queue<T,vector<T>,greater<T>>;
 #define No cout<<"No"<<'\n'
 #define YN(x) cout<<((x)?"Yes":"No")<<'\n'
 #define O(x) cout<<(x)<<'\n'
+#define ismid(a,b,c) ((a)<=(b)&&(b)<(c))
 template<class S,class T>bool chmin(S&a,T b){if(a>b){a=b;return true;}return false;}
 template<class S,class T>bool chmax(S&a,T b){if(a<b){a=b;return true;}return false;}
-template<class S,class T,class U>bool ismid(S a,S b,S c){return a<=b&&b<c;}
 template<class T>bool next_combination(T l,T r,int k){T m=l+k;if(l==r||l==m||r==m)return false;T t=m;while(l!=t){t--;if(*t<*(r-1)){T d=m;while(*t>=*d)d++;iter_swap(t,d);rotate(t+1,d+1,r);rotate(m,m+(r-d)-1,r);return true;}}rotate(l,m,r);return false;}
 template<class T>T Min(T a,T b){return a<b?a:b;}
 template<class T,class...Args>T Min(T a,T b,Args...args){return Min(Min(a,b),args...);}

@@ -11,16 +11,16 @@ data:
   bundledCode: "#line 2 \"math/isqrt.hpp\"\n#include <bits/stdc++.h>\nusing namespace\
     \ std;\n\n// floor(sqrt(n)) \u3092\u8FD4\u3059\nlong long isqrt(long long n) {\n\
     \    assert(0 <= n);\n    long long re = sqrt(n);\n    while ((re + 1) * (re +\
-    \ 1) <= n) re++;\n    while (re * re > n) re--;\n    return re;\n}\n"
+    \ 1) <= n) re++;\n    while (n < re * re) re--;\n    return re;\n}\n"
   code: "#pragma once\n#include <bits/stdc++.h>\nusing namespace std;\n\n// floor(sqrt(n))\
     \ \u3092\u8FD4\u3059\nlong long isqrt(long long n) {\n    assert(0 <= n);\n  \
     \  long long re = sqrt(n);\n    while ((re + 1) * (re + 1) <= n) re++;\n    while\
-    \ (re * re > n) re--;\n    return re;\n}"
+    \ (n < re * re) re--;\n    return re;\n}"
   dependsOn: []
   isVerificationFile: false
   path: math/isqrt.hpp
   requiredBy: []
-  timestamp: '2025-04-24 07:22:30+00:00'
+  timestamp: '2025-04-30 03:58:10+00:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: math/isqrt.hpp

@@ -41,9 +41,6 @@ data:
       path: math/convolution.hpp
       title: math/convolution.hpp
     - icon: ':warning:'
-      path: math/dynamicmodint.hpp
-      title: math/dynamicmodint.hpp
-    - icon: ':warning:'
       path: math/isqrt.hpp
       title: math/isqrt.hpp
     - icon: ':heavy_check_mark:'
