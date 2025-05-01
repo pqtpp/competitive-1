@@ -21,7 +21,7 @@ struct graph {
     graph(int n) : isdirected(directed), isweighted(weighted), data(n), sumcost(T{}) {}
     // from から to へ辺を追加する
     void add_edge(int from, int to, T cost = 1, int id = -1) {
-        if (id == -1) id = _edges.size();
+        if (id == -1) id = _edges.size() / (2 - directed);
         data[from].push_back(edge<T>(from, to, cost, id));
         _edges.push_back(edge<T>(from, to, cost, id));
         if (!isdirected) {
