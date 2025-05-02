@@ -1,31 +1,41 @@
 #pragma once
 #include <bits/stdc++.h>
 using namespace std;
-struct rollinghash {
-    string data;
-    vector<long long> rhash, power;
-    long long rn;
-    rollinghash(string& s) : data(s), rhash(s.size() + 1), power(s.size() + 1) {
-        static mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-        uniform_int_distribution<long long> dist(1LL << 30, ((1LL << 61) - 2));
-        rn = dist(rng) | 1;
-        rhash[0] = 0;
+unsigned long long rollinghash_mod = (1ULL<<61) - 1;
+inline unsigned long long mod_mul(unsigned long long a, unsigned long long b) {
+    __uint128_t t = ( __uint128_t ) a * b;
+    unsigned long long lo = (unsigned long long)t & rollinghash_mod;
+    unsigned long long hi = (unsigned long long)(t >> 61);
+    unsigned long long res = lo + hi;
+    if (res >= rollinghash_mod) res -= rollinghash_mod;
+    return res;
+}
+unsigned long long splitmix64(unsigned long long& x) {
+    unsigned long long z = (x += 0x9e3779b97f4a7c15ULL);
+    z = (z ^ (z >> 30)) * 0xbf58476d1ce4e5b9ULL;
+    z = (z ^ (z >> 27)) * 0x94d049bb133111ebULL;
+    return z ^ (z >> 31);
+}
+struct rollingHash {
+    int n;
+    unsigned long long base;
+    vector<unsigned long long> power, hash;
+    rollingHash(const string& s) : n(s.size()), power(n+1), hash(n+1) {
+        unsigned long long seed = chrono::high_resolution_clock::now().time_since_epoch().count();
+        base = splitmix64(seed) % (rollinghash_mod-1) + 1;
+        power[0] = hash[0] = 0;
         power[0] = 1;
-        for (int i=0; i<s.size(); i++) {
-            rhash[i + 1] = modul(mul(rhash[i], rn) + s[i]);
-            power[i + 1] = modul(mul(power[i], rn));
+        for(int i = 0; i < n; i++){
+            power[i+1] = mod_mul(power[i], base);
+            hash[i+1] = mod_mul(hash[i], base) + (unsigned char)s[i];
+            if(hash[i+1] >= rollinghash_mod) hash[i+1] -= rollinghash_mod;
         }
     }
-    long long prod(int l, int r) {
-        return modul(rhash[r] - mul(rhash[l], power[r - l]) + (1LL << 61) - 1);
-    }
-    long long modul(long long x) {
-        long long re = (x & ((1LL << 61) - 1)) + (x >> 61);
-        if (((1LL << 61) - 1) <= re) re -= (1LL << 61) - 1;
-        return re;
-    }
-    long long mul(long long a, long long b) {
-        __int128_t t = (__int128_t)a * b;
-        return modul((t & ((1LL << 61) - 1)) + (t >> 61));
+    // [l, r) のハッシュを求める O(1)
+    unsigned long long hash(int l, int r) {
+        unsigned long long res = hash[r] + rollinghash_mod*4 - mod_mul(hash[l], power[r-l]);
+        res = (res >> 61) + (res & rollinghash_mod);
+        if (res >= rollinghash_mod) res -= rollinghash_mod;
+        return res;
     }
 };
