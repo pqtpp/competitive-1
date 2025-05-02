@@ -117,7 +117,7 @@ data:
   isVerificationFile: false
   path: structure/segtree.hpp
   requiredBy: []
-  timestamp: '2025-04-23 04:44:01+00:00'
+  timestamp: '2025-05-02 04:03:17+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-point_set_range_composite.test.cpp

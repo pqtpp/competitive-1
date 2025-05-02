@@ -11,7 +11,7 @@ data:
   _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
-  bundledCode: "#line 2 \"structure/dynamicsegtree.hpp\"\n#include <bits/stdc++.h>\n\
+  bundledCode: "#line 2 \"structure/dynamicsegtree.hpp\"\n#include<bits/stdc++.h>\n\
     using namespace std;\n// op(op(a, b), c) = op(a, op(b, c)) \u304C\u6210\u308A\u7ACB\
     \u3064\u5FC5\u8981\u304C\u3042\u308B(\u7D50\u5408\u5F8B)\ntemplate<class S, auto\
     \ op>\nstruct dynamicsegtree {\n    long long _n, size;\n    S _e;\n    unordered_map<long\
@@ -39,7 +39,7 @@ data:
     \ long p) {\n        S l = _e, r = _e;\n        if (data.count(2*p)) l = data[2*p];\n\
     \        if (data.count(2*p+1)) r = data[2*p+1];\n        data[p] = op(l, r);\n\
     \    }\n};\n"
-  code: "#pragma once\n#include <bits/stdc++.h>\nusing namespace std;\n// op(op(a,\
+  code: "#pragma once\n#include<bits/stdc++.h>\nusing namespace std;\n// op(op(a,\
     \ b), c) = op(a, op(b, c)) \u304C\u6210\u308A\u7ACB\u3064\u5FC5\u8981\u304C\u3042\
     \u308B(\u7D50\u5408\u5F8B)\ntemplate<class S, auto op>\nstruct dynamicsegtree\
     \ {\n    long long _n, size;\n    S _e;\n    unordered_map<long long, S> data;\n\
@@ -70,7 +70,7 @@ data:
   isVerificationFile: false
   path: structure/dynamicsegtree.hpp
   requiredBy: []
-  timestamp: '2025-05-02 04:00:12+00:00'
+  timestamp: '2025-05-02 04:03:30+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-point_add_range_sum_2.test.cpp

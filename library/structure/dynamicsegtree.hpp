@@ -1,5 +1,5 @@
 #pragma once
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 // op(op(a, b), c) = op(a, op(b, c)) が成り立つ必要がある(結合律)
 template<class S, auto op>
