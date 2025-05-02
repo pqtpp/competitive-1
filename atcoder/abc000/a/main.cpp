@@ -8,5 +8,7 @@ int main() { IO();
 }
 
 void solve() {
-    ;
+    int n; cin >> n;
+    str s; cin >> s;
+    rollinghash rh(s);
 }

@@ -16,11 +16,11 @@ unsigned long long splitmix64(unsigned long long& x) {
     z = (z ^ (z >> 27)) * 0x94d049bb133111ebULL;
     return z ^ (z >> 31);
 }
-struct rollingHash {
+struct rollinghash {
     int n;
     unsigned long long base;
     vector<unsigned long long> power, hash;
-    rollingHash(const string& s) : n(s.size()), power(n+1), hash(n+1) {
+    rollinghash(const string& s) : n(s.size()), power(n+1), hash(n+1) {
         unsigned long long seed = chrono::high_resolution_clock::now().time_since_epoch().count();
         base = splitmix64(seed) % (rollinghash_mod-1) + 1;
         power[0] = hash[0] = 0;

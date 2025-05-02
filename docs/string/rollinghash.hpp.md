@@ -17,8 +17,8 @@ data:
     \ res -= rollinghash_mod;\n    return res;\n}\nunsigned long long splitmix64(unsigned\
     \ long long& x) {\n    unsigned long long z = (x += 0x9e3779b97f4a7c15ULL);\n\
     \    z = (z ^ (z >> 30)) * 0xbf58476d1ce4e5b9ULL;\n    z = (z ^ (z >> 27)) * 0x94d049bb133111ebULL;\n\
-    \    return z ^ (z >> 31);\n}\nstruct rollingHash {\n    int n;\n    unsigned\
-    \ long long base;\n    vector<unsigned long long> power, hash;\n    rollingHash(const\
+    \    return z ^ (z >> 31);\n}\nstruct rollinghash {\n    int n;\n    unsigned\
+    \ long long base;\n    vector<unsigned long long> power, hash;\n    rollinghash(const\
     \ string& s) : n(s.size()), power(n+1), hash(n+1) {\n        unsigned long long\
     \ seed = chrono::high_resolution_clock::now().time_since_epoch().count();\n  \
     \      base = splitmix64(seed) % (rollinghash_mod-1) + 1;\n        power[0] =\
@@ -40,8 +40,8 @@ data:
     \    return res;\n}\nunsigned long long splitmix64(unsigned long long& x) {\n\
     \    unsigned long long z = (x += 0x9e3779b97f4a7c15ULL);\n    z = (z ^ (z >>\
     \ 30)) * 0xbf58476d1ce4e5b9ULL;\n    z = (z ^ (z >> 27)) * 0x94d049bb133111ebULL;\n\
-    \    return z ^ (z >> 31);\n}\nstruct rollingHash {\n    int n;\n    unsigned\
-    \ long long base;\n    vector<unsigned long long> power, hash;\n    rollingHash(const\
+    \    return z ^ (z >> 31);\n}\nstruct rollinghash {\n    int n;\n    unsigned\
+    \ long long base;\n    vector<unsigned long long> power, hash;\n    rollinghash(const\
     \ string& s) : n(s.size()), power(n+1), hash(n+1) {\n        unsigned long long\
     \ seed = chrono::high_resolution_clock::now().time_since_epoch().count();\n  \
     \      base = splitmix64(seed) % (rollinghash_mod-1) + 1;\n        power[0] =\
@@ -58,7 +58,7 @@ data:
   isVerificationFile: false
   path: string/rollinghash.hpp
   requiredBy: []
-  timestamp: '2025-05-02 05:24:51+00:00'
+  timestamp: '2025-05-02 05:27:31+00:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: string/rollinghash.hpp
