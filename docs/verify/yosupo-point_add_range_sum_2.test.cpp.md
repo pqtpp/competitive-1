@@ -78,30 +78,32 @@ data:
     \u7BC9 O(log n)\n    dynamicsegtree(long long n, S e = S{}) : _n(n), _e(e) {\n\
     \        size = 1;\n        while (size < _n) size <<= 1;\n    }\n    // p \u756A\
     \u76EE\u306E\u8981\u7D20\u3092x \u306B\u3059\u308B O(log n)\n    void set(long\
-    \ long p, S x) {\n        p += size;\n        data[p] = x;\n        for (p>>=1;\
-    \ 0<p; p>>=1) update(p);\n    }\n    // p \u756A\u76EE\u306E\u8981\u7D20\u3092\
-    \u53D6\u5F97\u3059\u308B O(1)\n    S get(long long p) {\n        return data[size+p];\n\
+    \ long p, S x) {\n        assert(0 <= p && p < _n);\n        p += size;\n    \
+    \    data[p] = x;\n        for (p>>=1; 0<p; p>>=1) update(p);\n    }\n    // p\
+    \ \u756A\u76EE\u306E\u8981\u7D20\u3092\u53D6\u5F97\u3059\u308B O(1)\n    S get(long\
+    \ long p) {\n        assert(0 <= p && p < _n);\n        return data[size+p];\n\
     \    }\n    // p \u756A\u76EE\u306E\u8981\u7D20\u3092\u53D6\u5F97\u3059\u308B\
-    \ O(1)\n    S operator[](long long p) {\n        return data[size+p];\n    }\n\
-    \    // [l, r) \u306E\u533A\u9593\u30AF\u30A8\u30EA\u306B\u7B54\u3048\u308B O(log\
-    \ n)\n    S prod(long long l, long long r) {\n        S ll = _e, rr = _e;\n  \
-    \      l += size;\n        r += size;\n        while (l < r) {\n            if\
-    \ (l & 1) {\n                if (data.count(l)) {\n                    ll = op(ll,\
-    \ data[l++]);\n                }\n            }\n            if (r & 1) {\n  \
-    \              if (data.count(r-1)) {\n                    rr = op(data[--r],\
-    \ rr);\n                }\n            }\n            l >>= 1;\n            r\
-    \ >>= 1;\n        }\n        return op(ll, rr);\n    }\n    // [0, _n) \u306E\u30AF\
-    \u30A8\u30EA\u306B\u7B54\u3048\u308B O(1)\n    S all_prod() {\n        return\
-    \ data[1];\n    }\n    void update(long long p) {\n        S l = _e, r = _e;\n\
-    \        if (data.count(2*p)) l = data[2*p];\n        if (data.count(2*p+1)) r\
-    \ = data[2*p+1];\n        data[p] = op(l, r);\n    }\n};\n#line 4 \"verify/yosupo-point_add_range_sum_2.test.cpp\"\
-    \n\r\nint main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--)\
-    \ solve();\r\n}\r\n\r\nvoid solve() {\r\n    int n, q; cin >> n >> q;\r\n    auto\
-    \ op=[](ll x,ll y)->ll{return x+y;};\r\n    dynamicsegtree<ll, op> s(n);\r\n \
-    \   rep(i, n) {\r\n        int x; cin >> x;\r\n        s.set(i, x);\r\n    }\r\
-    \n    while (q--) {\r\n        int x, y, z; cin >> x >> y >> z;\r\n        if\
-    \ (x == 0) {\r\n            s.set(y, z+s.get(y));\r\n        } else {\r\n    \
-    \        cout << s.prod(y, z) << nl;\r\n        }\r\n    }\r\n}\n"
+    \ O(1)\n    S operator[](long long p) {\n        return get(p);\n    }\n    //\
+    \ [l, r) \u306E\u533A\u9593\u30AF\u30A8\u30EA\u306B\u7B54\u3048\u308B O(log n)\n\
+    \    S prod(long long l, long long r) {\n        assert(0 <= l && l <= r && r\
+    \ <= _n);\n        S ll = _e, rr = _e;\n        l += size;\n        r += size;\n\
+    \        while (l < r) {\n            if (l & 1) {\n                if (data.count(l))\
+    \ {\n                    ll = op(ll, data[l++]);\n                }\n        \
+    \    }\n            if (r & 1) {\n                if (data.count(r-1)) {\n   \
+    \                 rr = op(data[--r], rr);\n                }\n            }\n\
+    \            l >>= 1;\n            r >>= 1;\n        }\n        return op(ll,\
+    \ rr);\n    }\n    // [0, _n) \u306E\u30AF\u30A8\u30EA\u306B\u7B54\u3048\u308B\
+    \ O(1)\n    S all_prod() {\n        return data[1];\n    }\n    void update(long\
+    \ long p) {\n        S l = _e, r = _e;\n        if (data.count(2*p)) l = data[2*p];\n\
+    \        if (data.count(2*p+1)) r = data[2*p+1];\n        data[p] = op(l, r);\n\
+    \    }\n};\n#line 4 \"verify/yosupo-point_add_range_sum_2.test.cpp\"\n\r\nint\
+    \ main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\
+    \n}\r\n\r\nvoid solve() {\r\n    int n, q; cin >> n >> q;\r\n    auto op=[](ll\
+    \ x,ll y)->ll{return x+y;};\r\n    dynamicsegtree<ll, op> s(n);\r\n    rep(i,\
+    \ n) {\r\n        int x; cin >> x;\r\n        s.set(i, x);\r\n    }\r\n    while\
+    \ (q--) {\r\n        int x, y, z; cin >> x >> y >> z;\r\n        if (x == 0) {\r\
+    \n            s.set(y, z+s.get(y));\r\n        } else {\r\n            cout <<\
+    \ s.prod(y, z) << nl;\r\n        }\r\n    }\r\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/point_add_range_sum\"\r\
     \n#include \"template\"\r\n#include \"dynamicsegtree\"\r\n\r\nint main() { IO();\r\
     \n    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\n}\r\n\r\nvoid\
@@ -117,7 +119,7 @@ data:
   isVerificationFile: true
   path: verify/yosupo-point_add_range_sum_2.test.cpp
   requiredBy: []
-  timestamp: '2025-04-30 03:58:59+00:00'
+  timestamp: '2025-05-02 04:00:12+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-point_add_range_sum_2.test.cpp

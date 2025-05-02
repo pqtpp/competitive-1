@@ -14,20 +14,23 @@ struct dynamicsegtree {
     }
     // p 番目の要素をx にする O(log n)
     void set(long long p, S x) {
+        assert(0 <= p && p < _n);
         p += size;
         data[p] = x;
         for (p>>=1; 0<p; p>>=1) update(p);
     }
     // p 番目の要素を取得する O(1)
     S get(long long p) {
+        assert(0 <= p && p < _n);
         return data[size+p];
     }
     // p 番目の要素を取得する O(1)
     S operator[](long long p) {
-        return data[size+p];
+        return get(p);
     }
     // [l, r) の区間クエリに答える O(log n)
     S prod(long long l, long long r) {
+        assert(0 <= l && l <= r && r <= _n);
         S ll = _e, rr = _e;
         l += size;
         r += size;

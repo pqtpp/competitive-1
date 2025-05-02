@@ -106,7 +106,7 @@ struct graph {
     graph(int n) : isdirected(directed), isweighted(weighted), data(n), sumcost(T{}) {}
     // from から to へ辺を追加する
     void add_edge(int from, int to, T cost = 1, int id = -1) {
-        if (id == -1) id = _edges.size();
+        if (id == -1) id = _edges.size() / (2 - directed);
         data[from].push_back(edge<T>(from, to, cost, id));
         _edges.push_back(edge<T>(from, to, cost, id));
         if (!isdirected) {
@@ -149,18 +149,18 @@ void solve() {
     g.read(m, 1);
     set<int> used;
     rep(i, n) {
-        pqg<pair<ll, pll>> q; q.push({0, {i, -1}});
+        pqg<pll> q; q.push({0, i});
         vll d(n, INF); d[i] = 0;
         while (!q.empty()) {
-            auto [x, t] = q.top(); q.pop(); auto [y, z] = t;
+            auto [x, y] = q.top(); q.pop();
             if (d[y] < x) continue;
-            used.insert(z);
             range(e, g[y]) {
-                if (d[e.from]+e.cost <= d[e.to]) {
-                    q.push({d[e.to], {e.to, e.id/2}});
+                    if (chmin(d[e.to], d[e.from]+e.cost)) {
+                    used.insert(e.id);
+                    q.push({d[e.to], e.to});
                 }
             }
         }
     }
-    cout << m - used.size() + 1 << nl;
+    cout << m - used.size() << nl;
 }

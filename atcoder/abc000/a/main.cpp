@@ -1,5 +1,5 @@
 #include "template"
-#include "graphtemplate"
+
 int main() { IO();
     int T=1;
     // cin >> T;
@@ -12,18 +12,18 @@ void solve() {
     g.read(m, 1);
     set<int> used;
     rep(i, n) {
-        pqg<pair<ll, pll>> q; q.push({0, {i, -1}});
+        pqg<pll> q; q.push({0, i});
         vll d(n, INF); d[i] = 0;
         while (!q.empty()) {
-            auto [x, t] = q.top(); q.pop(); auto [y, z] = t;
+            auto [x, y] = q.top(); q.pop();
             if (d[y] < x) continue;
-            used.insert(z);
             range(e, g[y]) {
-                if (d[e.from]+e.cost <= d[e.to]) {
-                    q.push({d[e.to], {e.to, e.id}});
+                    if (chmin(d[e.to], d[e.from]+e.cost)) {
+                    used.insert(e.id);
+                    q.push({d[e.to], e.to});
                 }
             }
         }
     }
-    cout << m - used.size() + 1 << nl;
+    cout << m - used.size() << nl;
 }
