@@ -19,21 +19,21 @@ unsigned long long splitmix64(unsigned long long& x) {
 struct rollinghash {
     int n;
     unsigned long long base;
-    vector<unsigned long long> power, hash;
-    rollinghash(const string& s) : n(s.size()), power(n+1), hash(n+1) {
+    vector<unsigned long long> power, data;
+    rollinghash(const string& s) : n(s.size()), power(n+1), data(n+1) {
         unsigned long long seed = chrono::high_resolution_clock::now().time_since_epoch().count();
         base = splitmix64(seed) % (rollinghash_mod-1) + 1;
-        power[0] = hash[0] = 0;
+        power[0] = data[0] = 0;
         power[0] = 1;
         for(int i = 0; i < n; i++){
             power[i+1] = mod_mul(power[i], base);
-            hash[i+1] = mod_mul(hash[i], base) + (unsigned char)s[i];
-            if(hash[i+1] >= rollinghash_mod) hash[i+1] -= rollinghash_mod;
+            data[i+1] = mod_mul(data[i], base) + (unsigned char)s[i];
+            if(data[i+1] >= rollinghash_mod) data[i+1] -= rollinghash_mod;
         }
     }
     // [l, r) のハッシュを求める O(1)
     unsigned long long hash(int l, int r) {
-        unsigned long long res = hash[r] + rollinghash_mod*4 - mod_mul(hash[l], power[r-l]);
+        unsigned long long res = data[r] + rollinghash_mod*4 - mod_mul(data[l], power[r-l]);
         res = (res >> 61) + (res & rollinghash_mod);
         if (res >= rollinghash_mod) res -= rollinghash_mod;
         return res;
