@@ -100,7 +100,7 @@ data:
     \ data.size();\n    }\n    // \u9802\u70B9\u3092\u8FD4\u3059\n    edges<T> operator[](int\
     \ k) {\n        return data[k];\n    }\n};\n#line 3 \"structure/UnionFind.hpp\"\
     \nusing namespace std;\nstruct UnionFind {\n    int _n;\n    vector<int> data;\n\
-    \    // _n \u500B\u306E\u8981\u7D20\u304B\u3089\u306A\u308BUnionFind \u3092\u69CB\
+    \    // n \u500B\u306E\u8981\u7D20\u304B\u3089\u306A\u308BUnionFind \u3092\u69CB\
     \u7BC9 O(n)\n    UnionFind(int n) : _n(n), data(n, -1) {}\n    // 2 \u3064\u306E\
     \u8981\u7D20\u3092\u4F75\u5408 O(\u03B1(n))\n    bool merge(int p, int q) {\n\
     \        p = root(p);\n        q = root(q);\n        if (p == q) return false;\n\
@@ -146,7 +146,7 @@ data:
   isVerificationFile: true
   path: verify/aizu-GRL_2_A.test.cpp
   requiredBy: []
-  timestamp: '2025-05-04 03:23:46+00:00'
+  timestamp: '2025-05-04 04:27:34+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aizu-GRL_2_A.test.cpp

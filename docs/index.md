@@ -72,6 +72,9 @@ data:
       path: structure/abstractBIT.hpp
       title: structure/abstractBIT.hpp
     - icon: ':heavy_check_mark:'
+      path: structure/dynamicUnionFind.hpp
+      title: structure/dynamicUnionFind.hpp
+    - icon: ':heavy_check_mark:'
       path: structure/dynamicsegtree.hpp
       title: structure/dynamicsegtree.hpp
     - icon: ':heavy_check_mark:'

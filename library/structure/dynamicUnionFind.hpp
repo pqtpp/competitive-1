@@ -1,11 +1,11 @@
 #pragma once
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-struct UnionFind {
-    int _n;
-    vector<int> data;
-    // n 個の要素からなるUnionFind を構築 O(n)
-    UnionFind(int n) : _n(n), data(n, -1) {}
+struct dynamicUnionFind {
+    long long _n;
+    unordered_map<long long, int> data;
+    // n 個の要素からなるdynamicUnionFind を構築 O(1)
+    dynamicUnionFind(long long n) : _n(n) {}
     // 2 つの要素を併合 O(α(n))
     bool merge(int p, int q) {
         p = root(p);
@@ -19,6 +19,9 @@ struct UnionFind {
     // 親要素を取得 O(α(n))
     int root(int p) {
         assert(0 <= p && p < _n);
+        if (!data.count(p)) {
+            data[p] = -1;
+        }
         if (data[p] < 0) {
             return p;
         } else {
@@ -37,12 +40,5 @@ struct UnionFind {
     // 要素が属する集合の大きさを返す O(α(n))
     int size(int p) {
         return -data[root(p)];
-    }
-    // UnionFind の連結成分のvector を返す O(n α(n))
-    vector<vector<int>> groups() {
-        vector<vector<int>> re(_n);
-        for (int i=0; i<_n; i++) re[root(i)].push_back(i);
-        re.erase(remove_if(re.begin(), re.end(), [](vector<int>& v){ return v.empty(); }), re.end());
-        return re;
     }
 };

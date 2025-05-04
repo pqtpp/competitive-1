@@ -69,8 +69,8 @@ data:
     \ inf ((1<<30)-(1<<15))\n#define INF (1LL<<61)\n#define mod 998244353\n\nvoid\
     \ IO() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    cout<<fixed<<setprecision(30);\n\
     }\n\nvoid solve();\n#line 3 \"structure/UnionFind.hpp\"\nusing namespace std;\n\
-    struct UnionFind {\n    int _n;\n    vector<int> data;\n    // _n \u500B\u306E\
-    \u8981\u7D20\u304B\u3089\u306A\u308BUnionFind \u3092\u69CB\u7BC9 O(n)\n    UnionFind(int\
+    struct UnionFind {\n    int _n;\n    vector<int> data;\n    // n \u500B\u306E\u8981\
+    \u7D20\u304B\u3089\u306A\u308BUnionFind \u3092\u69CB\u7BC9 O(n)\n    UnionFind(int\
     \ n) : _n(n), data(n, -1) {}\n    // 2 \u3064\u306E\u8981\u7D20\u3092\u4F75\u5408\
     \ O(\u03B1(n))\n    bool merge(int p, int q) {\n        p = root(p);\n       \
     \ q = root(q);\n        if (p == q) return false;\n        if (q < p) swap(p,\
@@ -106,7 +106,7 @@ data:
   isVerificationFile: true
   path: verify/aizu-DSL_1_A.test.cpp
   requiredBy: []
-  timestamp: '2025-04-30 03:58:59+00:00'
+  timestamp: '2025-05-04 04:27:34+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aizu-DSL_1_A.test.cpp

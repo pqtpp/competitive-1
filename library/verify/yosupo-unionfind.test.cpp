@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/unionfind"
 #include "template"
-#include "UnionFind"
+#include "dynamicUnionFind"
 
 int main() { IO();
     int T=1;
@@ -10,7 +10,7 @@ int main() { IO();
 
 void solve() {
     int n, q; cin >> n >> q;
-    UnionFind uf(n);
+    dynamicUnionFind uf(n);
     while (q--) {
         int x, y, z; cin >> x >> y >> z;
         if (x == 0) {
