@@ -3,11 +3,11 @@
 using namespace std;
 struct dynamicUnionFind {
     long long _n;
-    unordered_map<long long, int> data;
+    unordered_map<long long, long long> data;
     // n 個の要素からなるdynamicUnionFind を構築 O(1)
     dynamicUnionFind(long long n) : _n(n) {}
     // 2 つの要素を併合 O(α(n))
-    bool merge(int p, int q) {
+    bool merge(long long p, long long q) {
         p = root(p);
         q = root(q);
         if (p == q) return false;
@@ -17,7 +17,7 @@ struct dynamicUnionFind {
         return true;
     }
     // 親要素を取得 O(α(n))
-    int root(int p) {
+    long long root(long long p) {
         assert(0 <= p && p < _n);
         if (!data.count(p)) {
             data[p] = -1;
@@ -30,15 +30,15 @@ struct dynamicUnionFind {
         }
     }
     // 親要素を取得 O(α(n))
-    int operator[](int p) {
+    long long operator[](long long p) {
         return root(p);
     }
     // 2 つの要素が同じ集合に含まれるか判定 O(α(n))
-    bool same(int p, int q) {
+    bool same(long long p, long long q) {
         return root(p) == root(q);
     }
     // 要素が属する集合の大きさを返す O(α(n))
-    int size(int p) {
+    long long size(long long p) {
         return -data[root(p)];
     }
 };
