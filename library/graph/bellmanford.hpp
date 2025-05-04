@@ -7,7 +7,7 @@ template <typename T, bool directed = true, bool weighted = true>
 vector<T> bellmanford(graph<T, directed, weighted>& g, int from = 0) {
     vector<T> d(g.size(), numeric_limits<T>::max());
     d[from] = 0;
-    for (int i=0; i<g.size(); i++) {
+    for (int i=1; i<g.size(); i++) {
         for (auto& _e : g._edges) {
             if (d[_e.from] != numeric_limits<T>::max() && d[_e.from] + _e.cost < d[_e.to]) {
                 d[_e.to] = d[_e.from] + _e.cost;

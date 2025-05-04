@@ -43,7 +43,7 @@ data:
     \ \u8CA0\u9589\u8DEF\u304C\u3042\u308B\u5834\u5408\u306F re[from] < 0 O(nm)\n\
     template <typename T, bool directed = true, bool weighted = true>\nvector<T> bellmanford(graph<T,\
     \ directed, weighted>& g, int from = 0) {\n    vector<T> d(g.size(), numeric_limits<T>::max());\n\
-    \    d[from] = 0;\n    for (int i=0; i<g.size(); i++) {\n        for (auto& _e\
+    \    d[from] = 0;\n    for (int i=1; i<g.size(); i++) {\n        for (auto& _e\
     \ : g._edges) {\n            if (d[_e.from] != numeric_limits<T>::max() && d[_e.from]\
     \ + _e.cost < d[_e.to]) {\n                d[_e.to] = d[_e.from] + _e.cost;\n\
     \            }\n        }\n    }\n    for (auto& _e : g._edges) {\n        if\
@@ -61,7 +61,7 @@ data:
     \u9589\u8DEF\u304C\u3042\u308B\u5834\u5408\u306F re[from] < 0 O(nm)\ntemplate\
     \ <typename T, bool directed = true, bool weighted = true>\nvector<T> bellmanford(graph<T,\
     \ directed, weighted>& g, int from = 0) {\n    vector<T> d(g.size(), numeric_limits<T>::max());\n\
-    \    d[from] = 0;\n    for (int i=0; i<g.size(); i++) {\n        for (auto& _e\
+    \    d[from] = 0;\n    for (int i=1; i<g.size(); i++) {\n        for (auto& _e\
     \ : g._edges) {\n            if (d[_e.from] != numeric_limits<T>::max() && d[_e.from]\
     \ + _e.cost < d[_e.to]) {\n                d[_e.to] = d[_e.from] + _e.cost;\n\
     \            }\n        }\n    }\n    for (auto& _e : g._edges) {\n        if\
@@ -78,7 +78,7 @@ data:
   isVerificationFile: false
   path: graph/bellmanford.hpp
   requiredBy: []
-  timestamp: '2025-05-04 03:06:00+00:00'
+  timestamp: '2025-05-04 03:06:22+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aizu-GRL_1_B.test.cpp
