@@ -79,7 +79,7 @@ data:
   isVerificationFile: false
   path: graph/bellmanford.hpp
   requiredBy: []
-  timestamp: '2025-05-04 03:23:46+00:00'
+  timestamp: '2025-05-04 03:50:02+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aizu-GRL_1_B.test.cpp

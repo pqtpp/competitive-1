@@ -25,7 +25,7 @@ struct dualshortestpath {
     }
     // 牛ゲーを解く d[t]: max{f(t) - f(s)} を求める O(nm)
     vector<T> solve(int start = -1) {
-        vector<T> d(N, (T)(numeric_limits<T>::max() / 2.1));
+        vector<T> d(N, numeric_limits<T>::max()/2);
         if (start == -1) fill(begin(d), end(d), T{});
         if (start != -1) d[start] = 0;
         for (int i=0; i<g.size(); i++) {

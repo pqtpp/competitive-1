@@ -46,15 +46,15 @@ data:
     \ < 0) {\n            _e.cost = -_e.cost;\n            swap(_e.from, _e.to);\n\
     \        }\n        g.add_edge(_e);\n    }\n    // \u725B\u30B2\u30FC\u3092\u89E3\
     \u304F d[t]: max{f(t) - f(s)} \u3092\u6C42\u3081\u308B O(nm)\n    vector<T> solve(int\
-    \ start = -1) {\n        vector<T> d(N, (T)(numeric_limits<T>::max() / 2.1));\n\
-    \        if (start == -1) fill(begin(d), end(d), T{});\n        if (start != -1)\
-    \ d[start] = 0;\n        for (int i=0; i<g.size(); i++) {\n            int updated\
-    \ = 0;\n            for (auto _e : g._edges) {\n                if (d[_e.from]\
-    \ + _e.cost < d[e.to]) {\n                  d[_e.to] = d[_e.from] + _e.cost;\n\
-    \                  updated = 1;\n                }\n            }\n          \
-    \  if (!updated) break;\n            if (i == g.size() - 1) {\n              \
-    \  for (int j=0; j<g.size(); j++) {\n                    d[j] = -1;\n        \
-    \        }\n            }\n        }\n        return d;\n    }\n};\n"
+    \ start = -1) {\n        vector<T> d(N, numeric_limits<T>::max()/2);\n       \
+    \ if (start == -1) fill(begin(d), end(d), T{});\n        if (start != -1) d[start]\
+    \ = 0;\n        for (int i=0; i<g.size(); i++) {\n            int updated = 0;\n\
+    \            for (auto _e : g._edges) {\n                if (d[_e.from] + _e.cost\
+    \ < d[e.to]) {\n                  d[_e.to] = d[_e.from] + _e.cost;\n         \
+    \         updated = 1;\n                }\n            }\n            if (!updated)\
+    \ break;\n            if (i == g.size() - 1) {\n                for (int j=0;\
+    \ j<g.size(); j++) {\n                    d[j] = -1;\n                }\n    \
+    \        }\n        }\n        return d;\n    }\n};\n"
   code: "#pragma once\n#include \"graphtemplate\"\n#include <bits/stdc++.h>\nusing\
     \ namespace std;\n// \u6700\u77ED\u7D4C\u8DEF\u554F\u984C\u306E\u53CC\u5BFE\uFF08\
     \u725B\u30B2\u30FC\uFF09\u3092\u89E3\u304F\ntemplate<class T>\nstruct dualshortestpath\
@@ -66,21 +66,21 @@ data:
     \ < 0) {\n            _e.cost = -_e.cost;\n            swap(_e.from, _e.to);\n\
     \        }\n        g.add_edge(_e);\n    }\n    // \u725B\u30B2\u30FC\u3092\u89E3\
     \u304F d[t]: max{f(t) - f(s)} \u3092\u6C42\u3081\u308B O(nm)\n    vector<T> solve(int\
-    \ start = -1) {\n        vector<T> d(N, (T)(numeric_limits<T>::max() / 2.1));\n\
-    \        if (start == -1) fill(begin(d), end(d), T{});\n        if (start != -1)\
-    \ d[start] = 0;\n        for (int i=0; i<g.size(); i++) {\n            int updated\
-    \ = 0;\n            for (auto _e : g._edges) {\n                if (d[_e.from]\
-    \ + _e.cost < d[e.to]) {\n                  d[_e.to] = d[_e.from] + _e.cost;\n\
-    \                  updated = 1;\n                }\n            }\n          \
-    \  if (!updated) break;\n            if (i == g.size() - 1) {\n              \
-    \  for (int j=0; j<g.size(); j++) {\n                    d[j] = -1;\n        \
-    \        }\n            }\n        }\n        return d;\n    }\n};"
+    \ start = -1) {\n        vector<T> d(N, numeric_limits<T>::max()/2);\n       \
+    \ if (start == -1) fill(begin(d), end(d), T{});\n        if (start != -1) d[start]\
+    \ = 0;\n        for (int i=0; i<g.size(); i++) {\n            int updated = 0;\n\
+    \            for (auto _e : g._edges) {\n                if (d[_e.from] + _e.cost\
+    \ < d[e.to]) {\n                  d[_e.to] = d[_e.from] + _e.cost;\n         \
+    \         updated = 1;\n                }\n            }\n            if (!updated)\
+    \ break;\n            if (i == g.size() - 1) {\n                for (int j=0;\
+    \ j<g.size(); j++) {\n                    d[j] = -1;\n                }\n    \
+    \        }\n        }\n        return d;\n    }\n};"
   dependsOn:
   - graph/graphtemplate.hpp
   isVerificationFile: false
   path: graph/dualshortestpath.hpp
   requiredBy: []
-  timestamp: '2025-05-04 03:36:31+00:00'
+  timestamp: '2025-05-04 03:47:14+00:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: graph/dualshortestpath.hpp
