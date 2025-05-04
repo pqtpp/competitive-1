@@ -12,6 +12,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: graph/dijkstrarestore.hpp
       title: graph/dijkstrarestore.hpp
+    - icon: ':warning:'
+      path: graph/dualshortestpath.hpp
+      title: graph/dualshortestpath.hpp
     - icon: ':heavy_check_mark:'
       path: graph/graphtemplate.hpp
       title: graph/graphtemplate.hpp

@@ -18,6 +18,8 @@ struct graph {
     edges<T> _edges;
     vector<edges<T>> data;
     T sumcost;
+    graph() = default;
+    // 頂点数 n のグラフを作成する
     graph(int n) : isdirected(directed), isweighted(weighted), data(n), sumcost(T{}) {}
     // from から to へ辺を追加する
     void add_edge(int from, int to, T cost = 1, int id = -1) {
