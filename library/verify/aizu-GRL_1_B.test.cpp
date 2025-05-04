@@ -15,10 +15,10 @@ void solve() {
     g.read(m, 0);
     vll d = bellmanford(g, s);
     if (d[s] < 0) {
-        cout << "NEGATIVE CYCLE" << endl;
+        cout << "NEGATIVE CYCLE" << nl;
     } else {
         for (int i=0; i<n; i++) {
-            if (d[i] == numeric_limits<ll>::max()) cout << "INF" << nl;
+            if (INF < d[i]) cout << "INF" << nl;
             else cout << d[i] << nl;
         }
     }

@@ -18,16 +18,16 @@ data:
     \ long long& x) {\n    unsigned long long z = (x += 0x9e3779b97f4a7c15ULL);\n\
     \    z = (z ^ (z >> 30)) * 0xbf58476d1ce4e5b9ULL;\n    z = (z ^ (z >> 27)) * 0x94d049bb133111ebULL;\n\
     \    return z ^ (z >> 31);\n}\nstruct rollinghash {\n    int n;\n    unsigned\
-    \ long long base;\n    vector<unsigned long long> power, hash;\n    rollinghash(const\
-    \ string& s) : n(s.size()), power(n+1), hash(n+1) {\n        unsigned long long\
+    \ long long base;\n    vector<unsigned long long> power, data;\n    rollinghash(const\
+    \ string& s) : n(s.size()), power(n+1), data(n+1) {\n        unsigned long long\
     \ seed = chrono::high_resolution_clock::now().time_since_epoch().count();\n  \
     \      base = splitmix64(seed) % (rollinghash_mod-1) + 1;\n        power[0] =\
-    \ hash[0] = 0;\n        power[0] = 1;\n        for(int i = 0; i < n; i++){\n \
-    \           power[i+1] = mod_mul(power[i], base);\n            hash[i+1] = mod_mul(hash[i],\
-    \ base) + (unsigned char)s[i];\n            if(hash[i+1] >= rollinghash_mod) hash[i+1]\
+    \ data[0] = 0;\n        power[0] = 1;\n        for(int i = 0; i < n; i++){\n \
+    \           power[i+1] = mod_mul(power[i], base);\n            data[i+1] = mod_mul(data[i],\
+    \ base) + (unsigned char)s[i];\n            if(data[i+1] >= rollinghash_mod) data[i+1]\
     \ -= rollinghash_mod;\n        }\n    }\n    // [l, r) \u306E\u30CF\u30C3\u30B7\
     \u30E5\u3092\u6C42\u3081\u308B O(1)\n    unsigned long long hash(int l, int r)\
-    \ {\n        unsigned long long res = hash[r] + rollinghash_mod*4 - mod_mul(hash[l],\
+    \ {\n        unsigned long long res = data[r] + rollinghash_mod*4 - mod_mul(data[l],\
     \ power[r-l]);\n        res = (res >> 61) + (res & rollinghash_mod);\n       \
     \ if (res >= rollinghash_mod) res -= rollinghash_mod;\n        return res;\n \
     \   }\n};\n"
@@ -41,16 +41,16 @@ data:
     \    unsigned long long z = (x += 0x9e3779b97f4a7c15ULL);\n    z = (z ^ (z >>\
     \ 30)) * 0xbf58476d1ce4e5b9ULL;\n    z = (z ^ (z >> 27)) * 0x94d049bb133111ebULL;\n\
     \    return z ^ (z >> 31);\n}\nstruct rollinghash {\n    int n;\n    unsigned\
-    \ long long base;\n    vector<unsigned long long> power, hash;\n    rollinghash(const\
-    \ string& s) : n(s.size()), power(n+1), hash(n+1) {\n        unsigned long long\
+    \ long long base;\n    vector<unsigned long long> power, data;\n    rollinghash(const\
+    \ string& s) : n(s.size()), power(n+1), data(n+1) {\n        unsigned long long\
     \ seed = chrono::high_resolution_clock::now().time_since_epoch().count();\n  \
     \      base = splitmix64(seed) % (rollinghash_mod-1) + 1;\n        power[0] =\
-    \ hash[0] = 0;\n        power[0] = 1;\n        for(int i = 0; i < n; i++){\n \
-    \           power[i+1] = mod_mul(power[i], base);\n            hash[i+1] = mod_mul(hash[i],\
-    \ base) + (unsigned char)s[i];\n            if(hash[i+1] >= rollinghash_mod) hash[i+1]\
+    \ data[0] = 0;\n        power[0] = 1;\n        for(int i = 0; i < n; i++){\n \
+    \           power[i+1] = mod_mul(power[i], base);\n            data[i+1] = mod_mul(data[i],\
+    \ base) + (unsigned char)s[i];\n            if(data[i+1] >= rollinghash_mod) data[i+1]\
     \ -= rollinghash_mod;\n        }\n    }\n    // [l, r) \u306E\u30CF\u30C3\u30B7\
     \u30E5\u3092\u6C42\u3081\u308B O(1)\n    unsigned long long hash(int l, int r)\
-    \ {\n        unsigned long long res = hash[r] + rollinghash_mod*4 - mod_mul(hash[l],\
+    \ {\n        unsigned long long res = data[r] + rollinghash_mod*4 - mod_mul(data[l],\
     \ power[r-l]);\n        res = (res >> 61) + (res & rollinghash_mod);\n       \
     \ if (res >= rollinghash_mod) res -= rollinghash_mod;\n        return res;\n \
     \   }\n};"
@@ -58,7 +58,7 @@ data:
   isVerificationFile: false
   path: string/rollinghash.hpp
   requiredBy: []
-  timestamp: '2025-05-02 05:27:31+00:00'
+  timestamp: '2025-05-02 05:36:59+00:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: string/rollinghash.hpp

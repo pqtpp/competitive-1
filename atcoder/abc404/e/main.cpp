@@ -7,4 +7,8 @@ int main() { IO();
 }
 
 void solve() {
+    int n; cin >> n;
+    vi c(n), a(n);
+    rep1(i, n-1) cin >> c[i];
+    rep1(i, n-1) cin >> a[i];
 }
