@@ -22,8 +22,8 @@ data:
       path: graph/kruskal.hpp
       title: graph/kruskal.hpp
     - icon: ':warning:'
-      path: graph/minimunsteinertree.hpp
-      title: graph/minimunsteinertree.hpp
+      path: graph/minimumsteinertree.hpp
+      title: graph/minimumsteinertree.hpp
     - icon: ':heavy_check_mark:'
       path: graph/scc.hpp
       title: graph/scc.hpp
@@ -100,6 +100,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: util/template.hpp
       title: util/template.hpp
+  - name: verify
+    pages:
+    - icon: ':warning:'
+      path: verify/yosupo-minimum_steiner_tree.cpp
+      title: verify/yosupo-minimum_steiner_tree.cpp
   verificationCategories:
   - name: verify
     pages:

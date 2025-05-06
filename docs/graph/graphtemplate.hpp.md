@@ -18,8 +18,8 @@ data:
     path: graph/kruskal.hpp
     title: graph/kruskal.hpp
   - icon: ':warning:'
-    path: graph/minimunsteinertree.hpp
-    title: graph/minimunsteinertree.hpp
+    path: graph/minimumsteinertree.hpp
+    title: graph/minimumsteinertree.hpp
   - icon: ':heavy_check_mark:'
     path: graph/scc.hpp
     title: graph/scc.hpp
@@ -29,6 +29,9 @@ data:
   - icon: ':warning:'
     path: graph/warshallfloydrestore.hpp
     title: graph/warshallfloydrestore.hpp
+  - icon: ':warning:'
+    path: verify/yosupo-minimum_steiner_tree.cpp
+    title: verify/yosupo-minimum_steiner_tree.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/aizu-GRL_1_A.test.cpp
@@ -107,7 +110,6 @@ data:
   isVerificationFile: false
   path: graph/graphtemplate.hpp
   requiredBy:
-  - graph/minimunsteinertree.hpp
   - graph/warshallfloyd.hpp
   - graph/kruskal.hpp
   - graph/scc.hpp
@@ -115,7 +117,9 @@ data:
   - graph/warshallfloydrestore.hpp
   - graph/dualshortestpath.hpp
   - graph/dijkstra.hpp
+  - graph/minimumsteinertree.hpp
   - graph/dijkstrarestore.hpp
+  - verify/yosupo-minimum_steiner_tree.cpp
   timestamp: '2025-05-04 03:23:46+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
