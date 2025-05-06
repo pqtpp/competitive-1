@@ -17,6 +17,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: graph/kruskal.hpp
     title: graph/kruskal.hpp
+  - icon: ':warning:'
+    path: graph/minimunsteinertree.hpp
+    title: graph/minimunsteinertree.hpp
   - icon: ':heavy_check_mark:'
     path: graph/scc.hpp
     title: graph/scc.hpp
@@ -104,6 +107,7 @@ data:
   isVerificationFile: false
   path: graph/graphtemplate.hpp
   requiredBy:
+  - graph/minimunsteinertree.hpp
   - graph/warshallfloyd.hpp
   - graph/kruskal.hpp
   - graph/scc.hpp

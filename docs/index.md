@@ -21,6 +21,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: graph/kruskal.hpp
       title: graph/kruskal.hpp
+    - icon: ':warning:'
+      path: graph/minimunsteinertree.hpp
+      title: graph/minimunsteinertree.hpp
     - icon: ':heavy_check_mark:'
       path: graph/scc.hpp
       title: graph/scc.hpp
