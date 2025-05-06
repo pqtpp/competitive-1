@@ -5,9 +5,6 @@ data:
   - icon: ':warning:'
     path: main.cpp
     title: main.cpp
-  - icon: ':warning:'
-    path: verify/yosupo-minimum_steiner_tree.cpp
-    title: verify/yosupo-minimum_steiner_tree.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/aizu-DSL_1_A.test.cpp
@@ -183,7 +180,6 @@ data:
   isVerificationFile: false
   path: util/template.hpp
   requiredBy:
-  - verify/yosupo-minimum_steiner_tree.cpp
   - main.cpp
   timestamp: '2025-04-30 03:58:59+00:00'
   verificationStatus: LIBRARY_ALL_AC

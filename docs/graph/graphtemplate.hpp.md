@@ -29,9 +29,6 @@ data:
   - icon: ':warning:'
     path: graph/warshallfloydrestore.hpp
     title: graph/warshallfloydrestore.hpp
-  - icon: ':warning:'
-    path: verify/yosupo-minimum_steiner_tree.cpp
-    title: verify/yosupo-minimum_steiner_tree.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/aizu-GRL_1_A.test.cpp
@@ -119,7 +116,6 @@ data:
   - graph/dijkstra.hpp
   - graph/minimumsteinertree.hpp
   - graph/dijkstrarestore.hpp
-  - verify/yosupo-minimum_steiner_tree.cpp
   timestamp: '2025-05-04 03:23:46+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
