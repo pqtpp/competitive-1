@@ -14,5 +14,9 @@ void solve() {
     g.read(m, 0);
     int k; cin >> k;
     vi v(k); cin >> v;
-    cout << minimumsteinertree(g, v) << nl;
+    vi a = minimumsteinertree(g, v);
+    ll ans = 0;
+    range(i, a) ans += g._edges[i*2].cost;
+    cout << ans << sp << a.size() << nl;
+    cout << a << nl;
 }

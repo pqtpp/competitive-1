@@ -96,35 +96,50 @@ data:
     \ data.size();\n    }\n    // \u9802\u70B9\u3092\u8FD4\u3059\n    edges<T> operator[](int\
     \ k) {\n        return data[k];\n    }\n};\n#line 4 \"graph/minimumsteinertree.hpp\"\
     \nusing namespace std;\ntemplate <class T, bool directed = false, bool weighted\
-    \ = true>\nT minimumsteinertree(graph<T, directed, weighted> &g, vector<int> &v)\
-    \ {\n    vector<vector<T>> dp(1<<v.size(), vector<T>(g.size(), numeric_limits<T>::max()));\n\
+    \ = true>\nvector<int> minimumsteinertree(graph<T, directed, weighted> &g, vector<int>\
+    \ &v) {\n    vector<vector<T>> dp(1<<v.size(), vector<T>(g.size(), numeric_limits<T>::max()));\n\
     \    vector<vector<T>> d(g.size(), vector<T>(g.size(), numeric_limits<T>::max()));\n\
-    \    for (auto& _e : g._edges) {\n        d[_e.from][_e.to] = _e.cost;\n    }\n\
-    \    for (int i=0; i<g.size(); i++) {\n        d[i][i] = 0;\n    }\n    for (int\
-    \ i=0; i<v.size(); i++) {\n        dp[1<<i][v[i]] = 0;\n    }\n    for (int i=0;\
-    \ i<(1<<v.size()); i++) {\n        for (int j=i; 0<j; j=(j-1)&i) {\n         \
-    \   for (int k=0; k<g.size(); k++) {\n                if (dp[j][k] == numeric_limits<T>::max()\
-    \ || dp[i^j][k] == numeric_limits<T>::max()) continue;\n                dp[i][k]\
-    \ = min(dp[i][k], dp[j][k] + dp[i^j][k]);\n            }\n        }\n        priority_queue<pair<T,\
-    \ int>, vector<pair<T, int>>, greater<pair<T, int>>> q;\n        for (int j=0;\
-    \ j<g.size(); j++) {\n            if (dp[i][j] != numeric_limits<T>::max()) q.push({dp[i][j],\
+    \    vector<vector<int>> id(g.size(), vector<int>(g.size(), -1));\n    vector<vector<pair<int,\
+    \ int>>> par(1<<v.size(), vector<pair<int, int>>(g.size(), {-1, -1}));\n    for\
+    \ (auto& _e : g._edges) {\n        d[_e.from][_e.to] = _e.cost;\n        id[_e.from][_e.to]\
+    \ = _e.id;\n    }\n    for (int i=0; i<g.size(); i++) {\n        d[i][i] = 0;\n\
+    \    }\n    for (int i=0; i<v.size(); i++) {\n        dp[1<<i][v[i]] = 0;\n  \
+    \  }\n    for (int i=0; i<(1<<v.size()); i++) {\n        for (int j=i; 0<j; j=(j-1)&i)\
+    \ {\n            for (int k=0; k<g.size(); k++) {\n                if (dp[j][k]\
+    \ == numeric_limits<T>::max() || dp[i^j][k] == numeric_limits<T>::max()) continue;\n\
+    \                if (dp[i][k] == dp[j][k] + dp[i^j][k]) {\n                  \
+    \  dp[i][k] = dp[j][k] + dp[i^j][k];\n                    par[i][k] = {0, j};\n\
+    \                }\n            }\n        }\n        priority_queue<pair<T, int>,\
+    \ vector<pair<T, int>>, greater<pair<T, int>>> q;\n        for (int j=0; j<g.size();\
+    \ j++) {\n            if (dp[i][j] != numeric_limits<T>::max()) q.push({dp[i][j],\
     \ j});\n        }\n        while (!q.empty()) {\n            auto [x, y] = q.top();\
     \ q.pop();\n            if (dp[i][y] < x) continue;\n            for (auto& _e\
     \ : g[y]) {\n                if (x + _e.cost < dp[i][_e.to]) {\n             \
     \       dp[i][_e.to] = x + _e.cost;\n                    q.push({x + _e.cost,\
-    \ _e.to});\n                }\n            }\n        }\n    }\n    T ans = numeric_limits<T>::max();\n\
-    \    for (int i=0; i<g.size(); i++) {\n        ans = min(ans, dp.back()[i]);\n\
-    \    }\n    return ans;\n}\n#line 4 \"verify/yosupo-minimum_steiner_tree.cpp\"\
-    \n\r\nint main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--)\
-    \ solve();\r\n}\r\n\r\nvoid solve() {\r\n    int n, m; cin >> n >> m;\r\n    graph<ll,\
-    \ false, true> g(n);\r\n    g.read(m, 0);\r\n    int k; cin >> k;\r\n    vi v(k);\
-    \ cin >> v;\r\n    cout << minimumsteinertree(g, v) << nl;\r\n}\n"
+    \ _e.to});\n                    par[i][_e.to] = {1, y};\n                }\n \
+    \           }\n        }\n    }\n    vector<int> res;\n    auto restore = [&](auto&&\
+    \ self, int S, int u) -> void {\n        auto [x, from] = par[S][u];\n       \
+    \ if (x == 0) {\n            int S1 = from;\n            int S2 = S ^ S1;\n  \
+    \          self(self, S1, u);\n            self(self, S2, u);\n        } else\
+    \ if (x == 1) {\n            if (id[from][u] != -1) res.push_back(id[from][u]);\n\
+    \            self(self, S, from);\n        }\n    };\n    T ans = numeric_limits<T>::max();\n\
+    \    int c = -1;\n    for (int i=0; i<g.size(); i++) {\n        if (dp[(1<<v.size())-1][i]\
+    \ < ans) {\n            ans = dp[(1<<v.size())-1][i];\n            c = i;\n  \
+    \      }\n    }\n    restore(restore, (1<<v.size())-1, c);\n    return res;\n\
+    }\n#line 4 \"verify/yosupo-minimum_steiner_tree.cpp\"\n\r\nint main() { IO();\r\
+    \n    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\n}\r\n\r\nvoid\
+    \ solve() {\r\n    int n, m; cin >> n >> m;\r\n    graph<ll, false, true> g(n);\r\
+    \n    g.read(m, 0);\r\n    int k; cin >> k;\r\n    vi v(k); cin >> v;\r\n    vi\
+    \ a = minimumsteinertree(g, v);\r\n    ll ans = 0;\r\n    range(i, a) ans += g._edges[i*2].cost;\r\
+    \n    cout << ans << sp << a.size() << nl;\r\n    cout << a << nl;\r\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/minimum_steiner_tree\"\r\
     \n#include \"template\"\r\n#include \"minimumsteinertree\"\r\n\r\nint main() {\
     \ IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\n}\r\
     \n\r\nvoid solve() {\r\n    int n, m; cin >> n >> m;\r\n    graph<ll, false, true>\
     \ g(n);\r\n    g.read(m, 0);\r\n    int k; cin >> k;\r\n    vi v(k); cin >> v;\r\
-    \n    cout << minimumsteinertree(g, v) << nl;\r\n}"
+    \n    vi a = minimumsteinertree(g, v);\r\n    ll ans = 0;\r\n    range(i, a) ans\
+    \ += g._edges[i*2].cost;\r\n    cout << ans << sp << a.size() << nl;\r\n    cout\
+    \ << a << nl;\r\n}"
   dependsOn:
   - util/template.hpp
   - graph/minimumsteinertree.hpp
@@ -132,7 +147,7 @@ data:
   isVerificationFile: false
   path: verify/yosupo-minimum_steiner_tree.cpp
   requiredBy: []
-  timestamp: '2025-05-06 08:36:01+00:00'
+  timestamp: '2025-05-06 09:03:48+00:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: verify/yosupo-minimum_steiner_tree.cpp
