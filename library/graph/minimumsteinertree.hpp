@@ -3,7 +3,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 template <class T, bool directed = false, bool weighted = true>
-vector<int> minimumsteinertree(graph<T, directed, weighted> &g, vector<int> &v) {
+graph<T, false, true> minimumsteinertree(graph<T, directed, weighted> &g, vector<int> &v) {
     vector<vector<T>> dp(1<<v.size(), vector<T>(g.size(), numeric_limits<T>::max()));
     vector<vector<T>> d(g.size(), vector<T>(g.size(), numeric_limits<T>::max()));
     vector<vector<int>> id(g.size(), vector<int>(g.size(), -1));
@@ -48,7 +48,6 @@ vector<int> minimumsteinertree(graph<T, directed, weighted> &g, vector<int> &v) 
             }
         }
     }
-    vector<int> res;
     int c = -1;
     T ans = numeric_limits<T>::max();
     for (int i=0; i<g.size(); i++) {
@@ -57,6 +56,8 @@ vector<int> minimumsteinertree(graph<T, directed, weighted> &g, vector<int> &v) 
             c = i;
         }
     }
+    graph<T, false, true> res(g.size());
+    vector<int> used(g._edges.size());
     if (c == -1) return res;
     stack<pair<int, int>> s;
     s.push({(1<<v.size())-1, c});
@@ -69,7 +70,11 @@ vector<int> minimumsteinertree(graph<T, directed, weighted> &g, vector<int> &v) 
             s.push({x^Y, y});
         } else if (X == 1) {
             s.push({x, Y});
-            res.push_back(id[y][Y]);
+            int z = id[y][Y];
+            if (!used[z]) {
+                used[z] = 1;
+                res.add_edge(g._edges[z]);
+            }
         }
     }
     return res;
