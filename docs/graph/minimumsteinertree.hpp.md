@@ -4,14 +4,14 @@ data:
   - icon: ':heavy_check_mark:'
     path: graph/graphtemplate.hpp
     title: graph/graphtemplate.hpp
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: verify/yosupo-minimum_steiner_tree.cpp
-    title: verify/yosupo-minimum_steiner_tree.cpp
-  _extendedVerifiedWith: []
+  _extendedRequiredBy: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/yosupo-minimum_steiner_tree.test.cpp
+    title: verify/yosupo-minimum_steiner_tree.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"graph/graphtemplate.hpp\"\n#include<bits/stdc++.h>\nusing\
@@ -70,7 +70,7 @@ data:
     \ int>> s;\n    s.push({(1<<v.size())-1, c});\n    while (!s.empty()) {\n    \
     \    auto [x, y] = s.top(); s.pop();\n        auto [X, Y] = par[x][y];\n     \
     \   if (X == -1) continue;\n        else if (X == 0) {\n            s.push({Y,\
-    \ c});\n            s.push({x^Y, c});\n        } else if (X == 1) {\n        \
+    \ y});\n            s.push({x^Y, y});\n        } else if (X == 1) {\n        \
     \    s.push({x, Y});\n            res.push_back(id[y][Y]);\n        }\n    }\n\
     \    return res;\n}\n"
   code: "#pragma once\n#include \"graphtemplate\"\n#include <bits/stdc++.h>\nusing\
@@ -105,18 +105,18 @@ data:
     \ int>> s;\n    s.push({(1<<v.size())-1, c});\n    while (!s.empty()) {\n    \
     \    auto [x, y] = s.top(); s.pop();\n        auto [X, Y] = par[x][y];\n     \
     \   if (X == -1) continue;\n        else if (X == 0) {\n            s.push({Y,\
-    \ c});\n            s.push({x^Y, c});\n        } else if (X == 1) {\n        \
+    \ y});\n            s.push({x^Y, y});\n        } else if (X == 1) {\n        \
     \    s.push({x, Y});\n            res.push_back(id[y][Y]);\n        }\n    }\n\
     \    return res;\n}"
   dependsOn:
   - graph/graphtemplate.hpp
   isVerificationFile: false
   path: graph/minimumsteinertree.hpp
-  requiredBy:
-  - verify/yosupo-minimum_steiner_tree.cpp
-  timestamp: '2025-05-08 04:55:27+00:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  requiredBy: []
+  timestamp: '2025-05-08 05:27:16+00:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - verify/yosupo-minimum_steiner_tree.test.cpp
 documentation_of: graph/minimumsteinertree.hpp
 layout: document
 redirect_from:

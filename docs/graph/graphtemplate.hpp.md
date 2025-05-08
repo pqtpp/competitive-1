@@ -17,7 +17,7 @@ data:
   - icon: ':heavy_check_mark:'
     path: graph/kruskal.hpp
     title: graph/kruskal.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: graph/minimumsteinertree.hpp
     title: graph/minimumsteinertree.hpp
   - icon: ':heavy_check_mark:'
@@ -29,9 +29,6 @@ data:
   - icon: ':warning:'
     path: graph/warshallfloydrestore.hpp
     title: graph/warshallfloydrestore.hpp
-  - icon: ':warning:'
-    path: verify/yosupo-minimum_steiner_tree.cpp
-    title: verify/yosupo-minimum_steiner_tree.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/aizu-GRL_1_A.test.cpp
@@ -45,6 +42,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/aizu-GRL_2_A.test.cpp
     title: verify/aizu-GRL_2_A.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/yosupo-minimum_steiner_tree.test.cpp
+    title: verify/yosupo-minimum_steiner_tree.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/yosupo-scc.test.cpp
     title: verify/yosupo-scc.test.cpp
@@ -118,10 +118,10 @@ data:
   - graph/dijkstra.hpp
   - graph/minimumsteinertree.hpp
   - graph/dijkstrarestore.hpp
-  - verify/yosupo-minimum_steiner_tree.cpp
   timestamp: '2025-05-08 04:55:27+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - verify/yosupo-minimum_steiner_tree.test.cpp
   - verify/yosupo-shortest_path.test.cpp
   - verify/aizu-GRL_2_A.test.cpp
   - verify/aizu-GRL_1_C.test.cpp

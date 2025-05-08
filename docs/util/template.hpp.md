@@ -5,9 +5,6 @@ data:
   - icon: ':warning:'
     path: main.cpp
     title: main.cpp
-  - icon: ':warning:'
-    path: verify/yosupo-minimum_steiner_tree.cpp
-    title: verify/yosupo-minimum_steiner_tree.cpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/aizu-DSL_1_A.test.cpp
@@ -36,6 +33,9 @@ data:
   - icon: ':heavy_check_mark:'
     path: verify/yosupo-factorize.test.cpp
     title: verify/yosupo-factorize.test.cpp
+  - icon: ':heavy_check_mark:'
+    path: verify/yosupo-minimum_steiner_tree.test.cpp
+    title: verify/yosupo-minimum_steiner_tree.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/yosupo-point_add_range_sum.test.cpp
     title: verify/yosupo-point_add_range_sum.test.cpp
@@ -183,11 +183,11 @@ data:
   isVerificationFile: false
   path: util/template.hpp
   requiredBy:
-  - verify/yosupo-minimum_steiner_tree.cpp
   - main.cpp
   timestamp: '2025-04-30 03:58:59+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
+  - verify/yosupo-minimum_steiner_tree.test.cpp
   - verify/aizu-DSL_2_E.test.cpp
   - verify/yosupo-shortest_path.test.cpp
   - verify/aizu-GRL_2_A.test.cpp

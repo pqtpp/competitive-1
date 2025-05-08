@@ -21,7 +21,7 @@ data:
     - icon: ':heavy_check_mark:'
       path: graph/kruskal.hpp
       title: graph/kruskal.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: graph/minimumsteinertree.hpp
       title: graph/minimumsteinertree.hpp
     - icon: ':heavy_check_mark:'
@@ -100,11 +100,6 @@ data:
     - icon: ':heavy_check_mark:'
       path: util/template.hpp
       title: util/template.hpp
-  - name: verify
-    pages:
-    - icon: ':warning:'
-      path: verify/yosupo-minimum_steiner_tree.cpp
-      title: verify/yosupo-minimum_steiner_tree.cpp
   verificationCategories:
   - name: verify
     pages:
@@ -135,6 +130,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/yosupo-factorize.test.cpp
       title: verify/yosupo-factorize.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/yosupo-minimum_steiner_tree.test.cpp
+      title: verify/yosupo-minimum_steiner_tree.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/yosupo-point_add_range_sum.test.cpp
       title: verify/yosupo-point_add_range_sum.test.cpp

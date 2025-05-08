@@ -65,8 +65,8 @@ vector<int> minimumsteinertree(graph<T, directed, weighted> &g, vector<int> &v) 
         auto [X, Y] = par[x][y];
         if (X == -1) continue;
         else if (X == 0) {
-            s.push({Y, c});
-            s.push({x^Y, c});
+            s.push({Y, y});
+            s.push({x^Y, y});
         } else if (X == 1) {
             s.push({x, Y});
             res.push_back(id[y][Y]);
