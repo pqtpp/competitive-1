@@ -37,52 +37,74 @@ data:
     \ data.size();\n    }\n    // \u9802\u70B9\u3092\u8FD4\u3059\n    edges<T> operator[](int\
     \ k) {\n        return data[k];\n    }\n};\n#line 4 \"graph/minimumsteinertree.hpp\"\
     \nusing namespace std;\ntemplate <class T, bool directed = false, bool weighted\
-    \ = true>\nT minimumsteinertree(graph<T, directed, weighted> &g, vector<int> &v)\
-    \ {\n    vector<vector<T>> dp(1<<v.size(), vector<T>(g.size(), numeric_limits<T>::max()));\n\
+    \ = true>\nvector<int> minimumsteinertree(graph<T, directed, weighted> &g, vector<int>\
+    \ &v) {\n    vector<vector<T>> dp(1<<v.size(), vector<T>(g.size(), numeric_limits<T>::max()));\n\
     \    vector<vector<T>> d(g.size(), vector<T>(g.size(), numeric_limits<T>::max()));\n\
-    \    for (auto& _e : g._edges) {\n        d[_e.from][_e.to] = _e.cost;\n    }\n\
-    \    for (int i=0; i<g.size(); i++) {\n        d[i][i] = 0;\n    }\n    for (int\
-    \ i=0; i<v.size(); i++) {\n        dp[1<<i][v[i]] = 0;\n    }\n    for (int i=0;\
-    \ i<(1<<v.size()); i++) {\n        for (int j=i; 0<j; j=(j-1)&i) {\n         \
-    \   for (int k=0; k<g.size(); k++) {\n                if (dp[j][k] == numeric_limits<T>::max()\
-    \ || dp[i^j][k] == numeric_limits<T>::max()) continue;\n                dp[i][k]\
-    \ = min(dp[i][k], dp[j][k] + dp[i^j][k]);\n            }\n        }\n        priority_queue<pair<T,\
-    \ int>, vector<pair<T, int>>, greater<pair<T, int>>> q;\n        for (int j=0;\
-    \ j<g.size(); j++) {\n            if (dp[i][j] != numeric_limits<T>::max()) q.push({dp[i][j],\
+    \    vector<vector<int>> id(g.size(), vector<int>(g.size(), -1));\n    vector<vector<pair<int,\
+    \ int>>> par(1<<v.size(), vector<pair<int, int>>(g.size(), {-1, -1}));\n    for\
+    \ (auto& _e : g._edges) {\n        d[_e.from][_e.to] = _e.cost;\n        id[_e.from][_e.to]\
+    \ = _e.id;\n    }\n    for (int i=0; i<g.size(); i++) {\n        d[i][i] = 0;\n\
+    \    }\n    for (int i=0; i<v.size(); i++) {\n        dp[1<<i][v[i]] = 0;\n  \
+    \  }\n    for (int i=0; i<(1<<v.size()); i++) {\n        for (int j=i; 0<j; j=(j-1)&i)\
+    \ {\n            for (int k=0; k<g.size(); k++) {\n                if (dp[j][k]\
+    \ == numeric_limits<T>::max() || dp[i^j][k] == numeric_limits<T>::max()) continue;\n\
+    \                if (dp[j][k] + dp[i^j][k] < dp[i][k]) {\n                   \
+    \ dp[i][k] = dp[j][k] + dp[i^j][k];\n                    par[i][k] = {0, j};\n\
+    \                }\n            }\n        }\n        priority_queue<pair<T, int>,\
+    \ vector<pair<T, int>>, greater<pair<T, int>>> q;\n        for (int j=0; j<g.size();\
+    \ j++) {\n            if (dp[i][j] != numeric_limits<T>::max()) q.push({dp[i][j],\
     \ j});\n        }\n        while (!q.empty()) {\n            auto [x, y] = q.top();\
     \ q.pop();\n            if (dp[i][y] < x) continue;\n            for (auto& _e\
     \ : g[y]) {\n                if (x + _e.cost < dp[i][_e.to]) {\n             \
     \       dp[i][_e.to] = x + _e.cost;\n                    q.push({x + _e.cost,\
-    \ _e.to});\n                }\n            }\n        }\n    }\n    T ans = numeric_limits<T>::max();\n\
-    \    for (int i=0; i<g.size(); i++) {\n        ans = min(ans, dp.back()[i]);\n\
-    \    }\n    return ans;\n}\n"
+    \ _e.to});\n                    par[i][_e.to] = {1, _e.id};\n                }\n\
+    \            }\n        }\n    }\n    vector<int> res;\n    if (c == -1) return\
+    \ res;\n    T ans = numeric_limits<T>::max();\n    for (int i=0; i<g.size(); i++)\
+    \ {\n        if (dp.back()[i] < ans) {\n            ans = dp.back()[i];\n    \
+    \        c = i;\n        }\n    }\n    stack<pair<int, int>> s;\n    s.push({(1<<v.size())-1,\
+    \ c});\n    while (!s.empty()) {\n        auto [x, y] = s.top();  s.pop();\n \
+    \       auto [X, Y] = par[x][y];\n        if (X == -1) continue;\n        if (X\
+    \ == 0) {\n            s.push({Y, c});\n            s.push({x^Y, c});\n      \
+    \  } else {\n            res.push_back(id[y][Y]);\n        }\n    }\n    return\
+    \ res;\n}\n"
   code: "#pragma once\n#include \"graphtemplate\"\n#include <bits/stdc++.h>\nusing\
     \ namespace std;\ntemplate <class T, bool directed = false, bool weighted = true>\n\
-    T minimumsteinertree(graph<T, directed, weighted> &g, vector<int> &v) {\n    vector<vector<T>>\
-    \ dp(1<<v.size(), vector<T>(g.size(), numeric_limits<T>::max()));\n    vector<vector<T>>\
-    \ d(g.size(), vector<T>(g.size(), numeric_limits<T>::max()));\n    for (auto&\
-    \ _e : g._edges) {\n        d[_e.from][_e.to] = _e.cost;\n    }\n    for (int\
-    \ i=0; i<g.size(); i++) {\n        d[i][i] = 0;\n    }\n    for (int i=0; i<v.size();\
-    \ i++) {\n        dp[1<<i][v[i]] = 0;\n    }\n    for (int i=0; i<(1<<v.size());\
-    \ i++) {\n        for (int j=i; 0<j; j=(j-1)&i) {\n            for (int k=0; k<g.size();\
-    \ k++) {\n                if (dp[j][k] == numeric_limits<T>::max() || dp[i^j][k]\
-    \ == numeric_limits<T>::max()) continue;\n                dp[i][k] = min(dp[i][k],\
-    \ dp[j][k] + dp[i^j][k]);\n            }\n        }\n        priority_queue<pair<T,\
-    \ int>, vector<pair<T, int>>, greater<pair<T, int>>> q;\n        for (int j=0;\
-    \ j<g.size(); j++) {\n            if (dp[i][j] != numeric_limits<T>::max()) q.push({dp[i][j],\
+    vector<int> minimumsteinertree(graph<T, directed, weighted> &g, vector<int> &v)\
+    \ {\n    vector<vector<T>> dp(1<<v.size(), vector<T>(g.size(), numeric_limits<T>::max()));\n\
+    \    vector<vector<T>> d(g.size(), vector<T>(g.size(), numeric_limits<T>::max()));\n\
+    \    vector<vector<int>> id(g.size(), vector<int>(g.size(), -1));\n    vector<vector<pair<int,\
+    \ int>>> par(1<<v.size(), vector<pair<int, int>>(g.size(), {-1, -1}));\n    for\
+    \ (auto& _e : g._edges) {\n        d[_e.from][_e.to] = _e.cost;\n        id[_e.from][_e.to]\
+    \ = _e.id;\n    }\n    for (int i=0; i<g.size(); i++) {\n        d[i][i] = 0;\n\
+    \    }\n    for (int i=0; i<v.size(); i++) {\n        dp[1<<i][v[i]] = 0;\n  \
+    \  }\n    for (int i=0; i<(1<<v.size()); i++) {\n        for (int j=i; 0<j; j=(j-1)&i)\
+    \ {\n            for (int k=0; k<g.size(); k++) {\n                if (dp[j][k]\
+    \ == numeric_limits<T>::max() || dp[i^j][k] == numeric_limits<T>::max()) continue;\n\
+    \                if (dp[j][k] + dp[i^j][k] < dp[i][k]) {\n                   \
+    \ dp[i][k] = dp[j][k] + dp[i^j][k];\n                    par[i][k] = {0, j};\n\
+    \                }\n            }\n        }\n        priority_queue<pair<T, int>,\
+    \ vector<pair<T, int>>, greater<pair<T, int>>> q;\n        for (int j=0; j<g.size();\
+    \ j++) {\n            if (dp[i][j] != numeric_limits<T>::max()) q.push({dp[i][j],\
     \ j});\n        }\n        while (!q.empty()) {\n            auto [x, y] = q.top();\
     \ q.pop();\n            if (dp[i][y] < x) continue;\n            for (auto& _e\
     \ : g[y]) {\n                if (x + _e.cost < dp[i][_e.to]) {\n             \
     \       dp[i][_e.to] = x + _e.cost;\n                    q.push({x + _e.cost,\
-    \ _e.to});\n                }\n            }\n        }\n    }\n    T ans = numeric_limits<T>::max();\n\
-    \    for (int i=0; i<g.size(); i++) {\n        ans = min(ans, dp.back()[i]);\n\
-    \    }\n    return ans;\n}"
+    \ _e.to});\n                    par[i][_e.to] = {1, _e.id};\n                }\n\
+    \            }\n        }\n    }\n    vector<int> res;\n    if (c == -1) return\
+    \ res;\n    T ans = numeric_limits<T>::max();\n    for (int i=0; i<g.size(); i++)\
+    \ {\n        if (dp.back()[i] < ans) {\n            ans = dp.back()[i];\n    \
+    \        c = i;\n        }\n    }\n    stack<pair<int, int>> s;\n    s.push({(1<<v.size())-1,\
+    \ c});\n    while (!s.empty()) {\n        auto [x, y] = s.top();  s.pop();\n \
+    \       auto [X, Y] = par[x][y];\n        if (X == -1) continue;\n        if (X\
+    \ == 0) {\n            s.push({Y, c});\n            s.push({x^Y, c});\n      \
+    \  } else {\n            res.push_back(id[y][Y]);\n        }\n    }\n    return\
+    \ res;\n}"
   dependsOn:
   - graph/graphtemplate.hpp
   isVerificationFile: false
   path: graph/minimumsteinertree.hpp
   requiredBy: []
-  timestamp: '2025-05-06 09:24:43+00:00'
+  timestamp: '2025-05-08 00:12:03+00:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: graph/minimumsteinertree.hpp
