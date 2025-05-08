@@ -1,8 +1,6 @@
 #include "template"
-#include "modint"
 
 int main() { IO();
-    setmod(1000000007);
     int T=1;
     // cin >> T;
     while (T--) solve();
@@ -10,17 +8,13 @@ int main() { IO();
 
 void solve() {
     int n; cin >> n;
-    vll a(n); cin >> a;
-    Sort(a);
-    vec<mint> b(n);
-    rep(i, n) b[i] = mint(a[i]);
-    rep(i, n-1) b[i+1] += b[i];
-    mint p = 1;
-    mint ans = 0;
-    rep(i, n) {
-        cout << b[i] * p << nl;
-        ans += b[i] * p;
-        p *= 2;
+    vvi a;
+    rep1(i, n) {
+        vi b(i);
+        rep(j, i) { cin >> b[j]; b[j]--; }
+        a.pb(b);
     }
-    cout << ans * mint(2).pow(n) << nl;
+    int c = 0;
+    rep1(i, n-1) c = a[max(c, i)][min(c, i)];
+    cout << c + 1 << nl;
 }

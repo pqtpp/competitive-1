@@ -9,8 +9,12 @@ vector<int> minimumsteinertree(graph<T, directed, weighted> &g, vector<int> &v) 
     vector<vector<int>> id(g.size(), vector<int>(g.size(), -1));
     vector<vector<pair<int, int>>> par(1<<v.size(), vector<pair<int, int>>(g.size(), {-1, -1}));
     for (auto& _e : g._edges) {
-        d[_e.from][_e.to] = _e.cost;
-        id[_e.from][_e.to] = _e.id;
+        if (_e.cost < d[_e.from][_e.to]) {
+            d[_e.from][_e.to] = _e.cost;
+            d[_e.to][_e.from] = _e.cost;
+            id[_e.from][_e.to] = _e.id;
+            id[_e.to][_e.from] = _e.id;
+        }
     }
     for (int i=0; i<g.size(); i++) {
         d[i][i] = 0;
@@ -39,13 +43,13 @@ vector<int> minimumsteinertree(graph<T, directed, weighted> &g, vector<int> &v) 
                 if (x + _e.cost < dp[i][_e.to]) {
                     dp[i][_e.to] = x + _e.cost;
                     q.push({x + _e.cost, _e.to});
-                    par[i][_e.to] = {1, _e.id};
+                    par[i][_e.to] = {1, _e.from};
                 }
             }
         }
     }
     vector<int> res;
-    if (c == -1) return res;
+    int c = -1;
     T ans = numeric_limits<T>::max();
     for (int i=0; i<g.size(); i++) {
         if (dp.back()[i] < ans) {
@@ -53,16 +57,18 @@ vector<int> minimumsteinertree(graph<T, directed, weighted> &g, vector<int> &v) 
             c = i;
         }
     }
+    if (c == -1) return res;
     stack<pair<int, int>> s;
     s.push({(1<<v.size())-1, c});
     while (!s.empty()) {
-        auto [x, y] = s.top();  s.pop();
+        auto [x, y] = s.top(); s.pop();
         auto [X, Y] = par[x][y];
         if (X == -1) continue;
-        if (X == 0) {
+        else if (X == 0) {
             s.push({Y, c});
             s.push({x^Y, c});
-        } else {
+        } else if (X == 1) {
+            s.push({x, Y});
             res.push_back(id[y][Y]);
         }
     }

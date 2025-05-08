@@ -100,6 +100,11 @@ data:
     - icon: ':heavy_check_mark:'
       path: util/template.hpp
       title: util/template.hpp
+  - name: verify
+    pages:
+    - icon: ':warning:'
+      path: verify/yosupo-minimum_steiner_tree.cpp
+      title: verify/yosupo-minimum_steiner_tree.cpp
   verificationCategories:
   - name: verify
     pages:

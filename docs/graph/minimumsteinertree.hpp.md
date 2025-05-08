@@ -4,7 +4,10 @@ data:
   - icon: ':heavy_check_mark:'
     path: graph/graphtemplate.hpp
     title: graph/graphtemplate.hpp
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: verify/yosupo-minimum_steiner_tree.cpp
+    title: verify/yosupo-minimum_steiner_tree.cpp
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
@@ -23,7 +26,7 @@ data:
     \u6210\u3059\u308B\n    graph(int n) : isdirected(directed), isweighted(weighted),\
     \ data(n), sumcost(T{}) {}\n    // from \u304B\u3089 to \u3078\u8FBA\u3092\u8FFD\
     \u52A0\u3059\u308B\n    void add_edge(int from, int to, T cost = 1, int id = -1)\
-    \ {\n        if (id == -1) id = _edges.size() / (2 - directed);\n        data[from].push_back(edge<T>(from,\
+    \ {\n        if (id == -1) id = _edges.size();\n        data[from].push_back(edge<T>(from,\
     \ to, cost, id));\n        _edges.push_back(edge<T>(from, to, cost, id));\n  \
     \      if (!isdirected) {\n            data[to].push_back(edge<T>(to, from, cost,\
     \ id));\n        }\n        sumcost += cost;\n    }\n    // \u8FBA\u3092\u8FFD\
@@ -42,8 +45,10 @@ data:
     \    vector<vector<T>> d(g.size(), vector<T>(g.size(), numeric_limits<T>::max()));\n\
     \    vector<vector<int>> id(g.size(), vector<int>(g.size(), -1));\n    vector<vector<pair<int,\
     \ int>>> par(1<<v.size(), vector<pair<int, int>>(g.size(), {-1, -1}));\n    for\
-    \ (auto& _e : g._edges) {\n        d[_e.from][_e.to] = _e.cost;\n        id[_e.from][_e.to]\
-    \ = _e.id;\n    }\n    for (int i=0; i<g.size(); i++) {\n        d[i][i] = 0;\n\
+    \ (auto& _e : g._edges) {\n        if (_e.cost < d[_e.from][_e.to]) {\n      \
+    \      d[_e.from][_e.to] = _e.cost;\n            d[_e.to][_e.from] = _e.cost;\n\
+    \            id[_e.from][_e.to] = _e.id;\n            id[_e.to][_e.from] = _e.id;\n\
+    \        }\n    }\n    for (int i=0; i<g.size(); i++) {\n        d[i][i] = 0;\n\
     \    }\n    for (int i=0; i<v.size(); i++) {\n        dp[1<<i][v[i]] = 0;\n  \
     \  }\n    for (int i=0; i<(1<<v.size()); i++) {\n        for (int j=i; 0<j; j=(j-1)&i)\
     \ {\n            for (int k=0; k<g.size(); k++) {\n                if (dp[j][k]\
@@ -57,16 +62,17 @@ data:
     \ q.pop();\n            if (dp[i][y] < x) continue;\n            for (auto& _e\
     \ : g[y]) {\n                if (x + _e.cost < dp[i][_e.to]) {\n             \
     \       dp[i][_e.to] = x + _e.cost;\n                    q.push({x + _e.cost,\
-    \ _e.to});\n                    par[i][_e.to] = {1, _e.id};\n                }\n\
-    \            }\n        }\n    }\n    vector<int> res;\n    if (c == -1) return\
-    \ res;\n    T ans = numeric_limits<T>::max();\n    for (int i=0; i<g.size(); i++)\
-    \ {\n        if (dp.back()[i] < ans) {\n            ans = dp.back()[i];\n    \
-    \        c = i;\n        }\n    }\n    stack<pair<int, int>> s;\n    s.push({(1<<v.size())-1,\
-    \ c});\n    while (!s.empty()) {\n        auto [x, y] = s.top();  s.pop();\n \
-    \       auto [X, Y] = par[x][y];\n        if (X == -1) continue;\n        if (X\
-    \ == 0) {\n            s.push({Y, c});\n            s.push({x^Y, c});\n      \
-    \  } else {\n            res.push_back(id[y][Y]);\n        }\n    }\n    return\
-    \ res;\n}\n"
+    \ _e.to});\n                    par[i][_e.to] = {1, _e.from};\n              \
+    \  }\n            }\n        }\n    }\n    vector<int> res;\n    int c = -1;\n\
+    \    T ans = numeric_limits<T>::max();\n    for (int i=0; i<g.size(); i++) {\n\
+    \        if (dp.back()[i] < ans) {\n            ans = dp.back()[i];\n        \
+    \    c = i;\n        }\n    }\n    if (c == -1) return res;\n    stack<pair<int,\
+    \ int>> s;\n    s.push({(1<<v.size())-1, c});\n    while (!s.empty()) {\n    \
+    \    auto [x, y] = s.top(); s.pop();\n        auto [X, Y] = par[x][y];\n     \
+    \   if (X == -1) continue;\n        else if (X == 0) {\n            s.push({Y,\
+    \ c});\n            s.push({x^Y, c});\n        } else if (X == 1) {\n        \
+    \    s.push({x, Y});\n            res.push_back(id[y][Y]);\n        }\n    }\n\
+    \    return res;\n}\n"
   code: "#pragma once\n#include \"graphtemplate\"\n#include <bits/stdc++.h>\nusing\
     \ namespace std;\ntemplate <class T, bool directed = false, bool weighted = true>\n\
     vector<int> minimumsteinertree(graph<T, directed, weighted> &g, vector<int> &v)\
@@ -74,8 +80,10 @@ data:
     \    vector<vector<T>> d(g.size(), vector<T>(g.size(), numeric_limits<T>::max()));\n\
     \    vector<vector<int>> id(g.size(), vector<int>(g.size(), -1));\n    vector<vector<pair<int,\
     \ int>>> par(1<<v.size(), vector<pair<int, int>>(g.size(), {-1, -1}));\n    for\
-    \ (auto& _e : g._edges) {\n        d[_e.from][_e.to] = _e.cost;\n        id[_e.from][_e.to]\
-    \ = _e.id;\n    }\n    for (int i=0; i<g.size(); i++) {\n        d[i][i] = 0;\n\
+    \ (auto& _e : g._edges) {\n        if (_e.cost < d[_e.from][_e.to]) {\n      \
+    \      d[_e.from][_e.to] = _e.cost;\n            d[_e.to][_e.from] = _e.cost;\n\
+    \            id[_e.from][_e.to] = _e.id;\n            id[_e.to][_e.from] = _e.id;\n\
+    \        }\n    }\n    for (int i=0; i<g.size(); i++) {\n        d[i][i] = 0;\n\
     \    }\n    for (int i=0; i<v.size(); i++) {\n        dp[1<<i][v[i]] = 0;\n  \
     \  }\n    for (int i=0; i<(1<<v.size()); i++) {\n        for (int j=i; 0<j; j=(j-1)&i)\
     \ {\n            for (int k=0; k<g.size(); k++) {\n                if (dp[j][k]\
@@ -89,22 +97,24 @@ data:
     \ q.pop();\n            if (dp[i][y] < x) continue;\n            for (auto& _e\
     \ : g[y]) {\n                if (x + _e.cost < dp[i][_e.to]) {\n             \
     \       dp[i][_e.to] = x + _e.cost;\n                    q.push({x + _e.cost,\
-    \ _e.to});\n                    par[i][_e.to] = {1, _e.id};\n                }\n\
-    \            }\n        }\n    }\n    vector<int> res;\n    if (c == -1) return\
-    \ res;\n    T ans = numeric_limits<T>::max();\n    for (int i=0; i<g.size(); i++)\
-    \ {\n        if (dp.back()[i] < ans) {\n            ans = dp.back()[i];\n    \
-    \        c = i;\n        }\n    }\n    stack<pair<int, int>> s;\n    s.push({(1<<v.size())-1,\
-    \ c});\n    while (!s.empty()) {\n        auto [x, y] = s.top();  s.pop();\n \
-    \       auto [X, Y] = par[x][y];\n        if (X == -1) continue;\n        if (X\
-    \ == 0) {\n            s.push({Y, c});\n            s.push({x^Y, c});\n      \
-    \  } else {\n            res.push_back(id[y][Y]);\n        }\n    }\n    return\
-    \ res;\n}"
+    \ _e.to});\n                    par[i][_e.to] = {1, _e.from};\n              \
+    \  }\n            }\n        }\n    }\n    vector<int> res;\n    int c = -1;\n\
+    \    T ans = numeric_limits<T>::max();\n    for (int i=0; i<g.size(); i++) {\n\
+    \        if (dp.back()[i] < ans) {\n            ans = dp.back()[i];\n        \
+    \    c = i;\n        }\n    }\n    if (c == -1) return res;\n    stack<pair<int,\
+    \ int>> s;\n    s.push({(1<<v.size())-1, c});\n    while (!s.empty()) {\n    \
+    \    auto [x, y] = s.top(); s.pop();\n        auto [X, Y] = par[x][y];\n     \
+    \   if (X == -1) continue;\n        else if (X == 0) {\n            s.push({Y,\
+    \ c});\n            s.push({x^Y, c});\n        } else if (X == 1) {\n        \
+    \    s.push({x, Y});\n            res.push_back(id[y][Y]);\n        }\n    }\n\
+    \    return res;\n}"
   dependsOn:
   - graph/graphtemplate.hpp
   isVerificationFile: false
   path: graph/minimumsteinertree.hpp
-  requiredBy: []
-  timestamp: '2025-05-08 00:12:03+00:00'
+  requiredBy:
+  - verify/yosupo-minimum_steiner_tree.cpp
+  timestamp: '2025-05-08 04:55:27+00:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: graph/minimumsteinertree.hpp
