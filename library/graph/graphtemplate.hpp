@@ -53,4 +53,37 @@ struct graph {
     edges<T> operator[](int k) {
         return data[k];
     }
+    vector<int> path_to_vertex(edges<T>& _e) {
+        vector<int> re;
+        if (_e.size() == 0) {
+            return  re;
+        }
+        if (_e.size() == 1) {
+            re.push_back(_e[0].from);
+            re.push_back(_e[0].to);
+            return re;
+        }
+        int x=_e[0].from,y=_e[0].to;
+        if (x==_e[1].to || x == _e[1].from) swap(x, y);
+        re.push_back(x);
+        for (int i=1; i<_e.size(); i++) {
+            re.push_back(y);
+            x = _e[i].to;
+            if (x == y) x = _e[i].from;
+            swap(x, y);
+        }
+        return re;
+    }
+    edges<T> vetex_to_path (vector<int>& v){
+        edges<T> re;
+        for (int i=0; i+1<v.size(); i++) {
+            for (auto& _e : this[v[i]]) {
+                if (_e.to == v[i+1]) {
+                    re.push_back(_e);
+                    break;
+                }
+            }
+        }
+        return re;
+    }
 };

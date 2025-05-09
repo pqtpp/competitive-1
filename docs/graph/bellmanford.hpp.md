@@ -38,11 +38,23 @@ data:
     \            add_edge(from - indexed, to - indexed, cost);\n        }\n    }\n\
     \    // \u9802\u70B9\u6570\u3092\u8FD4\u3059\n    int size() {\n        return\
     \ data.size();\n    }\n    // \u9802\u70B9\u3092\u8FD4\u3059\n    edges<T> operator[](int\
-    \ k) {\n        return data[k];\n    }\n};\n#line 4 \"graph/bellmanford.hpp\"\n\
-    using namespace std;\n// \u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5\
-    \u3067\u5358\u4E00\u59CB\u70B9\u6700\u77ED\u7D4C\u8DEF\u3092\u6C42\u3081\u308B\
-    \ \u8CA0\u9589\u8DEF\u304C\u3042\u308B\u5834\u5408\u306F re[from] < 0 O(nm)\n\
-    template <typename T, bool directed = true, bool weighted = true>\nvector<T> bellmanford(graph<T,\
+    \ k) {\n        return data[k];\n    }\n    vector<int> path_to_vertex(edges<T>&\
+    \ _e) {\n        vector<int> re;\n        if (_e.size() == 0) {\n            return\
+    \  re;\n        }\n        if (_e.size() == 1) {\n            re.push_back(_e[0].from);\n\
+    \            re.push_back(_e[0].to);\n            return re;\n        }\n    \
+    \    int x=_e[0].from,y=_e[0].to;\n        if (x==_e[1].to || x == _e[1].from)\
+    \ swap(x, y);\n        re.push_back(x);\n        for (int i=1; i<_e.size(); i++)\
+    \ {\n            re.push_back(y);\n            x = _e[i].to;\n            if (x\
+    \ == y) x = _e[i].from;\n            swap(x, y);\n        }\n        return re;\n\
+    \    }\n    edges<T> vetex_to_path (vector<int>& v){\n        edges<T> re;\n \
+    \       for (int i=0; i+1<v.size(); i++) {\n            for (auto& _e : this[v[i]])\
+    \ {\n                if (_e.to == v[i+1]) {\n                    re.push_back(_e);\n\
+    \                    break;\n                }\n            }\n        }\n   \
+    \     return re;\n    }\n};\n#line 4 \"graph/bellmanford.hpp\"\nusing namespace\
+    \ std;\n// \u30D9\u30EB\u30DE\u30F3\u30D5\u30A9\u30FC\u30C9\u6CD5\u3067\u5358\u4E00\
+    \u59CB\u70B9\u6700\u77ED\u7D4C\u8DEF\u3092\u6C42\u3081\u308B \u8CA0\u9589\u8DEF\
+    \u304C\u3042\u308B\u5834\u5408\u306F re[from] < 0 O(nm)\ntemplate <typename T,\
+    \ bool directed = true, bool weighted = true>\nvector<T> bellmanford(graph<T,\
     \ directed, weighted>& g, int from = 0) {\n    vector<T> d(g.size(), numeric_limits<T>::max());\n\
     \    d[from] = 0;\n    for (int i=1; i<g.size(); i++) {\n        for (auto& _e\
     \ : g._edges) {\n            if (d[_e.from] != numeric_limits<T>::max() && d[_e.from]\
@@ -79,7 +91,7 @@ data:
   isVerificationFile: false
   path: graph/bellmanford.hpp
   requiredBy: []
-  timestamp: '2025-05-08 04:55:27+00:00'
+  timestamp: '2025-05-09 08:36:58+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aizu-GRL_1_B.test.cpp

@@ -35,17 +35,29 @@ data:
     \            add_edge(from - indexed, to - indexed, cost);\n        }\n    }\n\
     \    // \u9802\u70B9\u6570\u3092\u8FD4\u3059\n    int size() {\n        return\
     \ data.size();\n    }\n    // \u9802\u70B9\u3092\u8FD4\u3059\n    edges<T> operator[](int\
-    \ k) {\n        return data[k];\n    }\n};\n#line 4 \"graph/dualshortestpath.hpp\"\
-    \nusing namespace std;\n// \u6700\u77ED\u7D4C\u8DEF\u554F\u984C\u306E\u53CC\u5BFE\
-    \uFF08\u725B\u30B2\u30FC\uFF09\u3092\u89E3\u304F\ntemplate<class T>\nstruct dualshortestpath\
-    \ {\n    graph<T, true, true> g;\n    dualshortestpath(int n) : g(n) {}\n    //\
-    \ f(to) <= f(from) + cost\n    void add_edge(int from, int to, T cost = 1, int\
-    \ id = -1) {\n        if (cost < 0) {\n            cost = -cost;\n           \
-    \ swap(from, to);\n        }\n        g.add_edge(from, to, cost, id);\n    }\n\
-    \    // f(to) <= f(from) + cost\n    void add_edge(edge<T> _e) {\n        if (_e.cost\
-    \ < 0) {\n            _e.cost = -_e.cost;\n            swap(_e.from, _e.to);\n\
-    \        }\n        g.add_edge(_e);\n    }\n    // \u725B\u30B2\u30FC\u3092\u89E3\
-    \u304F d[t]: max{f(t) - f(s)} \u3092\u6C42\u3081\u308B O(nm)\n    vector<T> solve(int\
+    \ k) {\n        return data[k];\n    }\n    vector<int> path_to_vertex(edges<T>&\
+    \ _e) {\n        vector<int> re;\n        if (_e.size() == 0) {\n            return\
+    \  re;\n        }\n        if (_e.size() == 1) {\n            re.push_back(_e[0].from);\n\
+    \            re.push_back(_e[0].to);\n            return re;\n        }\n    \
+    \    int x=_e[0].from,y=_e[0].to;\n        if (x==_e[1].to || x == _e[1].from)\
+    \ swap(x, y);\n        re.push_back(x);\n        for (int i=1; i<_e.size(); i++)\
+    \ {\n            re.push_back(y);\n            x = _e[i].to;\n            if (x\
+    \ == y) x = _e[i].from;\n            swap(x, y);\n        }\n        return re;\n\
+    \    }\n    edges<T> vetex_to_path (vector<int>& v){\n        edges<T> re;\n \
+    \       for (int i=0; i+1<v.size(); i++) {\n            for (auto& _e : this[v[i]])\
+    \ {\n                if (_e.to == v[i+1]) {\n                    re.push_back(_e);\n\
+    \                    break;\n                }\n            }\n        }\n   \
+    \     return re;\n    }\n};\n#line 4 \"graph/dualshortestpath.hpp\"\nusing namespace\
+    \ std;\n// \u6700\u77ED\u7D4C\u8DEF\u554F\u984C\u306E\u53CC\u5BFE\uFF08\u725B\u30B2\
+    \u30FC\uFF09\u3092\u89E3\u304F\ntemplate<class T>\nstruct dualshortestpath {\n\
+    \    graph<T, true, true> g;\n    dualshortestpath(int n) : g(n) {}\n    // f(to)\
+    \ <= f(from) + cost\n    void add_edge(int from, int to, T cost = 1, int id =\
+    \ -1) {\n        if (cost < 0) {\n            cost = -cost;\n            swap(from,\
+    \ to);\n        }\n        g.add_edge(from, to, cost, id);\n    }\n    // f(to)\
+    \ <= f(from) + cost\n    void add_edge(edge<T> _e) {\n        if (_e.cost < 0)\
+    \ {\n            _e.cost = -_e.cost;\n            swap(_e.from, _e.to);\n    \
+    \    }\n        g.add_edge(_e);\n    }\n    // \u725B\u30B2\u30FC\u3092\u89E3\u304F\
+    \ d[t]: max{f(t) - f(s)} \u3092\u6C42\u3081\u308B O(nm)\n    vector<T> solve(int\
     \ start = -1) {\n        vector<T> d(N, numeric_limits<T>::max()/2);\n       \
     \ if (start == -1) fill(begin(d), end(d), T{});\n        if (start != -1) d[start]\
     \ = 0;\n        for (int i=0; i<g.size(); i++) {\n            int updated = 0;\n\
@@ -80,7 +92,7 @@ data:
   isVerificationFile: false
   path: graph/dualshortestpath.hpp
   requiredBy: []
-  timestamp: '2025-05-08 04:55:27+00:00'
+  timestamp: '2025-05-09 08:36:58+00:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []
 documentation_of: graph/dualshortestpath.hpp

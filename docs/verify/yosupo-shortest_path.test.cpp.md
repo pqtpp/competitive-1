@@ -99,11 +99,23 @@ data:
     \ - indexed, to - indexed, cost);\n        }\n    }\n    // \u9802\u70B9\u6570\
     \u3092\u8FD4\u3059\n    int size() {\n        return data.size();\n    }\n   \
     \ // \u9802\u70B9\u3092\u8FD4\u3059\n    edges<T> operator[](int k) {\n      \
-    \  return data[k];\n    }\n};\n#line 4 \"graph/dijkstra.hpp\"\nusing namespace\
-    \ std;\n// \u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\u3092\u7528\u3044\u3066\u5358\
-    \u4E00\u59CB\u70B9\u6700\u77ED\u7D4C\u8DEF\u3092\u6C42\u3081\u308B \u305F\u3060\
-    \u3057\u3001\u8CA0\u8FBA\u304C\u5B58\u5728\u3057\u306A\u3044\u3053\u3068 O(m log\
-    \ n)\ntemplate<class T = int, bool directed = false, bool weighted = true>\nvector<T>\
+    \  return data[k];\n    }\n    vector<int> path_to_vertex(edges<T>& _e) {\n  \
+    \      vector<int> re;\n        if (_e.size() == 0) {\n            return  re;\n\
+    \        }\n        if (_e.size() == 1) {\n            re.push_back(_e[0].from);\n\
+    \            re.push_back(_e[0].to);\n            return re;\n        }\n    \
+    \    int x=_e[0].from,y=_e[0].to;\n        if (x==_e[1].to || x == _e[1].from)\
+    \ swap(x, y);\n        re.push_back(x);\n        for (int i=1; i<_e.size(); i++)\
+    \ {\n            re.push_back(y);\n            x = _e[i].to;\n            if (x\
+    \ == y) x = _e[i].from;\n            swap(x, y);\n        }\n        return re;\n\
+    \    }\n    edges<T> vetex_to_path (vector<int>& v){\n        edges<T> re;\n \
+    \       for (int i=0; i+1<v.size(); i++) {\n            for (auto& _e : this[v[i]])\
+    \ {\n                if (_e.to == v[i+1]) {\n                    re.push_back(_e);\n\
+    \                    break;\n                }\n            }\n        }\n   \
+    \     return re;\n    }\n};\n#line 4 \"graph/dijkstra.hpp\"\nusing namespace std;\n\
+    // \u30C0\u30A4\u30AF\u30B9\u30C8\u30E9\u6CD5\u3092\u7528\u3044\u3066\u5358\u4E00\
+    \u59CB\u70B9\u6700\u77ED\u7D4C\u8DEF\u3092\u6C42\u3081\u308B \u305F\u3060\u3057\
+    \u3001\u8CA0\u8FBA\u304C\u5B58\u5728\u3057\u306A\u3044\u3053\u3068 O(m log n)\n\
+    template<class T = int, bool directed = false, bool weighted = true>\nvector<T>\
     \ dijkstra(graph<T, directed, weighted>& g, int from = 0) {\n    vector<T> dist(g.size(),\
     \ numeric_limits<T>::max()); dist[from] = T{};\n    vector<bool> visited(g.size());\n\
     \    priority_queue<pair<T, int>, vector<pair<T, int>>, greater<pair<T, int>>>\
@@ -159,7 +171,7 @@ data:
   isVerificationFile: true
   path: verify/yosupo-shortest_path.test.cpp
   requiredBy: []
-  timestamp: '2025-05-08 04:55:27+00:00'
+  timestamp: '2025-05-09 08:36:58+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-shortest_path.test.cpp

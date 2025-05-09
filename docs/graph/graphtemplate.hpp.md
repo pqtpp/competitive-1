@@ -80,7 +80,19 @@ data:
     \            add_edge(from - indexed, to - indexed, cost);\n        }\n    }\n\
     \    // \u9802\u70B9\u6570\u3092\u8FD4\u3059\n    int size() {\n        return\
     \ data.size();\n    }\n    // \u9802\u70B9\u3092\u8FD4\u3059\n    edges<T> operator[](int\
-    \ k) {\n        return data[k];\n    }\n};\n"
+    \ k) {\n        return data[k];\n    }\n    vector<int> path_to_vertex(edges<T>&\
+    \ _e) {\n        vector<int> re;\n        if (_e.size() == 0) {\n            return\
+    \  re;\n        }\n        if (_e.size() == 1) {\n            re.push_back(_e[0].from);\n\
+    \            re.push_back(_e[0].to);\n            return re;\n        }\n    \
+    \    int x=_e[0].from,y=_e[0].to;\n        if (x==_e[1].to || x == _e[1].from)\
+    \ swap(x, y);\n        re.push_back(x);\n        for (int i=1; i<_e.size(); i++)\
+    \ {\n            re.push_back(y);\n            x = _e[i].to;\n            if (x\
+    \ == y) x = _e[i].from;\n            swap(x, y);\n        }\n        return re;\n\
+    \    }\n    edges<T> vetex_to_path (vector<int>& v){\n        edges<T> re;\n \
+    \       for (int i=0; i+1<v.size(); i++) {\n            for (auto& _e : this[v[i]])\
+    \ {\n                if (_e.to == v[i+1]) {\n                    re.push_back(_e);\n\
+    \                    break;\n                }\n            }\n        }\n   \
+    \     return re;\n    }\n};\n"
   code: "#pragma once\n#include<bits/stdc++.h>\nusing namespace std;\n// \u8FBA\u306E\
     \u69CB\u9020\u4F53 edge(from, to, cost, id)\ntemplate<class T = int>\nstruct edge\
     \ {\n    int from, to;\n    T cost;\n    int id;\n};\n// \u9802\u70B9\u306E\u69CB\
@@ -104,7 +116,19 @@ data:
     \            add_edge(from - indexed, to - indexed, cost);\n        }\n    }\n\
     \    // \u9802\u70B9\u6570\u3092\u8FD4\u3059\n    int size() {\n        return\
     \ data.size();\n    }\n    // \u9802\u70B9\u3092\u8FD4\u3059\n    edges<T> operator[](int\
-    \ k) {\n        return data[k];\n    }\n};"
+    \ k) {\n        return data[k];\n    }\n    vector<int> path_to_vertex(edges<T>&\
+    \ _e) {\n        vector<int> re;\n        if (_e.size() == 0) {\n            return\
+    \  re;\n        }\n        if (_e.size() == 1) {\n            re.push_back(_e[0].from);\n\
+    \            re.push_back(_e[0].to);\n            return re;\n        }\n    \
+    \    int x=_e[0].from,y=_e[0].to;\n        if (x==_e[1].to || x == _e[1].from)\
+    \ swap(x, y);\n        re.push_back(x);\n        for (int i=1; i<_e.size(); i++)\
+    \ {\n            re.push_back(y);\n            x = _e[i].to;\n            if (x\
+    \ == y) x = _e[i].from;\n            swap(x, y);\n        }\n        return re;\n\
+    \    }\n    edges<T> vetex_to_path (vector<int>& v){\n        edges<T> re;\n \
+    \       for (int i=0; i+1<v.size(); i++) {\n            for (auto& _e : this[v[i]])\
+    \ {\n                if (_e.to == v[i+1]) {\n                    re.push_back(_e);\n\
+    \                    break;\n                }\n            }\n        }\n   \
+    \     return re;\n    }\n};\n"
   dependsOn: []
   isVerificationFile: false
   path: graph/graphtemplate.hpp
@@ -118,7 +142,7 @@ data:
   - graph/dijkstra.hpp
   - graph/minimumsteinertree.hpp
   - graph/dijkstrarestore.hpp
-  timestamp: '2025-05-08 04:55:27+00:00'
+  timestamp: '2025-05-09 08:36:58+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-minimum_steiner_tree.test.cpp
