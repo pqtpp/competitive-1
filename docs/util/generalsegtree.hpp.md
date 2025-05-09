@@ -7,6 +7,9 @@ data:
   _extendedRequiredBy: []
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: verify/aizu-DSL_2_A.test.cpp
+    title: verify/aizu-DSL_2_A.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-static_range_sum.test.cpp
     title: verify/yosupo-static_range_sum.test.cpp
   _isVerificationFailed: false
@@ -60,8 +63,16 @@ data:
     \ s))) s = op(data[r--], s);\n                }\n                return (r + 1)\
     \ - size;\n            }\n            s = op(data[r], s);\n        } while(r !=\
     \ (r & -r));\n        return 0;\n    }\n};\n#line 4 \"util/generalsegtree.hpp\"\
-    \nusing namespace std;\nusing pointset_rangesum_ll=segtree<long long,[](long long\
-    \ a,long long b)->long long{return a+b;}, []()->long long{return 0LL;}>;\n"
+    \nusing namespace std;\nusing rangesum_int=segtree<int,[](int a,int b)->int{return\
+    \ a+b;},[]()->int{return 0;}>;\nusing rangesum_ll=segtree<long long,[](long long\
+    \ a,long long b)->long long{return a+b;},[]()->long long{return 0LL;}>;\nusing\
+    \ rangemin_int=segtree<int,[](int a,int b)->int{return min(a,b);},[]()->int{return\
+    \ numeric_limits<int>::max();}>;\nusing rangemin_ll=segtree<long long,[](long\
+    \ long a,long long b)->long long{return min(a,b);},[]()->long long{return numeric_limits<long\
+    \ long>::max();}>;\nusing rangemax_int=segtree<int,[](int a,int b)->int{return\
+    \ max(a,b);},[]()->int{return numeric_limits<int>::min();}>;\nusing rangemax_ll=segtree<long\
+    \ long,[](long long a,long long b)->long long{return max(a,b);},[]()->long long{return\
+    \ numeric_limits<long long>::min();}>;\n"
   code: '#pragma once
 
     #include "segtree"
@@ -70,17 +81,35 @@ data:
 
     using namespace std;
 
-    using pointset_rangesum_ll=segtree<long long,[](long long a,long long b)->long
-    long{return a+b;}, []()->long long{return 0LL;}>;'
+    using rangesum_int=segtree<int,[](int a,int b)->int{return a+b;},[]()->int{return
+    0;}>;
+
+    using rangesum_ll=segtree<long long,[](long long a,long long b)->long long{return
+    a+b;},[]()->long long{return 0LL;}>;
+
+    using rangemin_int=segtree<int,[](int a,int b)->int{return min(a,b);},[]()->int{return
+    numeric_limits<int>::max();}>;
+
+    using rangemin_ll=segtree<long long,[](long long a,long long b)->long long{return
+    min(a,b);},[]()->long long{return numeric_limits<long long>::max();}>;
+
+    using rangemax_int=segtree<int,[](int a,int b)->int{return max(a,b);},[]()->int{return
+    numeric_limits<int>::min();}>;
+
+    using rangemax_ll=segtree<long long,[](long long a,long long b)->long long{return
+    max(a,b);},[]()->long long{return numeric_limits<long long>::min();}>;
+
+    '
   dependsOn:
   - structure/segtree.hpp
   isVerificationFile: false
   path: util/generalsegtree.hpp
   requiredBy: []
-  timestamp: '2025-05-09 08:04:43+00:00'
+  timestamp: '2025-05-09 08:11:48+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-static_range_sum.test.cpp
+  - verify/aizu-DSL_2_A.test.cpp
 documentation_of: util/generalsegtree.hpp
 layout: document
 redirect_from:

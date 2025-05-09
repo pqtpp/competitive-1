@@ -11,7 +11,7 @@ int main() { IO();
 void solve() {
     int n, q; cin >> n >> q;
     vll a(n); cin >> a;
-    pointset_rangesum_ll seg(a);
+    rangesum_ll seg(a);
     while (q--) {
         int l, r; cin >> l >> r;
         cout << seg.prod(l, r) << nl;

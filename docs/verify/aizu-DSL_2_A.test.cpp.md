@@ -5,6 +5,9 @@ data:
     path: structure/segtree.hpp
     title: structure/segtree.hpp
   - icon: ':heavy_check_mark:'
+    path: util/generalsegtree.hpp
+    title: util/generalsegtree.hpp
+  - icon: ':heavy_check_mark:'
     path: util/template.hpp
     title: util/template.hpp
   _extendedRequiredBy: []
@@ -113,28 +116,37 @@ data:
     \ size) {\n                    r = 2 * r + 1;\n                    if (f(op(data[r],\
     \ s))) s = op(data[r--], s);\n                }\n                return (r + 1)\
     \ - size;\n            }\n            s = op(data[r], s);\n        } while(r !=\
-    \ (r & -r));\n        return 0;\n    }\n};\n#line 4 \"verify/aizu-DSL_2_A.test.cpp\"\
+    \ (r & -r));\n        return 0;\n    }\n};\n#line 4 \"util/generalsegtree.hpp\"\
+    \nusing namespace std;\nusing rangesum_int=segtree<int,[](int a,int b)->int{return\
+    \ a+b;},[]()->int{return 0;}>;\nusing rangesum_ll=segtree<long long,[](long long\
+    \ a,long long b)->long long{return a+b;},[]()->long long{return 0LL;}>;\nusing\
+    \ rangemin_int=segtree<int,[](int a,int b)->int{return min(a,b);},[]()->int{return\
+    \ numeric_limits<int>::max();}>;\nusing rangemin_ll=segtree<long long,[](long\
+    \ long a,long long b)->long long{return min(a,b);},[]()->long long{return numeric_limits<long\
+    \ long>::max();}>;\nusing rangemax_int=segtree<int,[](int a,int b)->int{return\
+    \ max(a,b);},[]()->int{return numeric_limits<int>::min();}>;\nusing rangemax_ll=segtree<long\
+    \ long,[](long long a,long long b)->long long{return max(a,b);},[]()->long long{return\
+    \ numeric_limits<long long>::min();}>;\n#line 4 \"verify/aizu-DSL_2_A.test.cpp\"\
     \n\r\nint main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--)\
-    \ solve();\r\n}\r\n\r\nvoid solve() {\r\n    int n, q; cin >> n >> q;\r\n    segtree<ll,\
-    \ [](ll a, ll b) { return min(a, b); }, [](){return(1LL<<31)-1;}> seg(n);\r\n\
-    \    while (q--) {\r\n        ll x, y, z; cin >> x >> y >> z;\r\n        if (x\
-    \ == 0) {\r\n            seg.set(y, z);\r\n        } else {\r\n            cout\
-    \ << seg.prod(y, z+1) << nl;\r\n        }\r\n    }\r\n}\n"
+    \ solve();\r\n}\r\n\r\nvoid solve() {\r\n    int n, q; cin >> n >> q;\r\n    rangemin_int\
+    \ seg(n);\r\n    while (q--) {\r\n        ll x, y, z; cin >> x >> y >> z;\r\n\
+    \        if (x == 0) {\r\n            seg.set(y, z);\r\n        } else {\r\n \
+    \           cout << seg.prod(y, z+1) << nl;\r\n        }\r\n    }\r\n}\n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_A\"\
-    \r\n#include \"template\"\r\n#include \"segtree\"\r\n\r\nint main() { IO();\r\n\
-    \    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\n}\r\n\r\nvoid\
-    \ solve() {\r\n    int n, q; cin >> n >> q;\r\n    segtree<ll, [](ll a, ll b)\
-    \ { return min(a, b); }, [](){return(1LL<<31)-1;}> seg(n);\r\n    while (q--)\
-    \ {\r\n        ll x, y, z; cin >> x >> y >> z;\r\n        if (x == 0) {\r\n  \
-    \          seg.set(y, z);\r\n        } else {\r\n            cout << seg.prod(y,\
-    \ z+1) << nl;\r\n        }\r\n    }\r\n}"
+    \r\n#include \"template\"\r\n#include \"generalsegtree\"\r\n\r\nint main() { IO();\r\
+    \n    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\n}\r\n\r\nvoid\
+    \ solve() {\r\n    int n, q; cin >> n >> q;\r\n    rangemin_int seg(n);\r\n  \
+    \  while (q--) {\r\n        ll x, y, z; cin >> x >> y >> z;\r\n        if (x ==\
+    \ 0) {\r\n            seg.set(y, z);\r\n        } else {\r\n            cout <<\
+    \ seg.prod(y, z+1) << nl;\r\n        }\r\n    }\r\n}"
   dependsOn:
   - util/template.hpp
+  - util/generalsegtree.hpp
   - structure/segtree.hpp
   isVerificationFile: true
   path: verify/aizu-DSL_2_A.test.cpp
   requiredBy: []
-  timestamp: '2025-05-09 08:02:22+00:00'
+  timestamp: '2025-05-09 08:13:28+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aizu-DSL_2_A.test.cpp

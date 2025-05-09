@@ -118,19 +118,26 @@ data:
     \ s))) s = op(data[r--], s);\n                }\n                return (r + 1)\
     \ - size;\n            }\n            s = op(data[r], s);\n        } while(r !=\
     \ (r & -r));\n        return 0;\n    }\n};\n#line 4 \"util/generalsegtree.hpp\"\
-    \nusing namespace std;\nusing pointset_rangesum_ll=segtree<long long,[](long long\
-    \ a,long long b)->long long{return a+b;}, []()->long long{return 0LL;}>;\n#line\
-    \ 4 \"verify/yosupo-static_range_sum.test.cpp\"\n\r\nint main() { IO();\r\n  \
-    \  int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\n}\r\n\r\nvoid solve()\
-    \ {\r\n    int n, q; cin >> n >> q;\r\n    vll a(n); cin >> a;\r\n    pointset_rangesum_ll\
-    \ seg(a);\r\n    while (q--) {\r\n        int l, r; cin >> l >> r;\r\n       \
-    \ cout << seg.prod(l, r) << nl;\r\n    }\r\n}\n"
+    \nusing namespace std;\nusing rangesum_int=segtree<int,[](int a,int b)->int{return\
+    \ a+b;},[]()->int{return 0;}>;\nusing rangesum_ll=segtree<long long,[](long long\
+    \ a,long long b)->long long{return a+b;},[]()->long long{return 0LL;}>;\nusing\
+    \ rangemin_int=segtree<int,[](int a,int b)->int{return min(a,b);},[]()->int{return\
+    \ numeric_limits<int>::max();}>;\nusing rangemin_ll=segtree<long long,[](long\
+    \ long a,long long b)->long long{return min(a,b);},[]()->long long{return numeric_limits<long\
+    \ long>::max();}>;\nusing rangemax_int=segtree<int,[](int a,int b)->int{return\
+    \ max(a,b);},[]()->int{return numeric_limits<int>::min();}>;\nusing rangemax_ll=segtree<long\
+    \ long,[](long long a,long long b)->long long{return max(a,b);},[]()->long long{return\
+    \ numeric_limits<long long>::min();}>;\n#line 4 \"verify/yosupo-static_range_sum.test.cpp\"\
+    \n\r\nint main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--)\
+    \ solve();\r\n}\r\n\r\nvoid solve() {\r\n    int n, q; cin >> n >> q;\r\n    vll\
+    \ a(n); cin >> a;\r\n    rangesum_ll seg(a);\r\n    while (q--) {\r\n        int\
+    \ l, r; cin >> l >> r;\r\n        cout << seg.prod(l, r) << nl;\r\n    }\r\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/static_range_sum\"\r\n\
     #include \"template\"\r\n#include \"generalsegtree\"\r\n\r\nint main() { IO();\r\
     \n    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\n}\r\n\r\nvoid\
     \ solve() {\r\n    int n, q; cin >> n >> q;\r\n    vll a(n); cin >> a;\r\n   \
-    \ pointset_rangesum_ll seg(a);\r\n    while (q--) {\r\n        int l, r; cin >>\
-    \ l >> r;\r\n        cout << seg.prod(l, r) << nl;\r\n    }\r\n}"
+    \ rangesum_ll seg(a);\r\n    while (q--) {\r\n        int l, r; cin >> l >> r;\r\
+    \n        cout << seg.prod(l, r) << nl;\r\n    }\r\n}"
   dependsOn:
   - util/template.hpp
   - util/generalsegtree.hpp
@@ -138,7 +145,7 @@ data:
   isVerificationFile: true
   path: verify/yosupo-static_range_sum.test.cpp
   requiredBy: []
-  timestamp: '2025-05-09 08:04:43+00:00'
+  timestamp: '2025-05-09 08:11:48+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-static_range_sum.test.cpp
