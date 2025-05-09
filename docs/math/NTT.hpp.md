@@ -65,10 +65,10 @@ data:
     \u3002buildfac\u306E\u547C\u3073\u51FA\u3057\u304C\u5FC5\u9808\u3002O(1)\nmint\
     \ perm(int n,int k) { return (0 <= k && k <= n ) ? fac[n] * ifac[n-k] : 0; }\n\
     #line 4 \"math/NTT.hpp\"\nusing namespace std;\nvoid ntt(vector<mint>& a, bool\
-    \ invert) {\n    int n = a.size();\n    for (int i=1, j=0; i < n; i++) {\n   \
-    \     int b;\n        for (b=n>>1; j&b; b>>=1) j ^= b;\n        j ^= b;\n    \
-    \    if (i < j) swap(a[i], a[j]);\n    }\n    for (int len=2; len<=n; len<<=1)\
-    \ {\n        mint wlen = mint(3).pow((998244353 - 1) / len);\n        if (invert)\
+    \ invert) {\n    int n = a.size();\n    for (int i=1, j=0; i<n; i++) {\n     \
+    \   int b;\n        for (b=n>>1; j&b; b>>=1) j ^= b;\n        j ^= b;\n      \
+    \  if (i < j) swap(a[i], a[j]);\n    }\n    for (int len=2; len<=n; len<<=1) {\n\
+    \        mint wlen = mint(3).pow((998244353 - 1) / len);\n        if (invert)\
     \ wlen = wlen.inv();\n        for (int i=0; i<n; i+=len) {\n            mint w\
     \ = 1;\n            for (int j=0; j<len/2; j++) {\n                mint u = a[i+j],\
     \ v = a[i+j+len/2] * w;\n                a[i+j] = u + v;\n                a[i+j+len/2]\
@@ -77,7 +77,7 @@ data:
     \ *= inv_n;\n    }\n}\n"
   code: "#pragma once\n#include \"modint\"\n#include <bits/stdc++.h>\nusing namespace\
     \ std;\nvoid ntt(vector<mint>& a, bool invert) {\n    int n = a.size();\n    for\
-    \ (int i=1, j=0; i < n; i++) {\n        int b;\n        for (b=n>>1; j&b; b>>=1)\
+    \ (int i=1, j=0; i<n; i++) {\n        int b;\n        for (b=n>>1; j&b; b>>=1)\
     \ j ^= b;\n        j ^= b;\n        if (i < j) swap(a[i], a[j]);\n    }\n    for\
     \ (int len=2; len<=n; len<<=1) {\n        mint wlen = mint(3).pow((998244353 -\
     \ 1) / len);\n        if (invert) wlen = wlen.inv();\n        for (int i=0; i<n;\
@@ -92,7 +92,7 @@ data:
   path: math/NTT.hpp
   requiredBy:
   - math/convolution.hpp
-  timestamp: '2025-05-09 04:46:59+00:00'
+  timestamp: '2025-05-09 05:07:22+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-convolution_mod.test.cpp

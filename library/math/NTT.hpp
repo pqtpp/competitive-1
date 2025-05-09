@@ -4,7 +4,7 @@
 using namespace std;
 void ntt(vector<mint>& a, bool invert) {
     int n = a.size();
-    for (int i=1, j=0; i < n; i++) {
+    for (int i=1, j=0; i<n; i++) {
         int b;
         for (b=n>>1; j&b; b>>=1) j ^= b;
         j ^= b;

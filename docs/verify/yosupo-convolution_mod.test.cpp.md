@@ -123,8 +123,8 @@ data:
     buildfac\u306E\u547C\u3073\u51FA\u3057\u304C\u5FC5\u9808\u3002O(1)\nmint perm(int\
     \ n,int k) { return (0 <= k && k <= n ) ? fac[n] * ifac[n-k] : 0; }\n#line 4 \"\
     math/NTT.hpp\"\nusing namespace std;\nvoid ntt(vector<mint>& a, bool invert) {\n\
-    \    int n = a.size();\n    for (int i=1, j=0; i < n; i++) {\n        int b;\n\
-    \        for (b=n>>1; j&b; b>>=1) j ^= b;\n        j ^= b;\n        if (i < j)\
+    \    int n = a.size();\n    for (int i=1, j=0; i<n; i++) {\n        int b;\n \
+    \       for (b=n>>1; j&b; b>>=1) j ^= b;\n        j ^= b;\n        if (i < j)\
     \ swap(a[i], a[j]);\n    }\n    for (int len=2; len<=n; len<<=1) {\n        mint\
     \ wlen = mint(3).pow((998244353 - 1) / len);\n        if (invert) wlen = wlen.inv();\n\
     \        for (int i=0; i<n; i+=len) {\n            mint w = 1;\n            for\
@@ -134,16 +134,16 @@ data:
     \ {\n        mint inv_n = mint(n).inv();\n        for (auto& x : a) x *= inv_n;\n\
     \    }\n}\n#line 4 \"math/convolution.hpp\"\nusing namespace std;\nvector<int>\
     \ convolution(vector<int>& a, vector<int>& b) {\n    int n=1;\n    while (n <\
-    \ a.size() + b.size() - 1) n <<= 1;\n    vector<mint> A(n), B(n);\n    for (int\
-    \ i=0; i<a.size(); i++) {\n        A[i] = mint(a[i]);\n    }\n    for (int i=0;\
-    \ i<b.size(); i++) {\n        B[i] = mint(b[i]);\n    }\n    ntt(A, false);\n\
-    \    ntt(B, false);\n    for (int i=0; i<n; i++) {\n        A[i] *= B[i];\n  \
-    \  }\n    ntt(A, true);\n    vector<int> re(a.size()+b.size()-1);\n    for (int\
-    \ i=0; i<a.size()+b.size()-1; i++) {\n        re[i] = A[i].val;\n    }\n    return\
-    \ re;\n}\n#line 4 \"verify/yosupo-convolution_mod.test.cpp\"\n\r\nint main() {\
-    \ IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\n}\r\
-    \n\r\nvoid solve() {\r\n    int n, m; cin >> n >> m;\r\n    vi a(n), b(m); cin\
-    \ >> a; cin >> b;\r\n    vi c = convolution(a, b);\r\n    cout << c;\r\n}\n"
+    \ a.size()+b.size()-1) n <<= 1;\n    vector<mint> A(n), B(n);\n    for (int i=0;\
+    \ i<a.size(); i++) {\n        A[i] = mint(a[i]);\n    }\n    for (int i=0; i<b.size();\
+    \ i++) {\n        B[i] = mint(b[i]);\n    }\n    ntt(A, false);\n    ntt(B, false);\n\
+    \    for (int i=0; i<n; i++) {\n        A[i] *= B[i];\n    }\n    ntt(A, true);\n\
+    \    vector<int> re(a.size()+b.size()-1);\n    for (int i=0; i<a.size()+b.size()-1;\
+    \ i++) {\n        re[i] = A[i].val;\n    }\n    return re;\n}\n#line 4 \"verify/yosupo-convolution_mod.test.cpp\"\
+    \n\r\nint main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--)\
+    \ solve();\r\n}\r\n\r\nvoid solve() {\r\n    int n, m; cin >> n >> m;\r\n    vi\
+    \ a(n), b(m); cin >> a; cin >> b;\r\n    vi c = convolution(a, b);\r\n    cout\
+    \ << c;\r\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/convolution_mod\"\r\n#include\
     \ \"template\"\r\n#include \"convolution\"\r\n\r\nint main() { IO();\r\n    int\
     \ T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\n}\r\n\r\nvoid solve()\
@@ -157,7 +157,7 @@ data:
   isVerificationFile: true
   path: verify/yosupo-convolution_mod.test.cpp
   requiredBy: []
-  timestamp: '2025-05-09 05:00:45+00:00'
+  timestamp: '2025-05-09 05:07:22+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-convolution_mod.test.cpp
