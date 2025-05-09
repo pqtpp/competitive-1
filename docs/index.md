@@ -43,10 +43,10 @@ data:
     - icon: ':warning:'
       path: math/FFT.hpp
       title: math/FFT.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: math/NTT.hpp
       title: math/NTT.hpp
-    - icon: ':warning:'
+    - icon: ':heavy_check_mark:'
       path: math/convolution.hpp
       title: math/convolution.hpp
     - icon: ':warning:'
@@ -130,6 +130,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/aizu-GRL_2_A.test.cpp
       title: verify/aizu-GRL_2_A.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/yosupo-convolution_mod.test.cpp
+      title: verify/yosupo-convolution_mod.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/yosupo-factorize.test.cpp
       title: verify/yosupo-factorize.test.cpp

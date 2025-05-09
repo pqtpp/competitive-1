@@ -2,13 +2,16 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: math/NTT.hpp
     title: math/NTT.hpp
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: math/convolution.hpp
     title: math/convolution.hpp
   _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/yosupo-convolution_mod.test.cpp
+    title: verify/yosupo-convolution_mod.test.cpp
   - icon: ':heavy_check_mark:'
     path: verify/yosupo-point_set_range_composite.test.cpp
     title: verify/yosupo-point_set_range_composite.test.cpp
@@ -129,6 +132,7 @@ data:
   - verify/yosupo-range_affine_range_sum.test.cpp
   - verify/yosupo-point_set_range_composite.test.cpp
   - verify/yosupo-range_affine_point_get.test.cpp
+  - verify/yosupo-convolution_mod.test.cpp
 documentation_of: math/modint.hpp
 layout: document
 redirect_from:

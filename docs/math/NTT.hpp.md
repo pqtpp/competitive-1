@@ -5,13 +5,16 @@ data:
     path: math/modint.hpp
     title: math/modint.hpp
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: math/convolution.hpp
     title: math/convolution.hpp
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/yosupo-convolution_mod.test.cpp
+    title: verify/yosupo-convolution_mod.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"math/modint.hpp\"\n#include<bits/stdc++.h>\nusing namespace\
@@ -90,8 +93,9 @@ data:
   requiredBy:
   - math/convolution.hpp
   timestamp: '2025-05-09 04:46:59+00:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - verify/yosupo-convolution_mod.test.cpp
 documentation_of: math/NTT.hpp
 layout: document
 redirect_from:

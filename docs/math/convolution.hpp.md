@@ -1,17 +1,20 @@
 ---
 data:
   _extendedDependsOn:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: math/NTT.hpp
     title: math/NTT.hpp
   - icon: ':heavy_check_mark:'
     path: math/modint.hpp
     title: math/modint.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/yosupo-convolution_mod.test.cpp
+    title: verify/yosupo-convolution_mod.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"math/modint.hpp\"\n#include<bits/stdc++.h>\nusing namespace\
@@ -74,17 +77,19 @@ data:
     \ *= inv_n;\n    }\n}\n#line 4 \"math/convolution.hpp\"\nusing namespace std;\n\
     vector<int> convolution(vector<int>& a, vector<int>& b) {\n    int n=1;\n    while\
     \ (n < a.size() + b.size() - 1) n <<= 1;\n    vector<mint> A(n), B(n);\n    for\
-    \ (int i=0; i<n; i++) {\n        A[i] = mint(a[i]);\n        B[i] = mint(b[i]);\n\
-    \    }\n    ntt(A, false);\n    ntt(B, false);\n    for (int i=0; i<n; i++) {\n\
-    \        A[i] *= B[i];\n    }\n    ntt(A, true);\n    vector<int> re(a.size()+b.size()-1);\n\
-    \    for (int i=0; i<a.size()+b.size()-1; i++) {\n        re[i] = A[i].val;\n\
-    \    }\n    return re;\n}\n"
+    \ (int i=0; i<a.size(); i++) {\n        A[i] = mint(a[i]);\n    }\n    for (int\
+    \ i=0; i<b.size(); i++) {\n        B[i] = mint(b[i]);\n    }\n    ntt(A, false);\n\
+    \    ntt(B, false);\n    for (int i=0; i<n; i++) {\n        A[i] *= B[i];\n  \
+    \  }\n    ntt(A, true);\n    vector<int> re(a.size()+b.size()-1);\n    for (int\
+    \ i=0; i<a.size()+b.size()-1; i++) {\n        re[i] = A[i].val;\n    }\n    return\
+    \ re;\n}\n"
   code: "#pragma once\n#include \"NTT\"\n#include <bits/stdc++.h>\nusing namespace\
     \ std;\nvector<int> convolution(vector<int>& a, vector<int>& b) {\n    int n=1;\n\
     \    while (n < a.size() + b.size() - 1) n <<= 1;\n    vector<mint> A(n), B(n);\n\
-    \    for (int i=0; i<n; i++) {\n        A[i] = mint(a[i]);\n        B[i] = mint(b[i]);\n\
-    \    }\n    ntt(A, false);\n    ntt(B, false);\n    for (int i=0; i<n; i++) {\n\
-    \        A[i] *= B[i];\n    }\n    ntt(A, true);\n    vector<int> re(a.size()+b.size()-1);\n\
+    \    for (int i=0; i<a.size(); i++) {\n        A[i] = mint(a[i]);\n    }\n   \
+    \ for (int i=0; i<b.size(); i++) {\n        B[i] = mint(b[i]);\n    }\n    ntt(A,\
+    \ false);\n    ntt(B, false);\n    for (int i=0; i<n; i++) {\n        A[i] *=\
+    \ B[i];\n    }\n    ntt(A, true);\n    vector<int> re(a.size()+b.size()-1);\n\
     \    for (int i=0; i<a.size()+b.size()-1; i++) {\n        re[i] = A[i].val;\n\
     \    }\n    return re;\n}"
   dependsOn:
@@ -93,9 +98,10 @@ data:
   isVerificationFile: false
   path: math/convolution.hpp
   requiredBy: []
-  timestamp: '2025-05-09 04:46:59+00:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2025-05-09 04:56:56+00:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - verify/yosupo-convolution_mod.test.cpp
 documentation_of: math/convolution.hpp
 layout: document
 redirect_from:
