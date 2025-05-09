@@ -55,6 +55,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: math/modint.hpp
       title: math/modint.hpp
+    - icon: ':warning:'
+      path: math/modint230.hpp
+      title: math/modint230.hpp
     - icon: ':heavy_check_mark:'
       path: math/prime.hpp
       title: math/prime.hpp
