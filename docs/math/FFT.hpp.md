@@ -1,10 +1,7 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy:
-  - icon: ':warning:'
-    path: math/convolution.hpp
-    title: math/convolution.hpp
+  _extendedRequiredBy: []
   _extendedVerifiedWith: []
   _isVerificationFailed: false
   _pathExtension: hpp
@@ -32,8 +29,7 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: math/FFT.hpp
-  requiredBy:
-  - math/convolution.hpp
+  requiredBy: []
   timestamp: '2025-04-24 08:04:34+00:00'
   verificationStatus: LIBRARY_NO_TESTS
   verifiedWith: []

@@ -44,6 +44,9 @@ data:
       path: math/FFT.hpp
       title: math/FFT.hpp
     - icon: ':warning:'
+      path: math/NTT.hpp
+      title: math/NTT.hpp
+    - icon: ':warning:'
       path: math/convolution.hpp
       title: math/convolution.hpp
     - icon: ':warning:'

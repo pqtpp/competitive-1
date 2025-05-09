@@ -1,7 +1,13 @@
 ---
 data:
   _extendedDependsOn: []
-  _extendedRequiredBy: []
+  _extendedRequiredBy:
+  - icon: ':warning:'
+    path: math/NTT.hpp
+    title: math/NTT.hpp
+  - icon: ':warning:'
+    path: math/convolution.hpp
+    title: math/convolution.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
     path: verify/yosupo-point_set_range_composite.test.cpp
@@ -114,7 +120,9 @@ data:
   dependsOn: []
   isVerificationFile: false
   path: math/modint.hpp
-  requiredBy: []
+  requiredBy:
+  - math/NTT.hpp
+  - math/convolution.hpp
   timestamp: '2025-04-03 17:12:39+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:

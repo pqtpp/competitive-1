@@ -1,18 +1,24 @@
 #pragma once
-#include "FFT"
+#include "NTT"
 #include <bits/stdc++.h>
 using namespace std;
-vector<double> convolution(const vector<double>& f, const vector<double>& g) {
-    int n = 1;
-    while (n < f.size() + g.size()) n <<= 1;
-    vector<complex<double>> fa(f.begin(), f.end()), fb(g.begin(), g.end());
-    fa.resize(n);
-    fb.resize(n);
-    fa = FFT(fa);
-    fb = FFT(fb);
-    for (int i=0; i<n; i++) fa[i] *= fb[i];
-    fa = FFT(fa, true);
-    vector<double> result(n);
-    for (int i=0; i<n; i++) result[i] = fa[i].real()/n;
-    return result;
+vector<int> convolution(vector<int>& a, vector<int>& b) {
+    int n=1;
+    while (n < a.size() + b.size() - 1) n <<= 1;
+    vector<mint> A(n), B(n);
+    for (int i=0; i<n; i++) {
+        A[i] = mint(a[i]);
+        B[i] = mint(b[i]);
+    }
+    ntt(A, false);
+    ntt(B, false);
+    for (int i=0; i<n; i++) {
+        A[i] *= B[i];
+    }
+    ntt(A, true);
+    vector<int> re(a.size()+b.size()-1);
+    for (int i=0; i<a.size()+b.size()-1; i++) {
+        re[i] = A[i].val;
+    }
+    return re;
 }
