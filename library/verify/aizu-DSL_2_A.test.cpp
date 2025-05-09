@@ -10,7 +10,7 @@ int main() { IO();
 
 void solve() {
     int n, q; cin >> n >> q;
-    segtree<ll, [](ll a, ll b) { return min(a, b); }> seg(n, (1LL<<31)-1);
+    segtree<ll, [](ll a, ll b) { return min(a, b); }, [](){return(1LL<<31)-1;}> seg(n);
     while (q--) {
         ll x, y, z; cin >> x >> y >> z;
         if (x == 0) {

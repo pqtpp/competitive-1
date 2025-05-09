@@ -11,8 +11,7 @@ int main() { IO();
 void solve() {
     int n, q; cin >> n >> q;
     vll a(n); cin >> a;
-    auto op = [](ll a, ll b) { return a + b; };
-    segtree<ll, op> seg(a);
+    segtree<ll, [](ll a,ll b){return a+b;}, [](){return 0;}> seg(a);
     while (q--) {
         int l, r; cin >> l >> r;
         cout << seg.prod(l, r) << nl;

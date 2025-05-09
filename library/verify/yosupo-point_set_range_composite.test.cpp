@@ -16,7 +16,10 @@ void solve() {
     auto op = [](pair<mint, mint> f, pair<mint, mint> g) -> pair<mint, mint> {
         return {g.first * f.first, g.first * f.second + g.second};
     };
-    segtree<pair<mint, mint>, op> seg(a, pair<mint, mint>{1, 0});
+    auto e = []() -> pair<mint, mint> {
+        return {mint(1), mint(0)};
+    };
+    segtree<pair<mint, mint>, op, e> seg(a);
     while (q--) {
         int w, x, y, z; cin >> w >> x >> y >> z;
         if (w == 0) {

@@ -70,15 +70,13 @@ data:
     \ IO() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    cout<<fixed<<setprecision(30);\n\
     }\n\nvoid solve();\n#line 3 \"structure/segtree.hpp\"\nusing namespace std;\n\
     // op(op(a, b), c) = op(a, op(b, c)) \u304C\u6210\u308A\u7ACB\u3064\u5FC5\u8981\
-    \u304C\u3042\u308B(\u7D50\u5408\u5F8B)\ntemplate<class S, auto op>\nstruct segtree\
-    \ {\n    int _n, size;\n    S _e;\n    vector<S> data;\n    // \u5927\u304D\u3055\
-    n, \u5358\u4F4D\u5143e(\u7701\u7565\u3059\u308B\u3068S{} \u306B\u306A\u308B) \u306E\
-    \u30BB\u30B0\u6728\u3092\u69CB\u7BC9 O(n)\n    segtree(int n, S e = S{}) : _n(n),\
-    \ _e(e) { build(vector<S>(n, _e)); }\n    // \u5927\u304D\u3055v.size(), \u5358\
-    \u4F4D\u5143e(\u7701\u7565\u3059\u308B\u3068S{} \u306B\u306A\u308B) \u306E\u30BB\
-    \u30B0\u6728\u3092\u69CB\u7BC9 O(n)\n    segtree(vector<S>& v, S e = S{}) : _n(v.size()),\
-    \ _e(e) { build(v); }\n    void build(vector<S> v) {\n        size = __bit_ceil((unsigned\
-    \ int)_n);\n        data.assign(2 * size, _e);\n        for (int i=0; i<_n; i++)\
+    \u304C\u3042\u308B(\u7D50\u5408\u5F8B)\ntemplate<class S, auto op, auto e>\nstruct\
+    \ segtree {\n    int _n, size;\n    vector<S> data;\n    // \u5927\u304D\u3055\
+    n \u306E\u30BB\u30B0\u6728\u3092\u69CB\u7BC9 O(n)\n    segtree(int n) : _n(n)\
+    \ { build(vector<S>(n, e())); }\n    // \u5927\u304D\u3055v.size() \u306E\u30BB\
+    \u30B0\u6728\u3092\u69CB\u7BC9 O(n)\n    segtree(vector<S>& v) : _n(v.size())\
+    \ { build(v); }\n    void build(vector<S> v) {\n        size = __bit_ceil((unsigned\
+    \ int)_n);\n        data.assign(2 * size, e());\n        for (int i=0; i<_n; i++)\
     \ data[size+i] = v[i];\n        for (int i=size-1; 0<i; i--) update(i);\n    }\n\
     \    // p \u756A\u76EE\u306E\u8981\u7D20\u3092x \u306B\u3059\u308B O(log n)\n\
     \    void set(int p, S x) {\n        assert(0 <= p && p < _n);\n        p += size;\n\
@@ -89,28 +87,28 @@ data:
     \ O(1)\n    S operator[](int p) {\n        return get(p);\n    }\n    // [l, r)\
     \ \u306E\u533A\u9593\u30AF\u30A8\u30EA\u306B\u7B54\u3048\u308B O(log n)\n    S\
     \ prod(int l, int r) {\n        assert(0 <= l && l <= r && r <= _n);\n       \
-    \ S ll = _e, rr = _e;\n        l += size;\n        r += size;\n        while (l\
-    \ < r) {\n            if (l & 1) ll = op(ll, data[l++]);\n            if (r &\
-    \ 1) rr = op(data[--r], rr);\n            l >>= 1;\n            r >>= 1;\n   \
-    \     }\n        return op(ll, rr);\n    }\n    // [0, _n) \u306E\u30AF\u30A8\u30EA\
-    \u306B\u7B54\u3048\u308B O(1)\n    S all_prod() {\n        return data[1];\n \
-    \   }\n    // [0, _n) \u306E\u533A\u9593\u306E\u5024\u3092\u53D6\u5F97\u3059\u308B\
+    \ S ll = e(), rr = e();\n        l += size;\n        r += size;\n        while\
+    \ (l < r) {\n            if (l & 1) ll = op(ll, data[l++]);\n            if (r\
+    \ & 1) rr = op(data[--r], rr);\n            l >>= 1;\n            r >>= 1;\n \
+    \       }\n        return op(ll, rr);\n    }\n    // [0, _n) \u306E\u30AF\u30A8\
+    \u30EA\u306B\u7B54\u3048\u308B O(1)\n    S all_prod() {\n        return data[1];\n\
+    \    }\n    // [0, _n) \u306E\u533A\u9593\u306E\u5024\u3092\u53D6\u5F97\u3059\u308B\
     \ O(n)\n    vector<S> values() {\n        vector<S> re(_n);\n        for (int\
     \ i=0; i<_n; i++) re[i] = data[size+i];\n        return re;\n    }\n    void update(int\
     \ p) {\n        data[p] = op(data[2*p], data[2*p+1]);\n    }\n    // f(op([l,\
     \ r)))=true \u3068\u306A\u308B\u6700\u5927\u306Er \u3092\u8FD4\u3059 O(log n)\n\
-    \    template <class F>\n    int max_right(int l, F f) {\n        assert(f(_e));\n\
+    \    template <class F>\n    int max_right(int l, F f) {\n        assert(f(e()));\n\
     \        assert(0 <= l && l <= _n);\n        if (l == _n) return l;\n        l\
-    \ += size;\n        S s = _e;\n        do {\n            while (l % 2 == 0) l\
+    \ += size;\n        S s = e();\n        do {\n            while (l % 2 == 0) l\
     \ >>= 1;\n            if (!f(op(s, data[l]))) {\n                while (l < size)\
     \ {\n                    l = 2 * l;\n                    if (f(op(s, data[l])))\
     \ s = op(s, data[l++]);\n                }\n                return l - size;\n\
     \            }\n            s = op(s, data[l]);\n            l++;\n        } while\
     \ (l != (l & -l));\n        return _n;\n    }\n    // f(op([l, r)))=true \u3068\
     \u306A\u308B\u6700\u5C0F\u306El \u3092\u8FD4\u3059 O(log n)\n    template <class\
-    \ F>\n    int min_left(int r, F f) {\n        assert(f(_e));\n        assert(0\
+    \ F>\n    int min_left(int r, F f) {\n        assert(f(e()));\n        assert(0\
     \ <= r && r <= _n);\n        if (r == 0) return r;\n        r += size;\n     \
-    \   S s = _e;\n        do {\n            r--;\n            while (r % 2 == 1)\
+    \   S s = e();\n        do {\n            r--;\n            while (r % 2 == 1)\
     \ r >>= 1;\n            if (!f(op(data[r], s))) {\n                while (r <\
     \ size) {\n                    r = 2 * r + 1;\n                    if (f(op(data[r],\
     \ s))) s = op(data[r--], s);\n                }\n                return (r + 1)\
@@ -118,25 +116,25 @@ data:
     \ (r & -r));\n        return 0;\n    }\n};\n#line 4 \"verify/aizu-DSL_2_A.test.cpp\"\
     \n\r\nint main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--)\
     \ solve();\r\n}\r\n\r\nvoid solve() {\r\n    int n, q; cin >> n >> q;\r\n    segtree<ll,\
-    \ [](ll a, ll b) { return min(a, b); }> seg(n, (1LL<<31)-1);\r\n    while (q--)\
-    \ {\r\n        ll x, y, z; cin >> x >> y >> z;\r\n        if (x == 0) {\r\n  \
-    \          seg.set(y, z);\r\n        } else {\r\n            cout << seg.prod(y,\
-    \ z+1) << nl;\r\n        }\r\n    }\r\n}\n"
+    \ [](ll a, ll b) { return min(a, b); }, [](){return(1LL<<31)-1;}> seg(n);\r\n\
+    \    while (q--) {\r\n        ll x, y, z; cin >> x >> y >> z;\r\n        if (x\
+    \ == 0) {\r\n            seg.set(y, z);\r\n        } else {\r\n            cout\
+    \ << seg.prod(y, z+1) << nl;\r\n        }\r\n    }\r\n}\n"
   code: "#define PROBLEM \"https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_2_A\"\
     \r\n#include \"template\"\r\n#include \"segtree\"\r\n\r\nint main() { IO();\r\n\
     \    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\n}\r\n\r\nvoid\
     \ solve() {\r\n    int n, q; cin >> n >> q;\r\n    segtree<ll, [](ll a, ll b)\
-    \ { return min(a, b); }> seg(n, (1LL<<31)-1);\r\n    while (q--) {\r\n       \
-    \ ll x, y, z; cin >> x >> y >> z;\r\n        if (x == 0) {\r\n            seg.set(y,\
-    \ z);\r\n        } else {\r\n            cout << seg.prod(y, z+1) << nl;\r\n \
-    \       }\r\n    }\r\n}"
+    \ { return min(a, b); }, [](){return(1LL<<31)-1;}> seg(n);\r\n    while (q--)\
+    \ {\r\n        ll x, y, z; cin >> x >> y >> z;\r\n        if (x == 0) {\r\n  \
+    \          seg.set(y, z);\r\n        } else {\r\n            cout << seg.prod(y,\
+    \ z+1) << nl;\r\n        }\r\n    }\r\n}"
   dependsOn:
   - util/template.hpp
   - structure/segtree.hpp
   isVerificationFile: true
   path: verify/aizu-DSL_2_A.test.cpp
   requiredBy: []
-  timestamp: '2025-05-02 04:03:17+00:00'
+  timestamp: '2025-05-09 07:50:48+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/aizu-DSL_2_A.test.cpp

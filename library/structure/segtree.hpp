@@ -2,18 +2,17 @@
 #include<bits/stdc++.h>
 using namespace std;
 // op(op(a, b), c) = op(a, op(b, c)) が成り立つ必要がある(結合律)
-template<class S, auto op>
+template<class S, auto op, auto e>
 struct segtree {
     int _n, size;
-    S _e;
     vector<S> data;
-    // 大きさn, 単位元e(省略するとS{} になる) のセグ木を構築 O(n)
-    segtree(int n, S e = S{}) : _n(n), _e(e) { build(vector<S>(n, _e)); }
-    // 大きさv.size(), 単位元e(省略するとS{} になる) のセグ木を構築 O(n)
-    segtree(vector<S>& v, S e = S{}) : _n(v.size()), _e(e) { build(v); }
+    // 大きさn のセグ木を構築 O(n)
+    segtree(int n) : _n(n) { build(vector<S>(n, e())); }
+    // 大きさv.size() のセグ木を構築 O(n)
+    segtree(vector<S>& v) : _n(v.size()) { build(v); }
     void build(vector<S> v) {
         size = __bit_ceil((unsigned int)_n);
-        data.assign(2 * size, _e);
+        data.assign(2 * size, e());
         for (int i=0; i<_n; i++) data[size+i] = v[i];
         for (int i=size-1; 0<i; i--) update(i);
     }
@@ -36,7 +35,7 @@ struct segtree {
     // [l, r) の区間クエリに答える O(log n)
     S prod(int l, int r) {
         assert(0 <= l && l <= r && r <= _n);
-        S ll = _e, rr = _e;
+        S ll = e(), rr = e();
         l += size;
         r += size;
         while (l < r) {
@@ -63,11 +62,11 @@ struct segtree {
     // f(op([l, r)))=true となる最大のr を返す O(log n)
     template <class F>
     int max_right(int l, F f) {
-        assert(f(_e));
+        assert(f(e()));
         assert(0 <= l && l <= _n);
         if (l == _n) return l;
         l += size;
-        S s = _e;
+        S s = e();
         do {
             while (l % 2 == 0) l >>= 1;
             if (!f(op(s, data[l]))) {
@@ -85,11 +84,11 @@ struct segtree {
     // f(op([l, r)))=true となる最小のl を返す O(log n)
     template <class F>
     int min_left(int r, F f) {
-        assert(f(_e));
+        assert(f(e()));
         assert(0 <= r && r <= _n);
         if (r == 0) return r;
         r += size;
-        S s = _e;
+        S s = e();
         do {
             r--;
             while (r % 2 == 1) r >>= 1;

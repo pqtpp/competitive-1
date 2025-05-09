@@ -126,7 +126,7 @@ data:
   requiredBy:
   - math/NTT.hpp
   - math/convolution.hpp
-  timestamp: '2025-04-03 17:12:39+00:00'
+  timestamp: '2025-05-09 07:41:10+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-range_affine_range_sum.test.cpp

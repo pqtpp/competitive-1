@@ -92,7 +92,7 @@ data:
   path: math/NTT.hpp
   requiredBy:
   - math/convolution.hpp
-  timestamp: '2025-05-09 07:16:57+00:00'
+  timestamp: '2025-05-09 07:41:10+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-convolution_mod.test.cpp

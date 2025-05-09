@@ -100,6 +100,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: util/Mo.hpp
       title: util/Mo.hpp
+    - icon: ':warning:'
+      path: util/generalsegtree.hpp
+      title: util/generalsegtree.hpp
     - icon: ':heavy_check_mark:'
       path: util/template.hpp
       title: util/template.hpp
