@@ -2,7 +2,7 @@
 #include "modint"
 #include <bits/stdc++.h>
 using namespace std;
-void ntt(vector<mint>& a, bool invert) {
+void NTT(vector<mint>& a, bool invert=false) {
     int n = a.size();
     for (int i=1, j=0; i<n; i++) {
         int b;

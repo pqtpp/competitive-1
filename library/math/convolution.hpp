@@ -12,12 +12,12 @@ vector<int> convolution(vector<int>& a, vector<int>& b) {
     for (int i=0; i<b.size(); i++) {
         B[i] = mint(b[i]);
     }
-    ntt(A, false);
-    ntt(B, false);
+    NTT(A, false);
+    NTT(B, false);
     for (int i=0; i<n; i++) {
         A[i] *= B[i];
     }
-    ntt(A, true);
+    NTT(A, true);
     vector<int> re(a.size()+b.size()-1);
     for (int i=0; i<a.size()+b.size()-1; i++) {
         re[i] = A[i].val;
