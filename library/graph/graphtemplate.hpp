@@ -56,7 +56,7 @@ struct graph {
     vector<int> path_to_vertex(edges<T>& _e) {
         vector<int> re;
         if (_e.size() == 0) {
-            return  re;
+            return re;
         }
         if (_e.size() == 1) {
             re.push_back(_e[0].from);

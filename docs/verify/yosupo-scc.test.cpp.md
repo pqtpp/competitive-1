@@ -96,7 +96,7 @@ data:
     \u3092\u8FD4\u3059\n    int size() {\n        return data.size();\n    }\n   \
     \ // \u9802\u70B9\u3092\u8FD4\u3059\n    edges<T> operator[](int k) {\n      \
     \  return data[k];\n    }\n    vector<int> path_to_vertex(edges<T>& _e) {\n  \
-    \      vector<int> re;\n        if (_e.size() == 0) {\n            return  re;\n\
+    \      vector<int> re;\n        if (_e.size() == 0) {\n            return re;\n\
     \        }\n        if (_e.size() == 1) {\n            re.push_back(_e[0].from);\n\
     \            re.push_back(_e[0].to);\n            return re;\n        }\n    \
     \    int x=_e[0].from,y=_e[0].to;\n        if (x==_e[1].to || x == _e[1].from)\
@@ -144,7 +144,7 @@ data:
   isVerificationFile: true
   path: verify/yosupo-scc.test.cpp
   requiredBy: []
-  timestamp: '2025-05-09 08:36:58+00:00'
+  timestamp: '2025-05-09 08:40:27+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-scc.test.cpp
