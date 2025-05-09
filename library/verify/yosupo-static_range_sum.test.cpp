@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/static_range_sum"
 #include "template"
-#include "segtree"
+#include "generalsegtree"
 
 int main() { IO();
     int T=1;
@@ -11,7 +11,7 @@ int main() { IO();
 void solve() {
     int n, q; cin >> n >> q;
     vll a(n); cin >> a;
-    segtree<ll, [](ll a,ll b){return a+b;}, [](){return 0;}> seg(a);
+    pointset_rangesum_ll seg(a);
     while (q--) {
         int l, r; cin >> l >> r;
         cout << seg.prod(l, r) << nl;

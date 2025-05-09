@@ -195,7 +195,7 @@ data:
   isVerificationFile: true
   path: verify/yosupo-point_set_range_composite.test.cpp
   requiredBy: []
-  timestamp: '2025-05-09 07:49:46+00:00'
+  timestamp: '2025-05-09 08:02:22+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-point_set_range_composite.test.cpp

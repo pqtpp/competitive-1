@@ -2,7 +2,7 @@
 data:
   _extendedDependsOn: []
   _extendedRequiredBy:
-  - icon: ':warning:'
+  - icon: ':heavy_check_mark:'
     path: util/generalsegtree.hpp
     title: util/generalsegtree.hpp
   _extendedVerifiedWith:
@@ -116,7 +116,7 @@ data:
   path: structure/segtree.hpp
   requiredBy:
   - util/generalsegtree.hpp
-  timestamp: '2025-05-09 07:49:09+00:00'
+  timestamp: '2025-05-09 08:02:22+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-point_set_range_composite.test.cpp

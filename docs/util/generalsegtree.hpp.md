@@ -5,10 +5,13 @@ data:
     path: structure/segtree.hpp
     title: structure/segtree.hpp
   _extendedRequiredBy: []
-  _extendedVerifiedWith: []
+  _extendedVerifiedWith:
+  - icon: ':heavy_check_mark:'
+    path: verify/yosupo-static_range_sum.test.cpp
+    title: verify/yosupo-static_range_sum.test.cpp
   _isVerificationFailed: false
   _pathExtension: hpp
-  _verificationStatusIcon: ':warning:'
+  _verificationStatusIcon: ':heavy_check_mark:'
   attributes:
     links: []
   bundledCode: "#line 2 \"structure/segtree.hpp\"\n#include<bits/stdc++.h>\nusing\
@@ -57,22 +60,27 @@ data:
     \ s))) s = op(data[r--], s);\n                }\n                return (r + 1)\
     \ - size;\n            }\n            s = op(data[r], s);\n        } while(r !=\
     \ (r & -r));\n        return 0;\n    }\n};\n#line 4 \"util/generalsegtree.hpp\"\
-    \nusing namespace std;\n"
+    \nusing namespace std;\nusing pointset_rangesum_ll=segtree<long long,[](long long\
+    \ a,long long b)->long long{return a+b;}, []()->long long{return 0LL;}>;\n"
   code: '#pragma once
 
     #include "segtree"
 
     #include <bits/stdc++.h>
 
-    using namespace std;'
+    using namespace std;
+
+    using pointset_rangesum_ll=segtree<long long,[](long long a,long long b)->long
+    long{return a+b;}, []()->long long{return 0LL;}>;'
   dependsOn:
   - structure/segtree.hpp
   isVerificationFile: false
   path: util/generalsegtree.hpp
   requiredBy: []
-  timestamp: '2025-05-09 07:49:09+00:00'
-  verificationStatus: LIBRARY_NO_TESTS
-  verifiedWith: []
+  timestamp: '2025-05-09 08:04:43+00:00'
+  verificationStatus: LIBRARY_ALL_AC
+  verifiedWith:
+  - verify/yosupo-static_range_sum.test.cpp
 documentation_of: util/generalsegtree.hpp
 layout: document
 redirect_from:
