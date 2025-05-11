@@ -10,9 +10,6 @@ data:
     path: verify/aizu-DSL_2_E.test.cpp
     title: verify/aizu-DSL_2_E.test.cpp
   - icon: ':heavy_check_mark:'
-    path: verify/yosupo-point_add_range_sum.test.cpp
-    title: verify/yosupo-point_add_range_sum.test.cpp
-  - icon: ':heavy_check_mark:'
     path: verify/yosupo-static_range_inversions_query.test.cpp
     title: verify/yosupo-static_range_inversions_query.test.cpp
   _isVerificationFailed: false
@@ -96,7 +93,6 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/aizu-DSL_2_E.test.cpp
-  - verify/yosupo-point_add_range_sum.test.cpp
   - verify/yosupo-static_range_inversions_query.test.cpp
   - verify/aizu-DSL_2_B.test.cpp
 documentation_of: structure/BIT.hpp

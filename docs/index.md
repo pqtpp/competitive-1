@@ -98,6 +98,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: structure/sparsetable.hpp
       title: structure/sparsetable.hpp
+    - icon: ':heavy_check_mark:'
+      path: structure/sqrttree.hpp
+      title: structure/sqrttree.hpp
   - name: util
     pages:
     - icon: ':heavy_check_mark:'

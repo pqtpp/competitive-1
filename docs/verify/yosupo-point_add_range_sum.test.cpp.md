@@ -2,8 +2,8 @@
 data:
   _extendedDependsOn:
   - icon: ':heavy_check_mark:'
-    path: structure/BIT.hpp
-    title: structure/BIT.hpp
+    path: structure/sqrttree.hpp
+    title: structure/sqrttree.hpp
   - icon: ':heavy_check_mark:'
     path: util/template.hpp
     title: util/template.hpp
@@ -69,61 +69,69 @@ data:
     const int dy[8]={1,0,-1,0,1,-1,1,-1};\n#define nl '\\n'\n#define sp ' '\n#define\
     \ inf ((1<<30)-(1<<15))\n#define INF (1LL<<61)\n#define mod 998244353\n\nvoid\
     \ IO() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    cout<<fixed<<setprecision(30);\n\
-    }\n\nvoid solve();\n#line 3 \"structure/BIT.hpp\"\nusing namespace std;\ntemplate<class\
-    \ T>\nstruct BIT {\n    int _n;\n    vector<T> data;\n    // BIT \u30920-indexed\
-    \ \u3067\u69CB\u7BC9\u3059\u308B O(n)\n    BIT(int n) : _n(n), data(_n) {}\n \
-    \   // p \u756A\u76EE\u306E\u5024\u306Bx \u3092\u52A0\u7B97\u3059\u308B O(log\
-    \ n)\n    void add(int p, T x) {\n        assert(0 <= p && p < _n);\n        p++;\n\
-    \        while (p <= _n) {\n            data[p-1] += x;\n            p += p &\
-    \ -p;\n        }\n    }\n    // p \u756A\u76EE\u306E\u5024\u3092x \u306B\u3059\
-    \u308B O(log n)\n    void set(int p, T x) {\n        add(p, x - get(p));\n   \
-    \ }\n    // [0, r) \u306E\u7DCF\u548C\u3092\u6C42\u3081\u308B O(log n)\n    T\
-    \ sum(int r) {\n        assert(0 <= r &&  r <= _n);\n        T re = T{};\n   \
-    \     while (0 < r) {\n            re += data[r-1];\n            r -= r & -r;\n\
-    \        }\n        return re;\n    }\n    // [l, r) \u306E\u7DCF\u548C\u3092\u6C42\
-    \u3081\u308B O(log n)\n    T sum(int l, int r) {\n        assert(l <= r);\n  \
-    \      return sum(r) - sum(l);\n    }\n    // p \u756A\u76EE\u306E\u5024\u3092\
-    \u53D6\u5F97\u3059\u308B O(log n)\n    T get(int p) {\n        return sum(p+1)\
-    \ - sum(p);\n    }\n    // p \u756A\u76EE\u306E\u5024\u3092\u53D6\u5F97\u3059\u308B\
-    \ O(log n)\n    T operator[](int p) {\n        return get(p);\n    }\n    // \u5168\
-    \u4F53\u306E\u7DCF\u548C\u3092\u53D6\u5F97\u3059\u308B O(log n)\n    T all_sum()\
-    \ {\n        return sum(_n);\n    }\n    // [l, r) \u306Bx \u3092\u52A0\u7B97\u3059\
-    \u308B \u4E00\u70B9\u53D6\u5F97\u306Fsum(p) \u3067\u884C\u3046 \u533A\u9593\u548C\
-    \u30AF\u30A8\u30EA\u304C\u3067\u304D\u306A\u304F\u306A\u308B\u306E\u3067\u6CE8\
-    \u610F O(log n)\n    void imos(int l, int r, T x) {\n        add(l, x);\n    \
-    \    if (r < _n) add(r, T{}-x);\n    }\n    // x <= sum(p) \u3068\u306A\u308B\u6700\
-    \u5C0F\u306Ep \u3092\u6C42\u3081\u308B O(log n)\n    int lower_bound(T x) {\n\
-    \        if (x <= 0) return 0;\n        int re = 0, t = 1;\n        while (t <\
-    \ _n) t <<= 1;\n        while (t) {\n            if (re + t < _n && data[re+t]\
-    \ < x) {\n                x -= data[re+t];\n                re += t;\n       \
-    \         t >>= 1;\n            }\n        }\n        return re;\n    }\n    //\
-    \ x < sum(p) \u3068\u306A\u308B\u6700\u5C0F\u306Ep \u3092\u6C42\u3081\u308B O(log\
-    \ n)\n    int upper_bound(T x) {\n        if (x < 0) return 0;\n        int re\
-    \ = 0, t = 1;\n        while (t < _n) t <<= 1;\n        while (t) {\n        \
-    \    if (re + t < _n && data[re+t] <= x) {\n                x -= data[re+t];\n\
-    \                re += t;\n                t >>= 1;\n            }\n        }\n\
-    \        return re;\n    }\n};\n#line 4 \"verify/yosupo-point_add_range_sum.test.cpp\"\
-    \n\r\nint main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--)\
-    \ solve();\r\n}\r\n\r\nvoid solve() {\r\n    int n, q; cin >> n >> q;\r\n    BIT<ll>\
-    \ s(n);\r\n    rep(i, n) {\r\n        int x; cin >> x;\r\n        s.set(i, x);\r\
-    \n    }\r\n    while (q--) {\r\n        int x, y, z; cin >> x >> y >> z;\r\n \
-    \       if (x == 0) {\r\n            s.add(y, z);\r\n        } else {\r\n    \
-    \        cout << s.sum(y, z) << nl;\r\n        }\r\n    }\r\n}\n"
+    }\n\nvoid solve();\n#line 3 \"structure/sqrttree.hpp\"\nusing namespace std;\n\
+    \n// S: \u5024\u578B, F: \u4F5C\u7528\u7D20\u578B\n// op: \u30E2\u30CE\u30A4\u30C9\
+    \u6F14\u7B97 (S x S -> S)\n// e: \u5358\u4F4D\u5143 (S)\n// mapping: \u4F5C\u7528\
+    \ (F x S x int -> S)\n// composition: \u4F5C\u7528\u7D20\u5408\u6210 (F x F ->\
+    \ F)\n// id: \u6052\u7B49\u5199\u50CF (F)\n\ntemplate <class S,\n          S (*op)(S,\
+    \ S),\n          S (*e)(),\n          class F,\n          S (*mapping)(F, S, int),\n\
+    \          F (*composition)(F, F),\n          F (*id)()>\nstruct SqrtTree {\n\
+    \    struct Block {\n        int l, r;\n        vector<S> data;\n        S sum;\n\
+    \        F lazy;\n        bool pending;\n\n        Block() = default;\n\n    \
+    \    Block(const vector<S>& base, int l_, int r_)\n            : l(l_), r(r_),\
+    \ data(base.begin() + l_, base.begin() + r_),\n              sum(e()), lazy(id()),\
+    \ pending(false) {\n            rebuild();\n        }\n\n        void apply(F\
+    \ f) {\n            lazy = composition(f, lazy);\n            pending = true;\n\
+    \        }\n\n        void push() {\n            if (!pending) return;\n     \
+    \       for (int i = 0; i < r - l; ++i)\n                data[i] = mapping(lazy,\
+    \ data[i], 1);\n            lazy = id();\n            pending = false;\n     \
+    \       rebuild();\n        }\n\n        void rebuild() {\n            sum = e();\n\
+    \            for (auto& x : data) sum = op(sum, x);\n        }\n\n        void\
+    \ update(int ql, int qr, F f) {\n            if (qr <= l || r <= ql) return;\n\
+    \            if (ql <= l && r <= qr) {\n                apply(f);\n          \
+    \      return;\n            }\n            push();\n            for (int i = max(l,\
+    \ ql); i < min(r, qr); ++i)\n                data[i - l] = mapping(f, data[i -\
+    \ l], 1);\n            rebuild();\n        }\n\n        S query(int ql, int qr)\
+    \ {\n            if (qr <= l || r <= ql) return e();\n            if (ql <= l\
+    \ && r <= qr) return pending ? mapping(lazy, sum, r - l) : sum;\n            push();\n\
+    \            S res = e();\n            for (int i = max(l, ql); i < min(r, qr);\
+    \ ++i)\n                res = op(res, data[i - l]);\n            return res;\n\
+    \        }\n    };\n\n    int n, bsize;\n    vector<Block> blocks;\n\n    SqrtTree()\
+    \ = default;\n\n    SqrtTree(const vector<S>& base) {\n        n = base.size();\n\
+    \        bsize = sqrt(n) + 1;\n        for (int i = 0; i < n; i += bsize)\n  \
+    \          blocks.emplace_back(base, i, min(n, i + bsize));\n    }\n\n    void\
+    \ update(int l, int r, F f) {\n        for (auto& b : blocks)\n            b.update(l,\
+    \ r, f);\n    }\n\n    S query(int l, int r) {\n        S res = e();\n       \
+    \ for (auto& b : blocks)\n            res = op(res, b.query(l, r));\n        return\
+    \ res;\n    }\n};\n#line 4 \"verify/yosupo-point_add_range_sum.test.cpp\"\n\r\n\
+    int main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\
+    \n}\r\n\r\nusing S2 = long long;\r\nS2 op2(S2 a, S2 b) { return a + b; }\r\nS2\
+    \ e2() { return 0LL; }\r\nusing F2 = long long;\r\nS2 mapping2(F2 f, S2 x, int\
+    \ len) { return x + f * len; }\r\nF2 composition2(F2 f, F2 g) { return f + g;\
+    \ }\r\nF2 id2() { return 0LL; }\r\n\r\nvoid solve() {\r\n    int n, q; cin >>\
+    \ n >> q;\r\n    vec<S2> a(n); cin >> a;\r\n    SqrtTree<S2, op2, e2, F2, mapping2,\
+    \ composition2, id2> seg(a);\r\n    while (q--) {\r\n        int x, y, z; cin\
+    \ >> x >> y >> z;\r\n        if (x == 0) {\r\n            seg.update(y, y+1, z);\r\
+    \n        } else {\r\n            cout << seg.query(y, z) << nl;\r\n        }\r\
+    \n    }\r\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/point_add_range_sum\"\r\
-    \n#include \"template\"\r\n#include \"BIT\"\r\n\r\nint main() { IO();\r\n    int\
-    \ T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\n}\r\n\r\nvoid solve()\
-    \ {\r\n    int n, q; cin >> n >> q;\r\n    BIT<ll> s(n);\r\n    rep(i, n) {\r\n\
-    \        int x; cin >> x;\r\n        s.set(i, x);\r\n    }\r\n    while (q--)\
-    \ {\r\n        int x, y, z; cin >> x >> y >> z;\r\n        if (x == 0) {\r\n \
-    \           s.add(y, z);\r\n        } else {\r\n            cout << s.sum(y, z)\
-    \ << nl;\r\n        }\r\n    }\r\n}"
+    \n#include \"template\"\r\n#include \"sqrttree\"\r\n\r\nint main() { IO();\r\n\
+    \    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\n}\r\n\r\nusing\
+    \ S2 = long long;\r\nS2 op2(S2 a, S2 b) { return a + b; }\r\nS2 e2() { return\
+    \ 0LL; }\r\nusing F2 = long long;\r\nS2 mapping2(F2 f, S2 x, int len) { return\
+    \ x + f * len; }\r\nF2 composition2(F2 f, F2 g) { return f + g; }\r\nF2 id2()\
+    \ { return 0LL; }\r\n\r\nvoid solve() {\r\n    int n, q; cin >> n >> q;\r\n  \
+    \  vec<S2> a(n); cin >> a;\r\n    SqrtTree<S2, op2, e2, F2, mapping2, composition2,\
+    \ id2> seg(a);\r\n    while (q--) {\r\n        int x, y, z; cin >> x >> y >> z;\r\
+    \n        if (x == 0) {\r\n            seg.update(y, y+1, z);\r\n        } else\
+    \ {\r\n            cout << seg.query(y, z) << nl;\r\n        }\r\n    }\r\n}"
   dependsOn:
   - util/template.hpp
-  - structure/BIT.hpp
+  - structure/sqrttree.hpp
   isVerificationFile: true
   path: verify/yosupo-point_add_range_sum.test.cpp
   requiredBy: []
-  timestamp: '2025-04-30 03:58:59+00:00'
+  timestamp: '2025-05-11 18:58:47+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-point_add_range_sum.test.cpp
