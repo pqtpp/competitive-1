@@ -70,68 +70,56 @@ data:
     \ inf ((1<<30)-(1<<15))\n#define INF (1LL<<61)\n#define mod 998244353\n\nvoid\
     \ IO() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    cout<<fixed<<setprecision(30);\n\
     }\n\nvoid solve();\n#line 3 \"structure/sqrttree.hpp\"\nusing namespace std;\n\
-    \n// S: \u5024\u578B, F: \u4F5C\u7528\u7D20\u578B\n// op: \u30E2\u30CE\u30A4\u30C9\
-    \u6F14\u7B97 (S x S -> S)\n// e: \u5358\u4F4D\u5143 (S)\n// mapping: \u4F5C\u7528\
-    \ (F x S x int -> S)\n// composition: \u4F5C\u7528\u7D20\u5408\u6210 (F x F ->\
-    \ F)\n// id: \u6052\u7B49\u5199\u50CF (F)\n\ntemplate <class S,\n          S (*op)(S,\
-    \ S),\n          S (*e)(),\n          class F,\n          S (*mapping)(F, S, int),\n\
-    \          F (*composition)(F, F),\n          F (*id)()>\nstruct SqrtTree {\n\
-    \    struct Block {\n        int l, r;\n        vector<S> data;\n        S sum;\n\
-    \        F lazy;\n        bool pending;\n\n        Block() = default;\n\n    \
-    \    Block(const vector<S>& base, int l_, int r_)\n            : l(l_), r(r_),\
-    \ data(base.begin() + l_, base.begin() + r_),\n              sum(e()), lazy(id()),\
-    \ pending(false) {\n            rebuild();\n        }\n\n        void apply(F\
-    \ f) {\n            lazy = composition(f, lazy);\n            pending = true;\n\
-    \        }\n\n        void push() {\n            if (!pending) return;\n     \
-    \       for (int i = 0; i < r - l; ++i)\n                data[i] = mapping(lazy,\
-    \ data[i], 1);\n            lazy = id();\n            pending = false;\n     \
-    \       rebuild();\n        }\n\n        void rebuild() {\n            sum = e();\n\
-    \            for (auto& x : data) sum = op(sum, x);\n        }\n\n        void\
-    \ update(int ql, int qr, F f) {\n            if (qr <= l || r <= ql) return;\n\
-    \            if (ql <= l && r <= qr) {\n                apply(f);\n          \
-    \      return;\n            }\n            push();\n            for (int i = max(l,\
-    \ ql); i < min(r, qr); ++i)\n                data[i - l] = mapping(f, data[i -\
-    \ l], 1);\n            rebuild();\n        }\n\n        S query(int ql, int qr)\
-    \ {\n            if (qr <= l || r <= ql) return e();\n            if (ql <= l\
-    \ && r <= qr) return pending ? mapping(lazy, sum, r - l) : sum;\n            push();\n\
-    \            S res = e();\n            for (int i = max(l, ql); i < min(r, qr);\
-    \ ++i)\n                res = op(res, data[i - l]);\n            return res;\n\
-    \        }\n    };\n\n    int n, bsize;\n    vector<Block> blocks;\n\n    SqrtTree()\
-    \ = default;\n\n    SqrtTree(const vector<S>& base) {\n        n = base.size();\n\
-    \        bsize = sqrt(n) + 1;\n        for (int i = 0; i < n; i += bsize)\n  \
-    \          blocks.emplace_back(base, i, min(n, i + bsize));\n    }\n\n    void\
-    \ update(int l, int r, F f) {\n        for (auto& b : blocks)\n            b.update(l,\
-    \ r, f);\n    }\n\n    S query(int l, int r) {\n        S res = e();\n       \
-    \ for (auto& b : blocks)\n            res = op(res, b.query(l, r));\n        return\
-    \ res;\n    }\n};\n#line 4 \"verify/yosupo-point_add_range_sum.test.cpp\"\n\r\n\
-    int main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\
-    \n}\r\n\r\nusing S2 = long long;\r\nS2 op2(S2 a, S2 b) { return a + b; }\r\nS2\
-    \ e2() { return 0LL; }\r\nusing F2 = long long;\r\nS2 mapping2(F2 f, S2 x, int\
-    \ len) { return x + f * len; }\r\nF2 composition2(F2 f, F2 g) { return f + g;\
-    \ }\r\nF2 id2() { return 0LL; }\r\n\r\nvoid solve() {\r\n    int n, q; cin >>\
-    \ n >> q;\r\n    vec<S2> a(n); cin >> a;\r\n    SqrtTree<S2, op2, e2, F2, mapping2,\
-    \ composition2, id2> seg(a);\r\n    while (q--) {\r\n        int x, y, z; cin\
-    \ >> x >> y >> z;\r\n        if (x == 0) {\r\n            seg.update(y, y+1, z);\r\
-    \n        } else {\r\n            cout << seg.query(y, z) << nl;\r\n        }\r\
-    \n    }\r\n}\n"
+    template <class S, auto op, auto e, class F, auto mapping, auto composition, auto\
+    \ id>\nstruct sqrttree {\n    struct block {\n        int l, r;\n        vector<S>\
+    \ data;\n        S sum;\n        F lazy;\n        bool flag;\n        block()\
+    \ = default;\n        block(vector<S>& base, int l_, int r_) : l(l_), r(r_), data(base.begin()\
+    \ + l_, base.begin() + r_), sum(e()), lazy(id()), flag(false) {\n            rebuild();\n\
+    \        }\n        void apply(F f) {\n            lazy = composition(f, lazy);\n\
+    \            flag = true;\n        }\n        void push() {\n            if (!flag)\
+    \ return;\n            for (int i=0; i<r-l; i++) data[i] = mapping(lazy, data[i],\
+    \ 1);\n            lazy = id();\n            flag = false;\n            rebuild();\n\
+    \        }\n        void rebuild() {\n            sum = e();\n            for\
+    \ (auto& x : data) sum = op(sum, x);\n        }\n        void update(int ql, int\
+    \ qr, F f) {\n            if (qr <= l || r <= ql) return;\n            if (ql\
+    \ <= l && r <= qr) {\n                apply(f);\n                return;\n   \
+    \         }\n            push();\n            for (int i = max(l, ql); i < min(r,\
+    \ qr); ++i)\n                data[i - l] = mapping(f, data[i - l], 1);\n     \
+    \       rebuild();\n        }\n        S prod(int ql, int qr) {\n            if\
+    \ (qr<=l || r<=ql) return e();\n            if (ql<=l && r<=qr) return (flag ?\
+    \ mapping(lazy, sum, r - l) : sum);\n            push();\n            S res =\
+    \ e();\n            for (int i=max(l, ql); i<min(r, qr); i++) res = op(res, data[i\
+    \ - l]);\n            return res;\n        }\n    };\n    int n, bsize;\n    vector<block>\
+    \ blocks;\n    sqrttree() = default;\n    sqrttree(vector<S>& base) {\n      \
+    \  n = base.size();\n        bsize = sqrt(n) + 1;\n        for (int i=0; i<n;\
+    \ i+=bsize) blocks.emplace_back(base, i, min(n, i + bsize));\n    }\n    void\
+    \ update(int l, int r, F f) {\n        for (auto& b : blocks) b.update(l, r, f);\n\
+    \    }\n    S prod(int l, int r) {\n        S res = e();\n        for (auto& b\
+    \ : blocks)\n            res = op(res, b.prod(l, r));\n        return res;\n \
+    \   }\n};\n#line 4 \"verify/yosupo-point_add_range_sum.test.cpp\"\n\r\nint main()\
+    \ { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\n\
+    }\r\n\r\nvoid solve() {\r\n    int n, q; cin >> n >> q;\r\n    vll a(n); cin >>\
+    \ a;\r\n    sqrttree<ll,[](ll a,ll b){return a+b;}, [](){return 0;},ll,[](ll a,ll\
+    \ b,ll l){return b+a*l;},[](ll a,ll b){return a+b;},[](){return 0;}> seg(a);\r\
+    \n    while (q--) {\r\n        int x, y, z; cin >> x >> y >> z;\r\n        if\
+    \ (x == 0) {\r\n            seg.update(y, y+1, z);\r\n        } else {\r\n   \
+    \         cout << seg.prod(y, z) << nl;\r\n        }\r\n    }\r\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/point_add_range_sum\"\r\
     \n#include \"template\"\r\n#include \"sqrttree\"\r\n\r\nint main() { IO();\r\n\
-    \    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\n}\r\n\r\nusing\
-    \ S2 = long long;\r\nS2 op2(S2 a, S2 b) { return a + b; }\r\nS2 e2() { return\
-    \ 0LL; }\r\nusing F2 = long long;\r\nS2 mapping2(F2 f, S2 x, int len) { return\
-    \ x + f * len; }\r\nF2 composition2(F2 f, F2 g) { return f + g; }\r\nF2 id2()\
-    \ { return 0LL; }\r\n\r\nvoid solve() {\r\n    int n, q; cin >> n >> q;\r\n  \
-    \  vec<S2> a(n); cin >> a;\r\n    SqrtTree<S2, op2, e2, F2, mapping2, composition2,\
-    \ id2> seg(a);\r\n    while (q--) {\r\n        int x, y, z; cin >> x >> y >> z;\r\
-    \n        if (x == 0) {\r\n            seg.update(y, y+1, z);\r\n        } else\
-    \ {\r\n            cout << seg.query(y, z) << nl;\r\n        }\r\n    }\r\n}"
+    \    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\n}\r\n\r\nvoid\
+    \ solve() {\r\n    int n, q; cin >> n >> q;\r\n    vll a(n); cin >> a;\r\n   \
+    \ sqrttree<ll,[](ll a,ll b){return a+b;}, [](){return 0;},ll,[](ll a,ll b,ll l){return\
+    \ b+a*l;},[](ll a,ll b){return a+b;},[](){return 0;}> seg(a);\r\n    while (q--)\
+    \ {\r\n        int x, y, z; cin >> x >> y >> z;\r\n        if (x == 0) {\r\n \
+    \           seg.update(y, y+1, z);\r\n        } else {\r\n            cout <<\
+    \ seg.prod(y, z) << nl;\r\n        }\r\n    }\r\n}"
   dependsOn:
   - util/template.hpp
   - structure/sqrttree.hpp
   isVerificationFile: true
   path: verify/yosupo-point_add_range_sum.test.cpp
   requiredBy: []
-  timestamp: '2025-05-11 18:58:47+00:00'
+  timestamp: '2025-05-11 19:11:26+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-point_add_range_sum.test.cpp
