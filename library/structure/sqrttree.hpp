@@ -28,7 +28,7 @@ struct sqrttree {
             sum = e();
             for (auto& x : data) sum = op(sum, x);
         }
-        void update(int ql, int qr, F f) {
+        void apply(int ql, int qr, F f) {
             if (qr <= l || r <= ql) return;
             if (ql <= l && r <= qr) {
                 apply(f);
@@ -54,10 +54,12 @@ struct sqrttree {
     sqrttree(vector<S>& base) {
         n = base.size();
         bsize = sqrt(n) + 1;
-        for (int i=0; i<n; i+=bsize) blocks.emplace_back(base, i, min(n, i + bsize));
+        for (int i=0; i<n; i+=bsize) {
+            blocks.push_back(block{base, i, min(n, i + bsize)});
+        }
     }
-    void update(int l, int r, F f) {
-        for (auto& b : blocks) b.update(l, r, f);
+    void apply(int l, int r, F f) {
+        for (auto& b : blocks) b.apply(l, r, f);
     }
     S prod(int l, int r) {
         S res = e();

@@ -23,10 +23,10 @@ data:
     \ i<r-l; i++) data[i] = mapping(lazy, data[i], 1);\n            lazy = id();\n\
     \            flag = false;\n            rebuild();\n        }\n        void rebuild()\
     \ {\n            sum = e();\n            for (auto& x : data) sum = op(sum, x);\n\
-    \        }\n        void update(int ql, int qr, F f) {\n            if (qr <=\
-    \ l || r <= ql) return;\n            if (ql <= l && r <= qr) {\n             \
-    \   apply(f);\n                return;\n            }\n            push();\n \
-    \           for (int i = max(l, ql); i < min(r, qr); ++i)\n                data[i\
+    \        }\n        void apply(int ql, int qr, F f) {\n            if (qr <= l\
+    \ || r <= ql) return;\n            if (ql <= l && r <= qr) {\n               \
+    \ apply(f);\n                return;\n            }\n            push();\n   \
+    \         for (int i = max(l, ql); i < min(r, qr); ++i)\n                data[i\
     \ - l] = mapping(f, data[i - l], 1);\n            rebuild();\n        }\n    \
     \    S prod(int ql, int qr) {\n            if (qr<=l || r<=ql) return e();\n \
     \           if (ql<=l && r<=qr) return (flag ? mapping(lazy, sum, r - l) : sum);\n\
@@ -34,11 +34,12 @@ data:
     \ ql); i<min(r, qr); i++) res = op(res, data[i - l]);\n            return res;\n\
     \        }\n    };\n    int n, bsize;\n    vector<block> blocks;\n    sqrttree()\
     \ = default;\n    sqrttree(vector<S>& base) {\n        n = base.size();\n    \
-    \    bsize = sqrt(n) + 1;\n        for (int i=0; i<n; i+=bsize) blocks.emplace_back(base,\
-    \ i, min(n, i + bsize));\n    }\n    void update(int l, int r, F f) {\n      \
-    \  for (auto& b : blocks) b.update(l, r, f);\n    }\n    S prod(int l, int r)\
-    \ {\n        S res = e();\n        for (auto& b : blocks)\n            res = op(res,\
-    \ b.prod(l, r));\n        return res;\n    }\n};\n"
+    \    bsize = sqrt(n) + 1;\n        for (int i=0; i<n; i+=bsize) {\n          \
+    \  blocks.push_back(block{base, i, min(n, i + bsize)});\n        }\n    }\n  \
+    \  void apply(int l, int r, F f) {\n        for (auto& b : blocks) b.apply(l,\
+    \ r, f);\n    }\n    S prod(int l, int r) {\n        S res = e();\n        for\
+    \ (auto& b : blocks)\n            res = op(res, b.prod(l, r));\n        return\
+    \ res;\n    }\n};\n"
   code: "#pragma once\n#include <bits/stdc++.h>\nusing namespace std;\ntemplate <class\
     \ S, auto op, auto e, class F, auto mapping, auto composition, auto id>\nstruct\
     \ sqrttree {\n    struct block {\n        int l, r;\n        vector<S> data;\n\
@@ -50,7 +51,7 @@ data:
     \ return;\n            for (int i=0; i<r-l; i++) data[i] = mapping(lazy, data[i],\
     \ 1);\n            lazy = id();\n            flag = false;\n            rebuild();\n\
     \        }\n        void rebuild() {\n            sum = e();\n            for\
-    \ (auto& x : data) sum = op(sum, x);\n        }\n        void update(int ql, int\
+    \ (auto& x : data) sum = op(sum, x);\n        }\n        void apply(int ql, int\
     \ qr, F f) {\n            if (qr <= l || r <= ql) return;\n            if (ql\
     \ <= l && r <= qr) {\n                apply(f);\n                return;\n   \
     \         }\n            push();\n            for (int i = max(l, ql); i < min(r,\
@@ -62,16 +63,16 @@ data:
     \ - l]);\n            return res;\n        }\n    };\n    int n, bsize;\n    vector<block>\
     \ blocks;\n    sqrttree() = default;\n    sqrttree(vector<S>& base) {\n      \
     \  n = base.size();\n        bsize = sqrt(n) + 1;\n        for (int i=0; i<n;\
-    \ i+=bsize) blocks.emplace_back(base, i, min(n, i + bsize));\n    }\n    void\
-    \ update(int l, int r, F f) {\n        for (auto& b : blocks) b.update(l, r, f);\n\
-    \    }\n    S prod(int l, int r) {\n        S res = e();\n        for (auto& b\
-    \ : blocks)\n            res = op(res, b.prod(l, r));\n        return res;\n \
-    \   }\n};\n"
+    \ i+=bsize) {\n            blocks.push_back(block{base, i, min(n, i + bsize)});\n\
+    \        }\n    }\n    void apply(int l, int r, F f) {\n        for (auto& b :\
+    \ blocks) b.apply(l, r, f);\n    }\n    S prod(int l, int r) {\n        S res\
+    \ = e();\n        for (auto& b : blocks)\n            res = op(res, b.prod(l,\
+    \ r));\n        return res;\n    }\n};\n"
   dependsOn: []
   isVerificationFile: false
   path: structure/sqrttree.hpp
   requiredBy: []
-  timestamp: '2025-05-11 19:11:26+00:00'
+  timestamp: '2025-05-12 00:03:44+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-point_add_range_sum.test.cpp

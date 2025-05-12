@@ -15,7 +15,7 @@ void solve() {
     while (q--) {
         int x, y, z; cin >> x >> y >> z;
         if (x == 0) {
-            seg.update(y, y+1, z);
+            seg.apply(y, y+1, z);
         } else {
             cout << seg.prod(y, z) << nl;
         }
