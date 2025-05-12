@@ -39,7 +39,14 @@ data:
     \  void apply(int l, int r, F f) {\n        for (auto& b : blocks) b.apply(l,\
     \ r, f);\n    }\n    S prod(int l, int r) {\n        S res = e();\n        for\
     \ (auto& b : blocks)\n            res = op(res, b.prod(l, r));\n        return\
-    \ res;\n    }\n};\n"
+    \ res;\n    }\n    void set(int i, S x) {\n        assert(0 <= i && i < n);\n\
+    \        for (auto& b : blocks) {\n            if (b.l <= i && i < b.r) {\n  \
+    \              b.push();\n                b.data[i - b.l] = x;\n             \
+    \   b.rebuild();\n                return;\n            }\n        }\n    }\n \
+    \   S get(int i) {\n        assert(0 <= i && i < n);\n        for (auto& b : blocks)\
+    \ {\n            if (b.l <= i && i < b.r) {\n                if (b.flag) b.push();\n\
+    \                return b.data[i - b.l];\n            }\n        }\n        assert(false);\n\
+    \    }\n    S operator[](int i) {\n        return get(i);\n    }\n};\n"
   code: "#pragma once\n#include <bits/stdc++.h>\nusing namespace std;\ntemplate <class\
     \ S, auto op, auto e, class F, auto mapping, auto composition, auto id>\nstruct\
     \ sqrttree {\n    struct block {\n        int l, r;\n        vector<S> data;\n\
@@ -67,12 +74,20 @@ data:
     \        }\n    }\n    void apply(int l, int r, F f) {\n        for (auto& b :\
     \ blocks) b.apply(l, r, f);\n    }\n    S prod(int l, int r) {\n        S res\
     \ = e();\n        for (auto& b : blocks)\n            res = op(res, b.prod(l,\
-    \ r));\n        return res;\n    }\n};\n"
+    \ r));\n        return res;\n    }\n    void set(int i, S x) {\n        assert(0\
+    \ <= i && i < n);\n        for (auto& b : blocks) {\n            if (b.l <= i\
+    \ && i < b.r) {\n                b.push();\n                b.data[i - b.l] =\
+    \ x;\n                b.rebuild();\n                return;\n            }\n \
+    \       }\n    }\n    S get(int i) {\n        assert(0 <= i && i < n);\n     \
+    \   for (auto& b : blocks) {\n            if (b.l <= i && i < b.r) {\n       \
+    \         if (b.flag) b.push();\n                return b.data[i - b.l];\n   \
+    \         }\n        }\n        assert(false);\n    }\n    S operator[](int i)\
+    \ {\n        return get(i);\n    }\n};\n"
   dependsOn: []
   isVerificationFile: false
   path: structure/sqrttree.hpp
   requiredBy: []
-  timestamp: '2025-05-12 00:03:44+00:00'
+  timestamp: '2025-05-12 07:20:44+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-point_add_range_sum.test.cpp

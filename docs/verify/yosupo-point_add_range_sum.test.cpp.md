@@ -96,7 +96,15 @@ data:
     \        }\n    }\n    void apply(int l, int r, F f) {\n        for (auto& b :\
     \ blocks) b.apply(l, r, f);\n    }\n    S prod(int l, int r) {\n        S res\
     \ = e();\n        for (auto& b : blocks)\n            res = op(res, b.prod(l,\
-    \ r));\n        return res;\n    }\n};\n#line 4 \"verify/yosupo-point_add_range_sum.test.cpp\"\
+    \ r));\n        return res;\n    }\n    void set(int i, S x) {\n        assert(0\
+    \ <= i && i < n);\n        for (auto& b : blocks) {\n            if (b.l <= i\
+    \ && i < b.r) {\n                b.push();\n                b.data[i - b.l] =\
+    \ x;\n                b.rebuild();\n                return;\n            }\n \
+    \       }\n    }\n    S get(int i) {\n        assert(0 <= i && i < n);\n     \
+    \   for (auto& b : blocks) {\n            if (b.l <= i && i < b.r) {\n       \
+    \         if (b.flag) b.push();\n                return b.data[i - b.l];\n   \
+    \         }\n        }\n        assert(false);\n    }\n    S operator[](int i)\
+    \ {\n        return get(i);\n    }\n};\n#line 4 \"verify/yosupo-point_add_range_sum.test.cpp\"\
     \n\r\nint main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--)\
     \ solve();\r\n}\r\n\r\nvoid solve() {\r\n    int n, q; cin >> n >> q;\r\n    vll\
     \ a(n); cin >> a;\r\n    sqrttree<ll,[](ll a,ll b){return a+b;}, [](){return 0;},ll,[](ll\
@@ -119,7 +127,7 @@ data:
   isVerificationFile: true
   path: verify/yosupo-point_add_range_sum.test.cpp
   requiredBy: []
-  timestamp: '2025-05-12 00:03:44+00:00'
+  timestamp: '2025-05-12 07:20:44+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-point_add_range_sum.test.cpp

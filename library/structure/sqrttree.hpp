@@ -67,4 +67,28 @@ struct sqrttree {
             res = op(res, b.prod(l, r));
         return res;
     }
+    void set(int i, S x) {
+        assert(0 <= i && i < n);
+        for (auto& b : blocks) {
+            if (b.l <= i && i < b.r) {
+                b.push();
+                b.data[i - b.l] = x;
+                b.rebuild();
+                return;
+            }
+        }
+    }
+    S get(int i) {
+        assert(0 <= i && i < n);
+        for (auto& b : blocks) {
+            if (b.l <= i && i < b.r) {
+                if (b.flag) b.push();
+                return b.data[i - b.l];
+            }
+        }
+        assert(false);
+    }
+    S operator[](int i) {
+        return get(i);
+    }
 };
