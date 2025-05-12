@@ -1,60 +1,58 @@
 #pragma once
 #include <bits/stdc++.h>
 using namespace std;
-template <class S, auto op, auto e, class F, auto mapping>
+template <class S, auto op, auto e, class F, auto mapping, auto mapping2>
 struct sqrttree {
-    struct block {
-        int l, r;
-        vector<S> data;
-        S sum;
-        block() = default;
-        block(vector<S>& base, int l_, int r_) : l(l_), r(r_), data(base.begin() + l_, base.begin() + r_) {
-            rebuild();
-        }
-        void rebuild() {
-            sum = e();
-            for (auto& x : data) sum = op(sum, x);
-        }
-        void apply(int i, F f) {
-            data[i - l] = mapping(f, data[i - l]);
-            sum = e();
-            for (auto& x : data) sum = op(sum, x);
-        }
-        S prod(int ql, int qr) {
-            if (qr <= l || r <= ql) return e();
-            if (ql <= l && r <= qr) return sum;
-            S res = e();
-            for (int i = max(l, ql); i < min(r, qr); ++i) {
-                res = op(res, data[i - l]);
-            }
-            return res;
-        }
-    };
-    int n, bsize;
-    vector<block> blocks;
+    int n, bsize, m;
+    vector<S> data, block;
     sqrttree() = default;
     sqrttree(int n) : sqrttree(vector<S>(n, e())) {}
-    sqrttree(vector<S> base) {
-        n = base.size();
+    sqrttree(vector<S> v) {
+        n = v.size();
         bsize = sqrt(n) + 1;
-        for (int i = 0; i < n; i += bsize) {
-            blocks.push_back(block{base, i, min(n, i + bsize)});
+        m = bsize * bsize;
+        data.reserve(m);
+        block.reserve(bsize);
+        for (int i=0; i<bsize; i++) {
+            block[i] = e();
+            for (int j=0; j<bsize; j++) {
+                int k = i * bsize + j;
+                if (k < n) {
+                    data[k] = v[k];
+                } else {
+                    data[k] = e();
+                }
+                block[i] = op(block[i], data[k]);
+            }
         }
     }
     void apply(int i, F f) {
+        assert(0<=i && i<n);
+        data[i] = mapping(f, data[i]);
+        block[i/bsize] = mapping2(f, block[i/bsize]);
+    }
+    S get(int i) {
         assert(0 <= i && i < n);
-        blocks[i/bsize].apply(i, f);
+        return data[i];
     }
     S operator[](int i) {
-        assert(0 <= i && i < n);
-        return blocks[i/bsize].data[i-blocks[i/bsize].l];
+        return get(i);
     }
     S prod(int l, int r) {
-        assert(0 <= l && l <= r && r <= n);
-        S res = e();
-        for (auto& b : blocks) {
-            res = op(res, b.prod(l, r));
+        assert(0<=l && l<=r && r<=n);
+        S re = e();
+        for (int i=0; i<bsize; i++) {
+            if (r<=i*bsize || (i+1)*bsize<=l) continue;
+            if (l<=i*bsize && (i+1)*bsize<=r) re = op(re, block[i]);
+            else {
+                for (int j=0; j<bsize; j++) {
+                    int k = i * bsize + j;
+                    if (l<=k && k<r) {
+                        re = op(re, data[k]);
+                    }
+                }
+            }
         }
-        return res;
+        return re;
     }
 };
