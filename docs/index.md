@@ -101,6 +101,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: structure/sqrttree.hpp
       title: structure/sqrttree.hpp
+    - icon: ':heavy_check_mark:'
+      path: structure/wordsizetree.hpp
+      title: structure/wordsizetree.hpp
   - name: util
     pages:
     - icon: ':heavy_check_mark:'
@@ -157,6 +160,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/yosupo-point_set_range_composite.test.cpp
       title: verify/yosupo-point_set_range_composite.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/yosupo-predecessor_problem.test.cpp
+      title: verify/yosupo-predecessor_problem.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/yosupo-primality_test.test.cpp
       title: verify/yosupo-primality_test.test.cpp

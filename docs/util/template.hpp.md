@@ -49,6 +49,9 @@ data:
     path: verify/yosupo-point_set_range_composite.test.cpp
     title: verify/yosupo-point_set_range_composite.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/yosupo-predecessor_problem.test.cpp
+    title: verify/yosupo-predecessor_problem.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-primality_test.test.cpp
     title: verify/yosupo-primality_test.test.cpp
   - icon: ':heavy_check_mark:'
@@ -191,6 +194,7 @@ data:
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-minimum_steiner_tree.test.cpp
+  - verify/yosupo-predecessor_problem.test.cpp
   - verify/aizu-DSL_2_E.test.cpp
   - verify/yosupo-shortest_path.test.cpp
   - verify/aizu-GRL_2_A.test.cpp
