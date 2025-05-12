@@ -11,11 +11,11 @@ int main() { IO();
 void solve() {
     int n, q; cin >> n >> q;
     vll a(n); cin >> a;
-    sqrttree<ll,[](ll a,ll b){return a+b;}, [](){return 0;},ll,[](ll a,ll b,ll l){return b+a*l;},[](ll a,ll b){return a+b;},[](){return 0;}> seg(a);
+    sqrttree<ll,[](ll a,ll b){return a+b;}, [](){return 0;}> seg(a);
     while (q--) {
         int x, y, z; cin >> x >> y >> z;
         if (x == 0) {
-            seg.apply(y, y+1, z);
+            seg.set(y, seg[y]+z);
         } else {
             cout << seg.prod(y, z) << nl;
         }

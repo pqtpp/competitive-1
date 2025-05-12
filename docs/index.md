@@ -90,6 +90,9 @@ data:
       path: structure/lazysegtree.hpp
       title: structure/lazysegtree.hpp
     - icon: ':warning:'
+      path: structure/lazysqrttree.hpp
+      title: structure/lazysqrttree.hpp
+    - icon: ':warning:'
       path: structure/rollbackUnionFind.hpp
       title: structure/rollbackUnionFind.hpp
     - icon: ':heavy_check_mark:'

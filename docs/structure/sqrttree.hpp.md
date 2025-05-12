@@ -12,82 +12,60 @@ data:
   attributes:
     links: []
   bundledCode: "#line 2 \"structure/sqrttree.hpp\"\n#include <bits/stdc++.h>\nusing\
-    \ namespace std;\ntemplate <class S, auto op, auto e, class F, auto mapping, auto\
-    \ composition, auto id>\nstruct sqrttree {\n    struct block {\n        int l,\
-    \ r;\n        vector<S> data;\n        S sum;\n        F lazy;\n        bool flag;\n\
+    \ namespace std;\n\ntemplate <class S, auto op, auto e>\nstruct sqrttree {\n \
+    \   struct block {\n        int l, r;\n        vector<S> data;\n        S sum;\n\
     \        block() = default;\n        block(vector<S>& base, int l_, int r_) :\
-    \ l(l_), r(r_), data(base.begin() + l_, base.begin() + r_), sum(e()), lazy(id()),\
-    \ flag(false) {\n            rebuild();\n        }\n        void apply(F f) {\n\
-    \            lazy = composition(f, lazy);\n            flag = true;\n        }\n\
-    \        void push() {\n            if (!flag) return;\n            for (int i=0;\
-    \ i<r-l; i++) data[i] = mapping(lazy, data[i], 1);\n            lazy = id();\n\
-    \            flag = false;\n            rebuild();\n        }\n        void rebuild()\
-    \ {\n            sum = e();\n            for (auto& x : data) sum = op(sum, x);\n\
-    \        }\n        void apply(int ql, int qr, F f) {\n            if (qr <= l\
-    \ || r <= ql) return;\n            if (ql <= l && r <= qr) {\n               \
-    \ apply(f);\n                return;\n            }\n            push();\n   \
-    \         for (int i = max(l, ql); i < min(r, qr); ++i)\n                data[i\
-    \ - l] = mapping(f, data[i - l], 1);\n            rebuild();\n        }\n    \
-    \    S prod(int ql, int qr) {\n            if (qr<=l || r<=ql) return e();\n \
-    \           if (ql<=l && r<=qr) return (flag ? mapping(lazy, sum, r - l) : sum);\n\
-    \            push();\n            S res = e();\n            for (int i=max(l,\
-    \ ql); i<min(r, qr); i++) res = op(res, data[i - l]);\n            return res;\n\
-    \        }\n    };\n    int n, bsize;\n    vector<block> blocks;\n    sqrttree()\
-    \ = default;\n    sqrttree(vector<S>& base) {\n        n = base.size();\n    \
-    \    bsize = sqrt(n) + 1;\n        for (int i=0; i<n; i+=bsize) {\n          \
-    \  blocks.push_back(block{base, i, min(n, i + bsize)});\n        }\n    }\n  \
-    \  void apply(int l, int r, F f) {\n        for (auto& b : blocks) b.apply(l,\
-    \ r, f);\n    }\n    S prod(int l, int r) {\n        S res = e();\n        for\
-    \ (auto& b : blocks)\n            res = op(res, b.prod(l, r));\n        return\
-    \ res;\n    }\n    void set(int i, S x) {\n        assert(0 <= i && i < n);\n\
-    \        for (auto& b : blocks) {\n            if (b.l <= i && i < b.r) {\n  \
-    \              b.push();\n                b.data[i - b.l] = x;\n             \
-    \   b.rebuild();\n                return;\n            }\n        }\n    }\n \
-    \   S get(int i) {\n        assert(0 <= i && i < n);\n        for (auto& b : blocks)\
-    \ {\n            if (b.l <= i && i < b.r) {\n                if (b.flag) b.push();\n\
-    \                return b.data[i - b.l];\n            }\n        }\n        assert(false);\n\
-    \    }\n    S operator[](int i) {\n        return get(i);\n    }\n};\n"
-  code: "#pragma once\n#include <bits/stdc++.h>\nusing namespace std;\ntemplate <class\
-    \ S, auto op, auto e, class F, auto mapping, auto composition, auto id>\nstruct\
-    \ sqrttree {\n    struct block {\n        int l, r;\n        vector<S> data;\n\
-    \        S sum;\n        F lazy;\n        bool flag;\n        block() = default;\n\
-    \        block(vector<S>& base, int l_, int r_) : l(l_), r(r_), data(base.begin()\
-    \ + l_, base.begin() + r_), sum(e()), lazy(id()), flag(false) {\n            rebuild();\n\
-    \        }\n        void apply(F f) {\n            lazy = composition(f, lazy);\n\
-    \            flag = true;\n        }\n        void push() {\n            if (!flag)\
-    \ return;\n            for (int i=0; i<r-l; i++) data[i] = mapping(lazy, data[i],\
-    \ 1);\n            lazy = id();\n            flag = false;\n            rebuild();\n\
+    \ l(l_), r(r_), data(base.begin() + l_, base.begin() + r_) {\n            rebuild();\n\
     \        }\n        void rebuild() {\n            sum = e();\n            for\
-    \ (auto& x : data) sum = op(sum, x);\n        }\n        void apply(int ql, int\
-    \ qr, F f) {\n            if (qr <= l || r <= ql) return;\n            if (ql\
-    \ <= l && r <= qr) {\n                apply(f);\n                return;\n   \
-    \         }\n            push();\n            for (int i = max(l, ql); i < min(r,\
-    \ qr); ++i)\n                data[i - l] = mapping(f, data[i - l], 1);\n     \
-    \       rebuild();\n        }\n        S prod(int ql, int qr) {\n            if\
-    \ (qr<=l || r<=ql) return e();\n            if (ql<=l && r<=qr) return (flag ?\
-    \ mapping(lazy, sum, r - l) : sum);\n            push();\n            S res =\
-    \ e();\n            for (int i=max(l, ql); i<min(r, qr); i++) res = op(res, data[i\
+    \ (auto& x : data) sum = op(sum, x);\n        }\n        void set(int i, S x)\
+    \ {\n            assert(l <= i && i < r);\n            data[i - l] = x;\n    \
+    \        rebuild();\n        }\n        S get(int i) {\n            assert(l <=\
+    \ i && i < r);\n            return data[i - l];\n        }\n        S prod(int\
+    \ ql, int qr) {\n            if (qr <= l || r <= ql) return e();\n           \
+    \ if (ql <= l && r <= qr) return sum;\n            S res = e();\n            for\
+    \ (int i = max(l, ql); i < min(r, qr); ++i)\n                res = op(res, data[i\
     \ - l]);\n            return res;\n        }\n    };\n    int n, bsize;\n    vector<block>\
     \ blocks;\n    sqrttree() = default;\n    sqrttree(vector<S>& base) {\n      \
-    \  n = base.size();\n        bsize = sqrt(n) + 1;\n        for (int i=0; i<n;\
-    \ i+=bsize) {\n            blocks.push_back(block{base, i, min(n, i + bsize)});\n\
-    \        }\n    }\n    void apply(int l, int r, F f) {\n        for (auto& b :\
-    \ blocks) b.apply(l, r, f);\n    }\n    S prod(int l, int r) {\n        S res\
-    \ = e();\n        for (auto& b : blocks)\n            res = op(res, b.prod(l,\
-    \ r));\n        return res;\n    }\n    void set(int i, S x) {\n        assert(0\
-    \ <= i && i < n);\n        for (auto& b : blocks) {\n            if (b.l <= i\
-    \ && i < b.r) {\n                b.push();\n                b.data[i - b.l] =\
-    \ x;\n                b.rebuild();\n                return;\n            }\n \
-    \       }\n    }\n    S get(int i) {\n        assert(0 <= i && i < n);\n     \
-    \   for (auto& b : blocks) {\n            if (b.l <= i && i < b.r) {\n       \
-    \         if (b.flag) b.push();\n                return b.data[i - b.l];\n   \
-    \         }\n        }\n        assert(false);\n    }\n    S operator[](int i)\
-    \ {\n        return get(i);\n    }\n};\n"
+    \  n = base.size();\n        bsize = sqrt(n) + 1;\n        for (int i = 0; i <\
+    \ n; i += bsize) {\n            blocks.emplace_back(base, i, min(n, i + bsize));\n\
+    \        }\n    }\n    void set(int i, S x) {\n        assert(0 <= i && i < n);\n\
+    \        for (auto& b : blocks)\n            if (b.l <= i && i < b.r) return b.set(i,\
+    \ x);\n    }\n    S get(int i) {\n        assert(0 <= i && i < n);\n        for\
+    \ (auto& b : blocks)\n            if (b.l <= i && i < b.r) return b.get(i);\n\
+    \        assert(false);\n    }\n    S operator[](int i) {\n        return get(i);\n\
+    \    }\n    S prod(int l, int r) {\n        assert(0 <= l && l <= r && r <= n);\n\
+    \        S res = e();\n        for (auto& b : blocks)\n            res = op(res,\
+    \ b.prod(l, r));\n        return res;\n    }\n};\n"
+  code: "#pragma once\n#include <bits/stdc++.h>\nusing namespace std;\n\ntemplate\
+    \ <class S, auto op, auto e>\nstruct sqrttree {\n    struct block {\n        int\
+    \ l, r;\n        vector<S> data;\n        S sum;\n        block() = default;\n\
+    \        block(vector<S>& base, int l_, int r_) : l(l_), r(r_), data(base.begin()\
+    \ + l_, base.begin() + r_) {\n            rebuild();\n        }\n        void\
+    \ rebuild() {\n            sum = e();\n            for (auto& x : data) sum =\
+    \ op(sum, x);\n        }\n        void set(int i, S x) {\n            assert(l\
+    \ <= i && i < r);\n            data[i - l] = x;\n            rebuild();\n    \
+    \    }\n        S get(int i) {\n            assert(l <= i && i < r);\n       \
+    \     return data[i - l];\n        }\n        S prod(int ql, int qr) {\n     \
+    \       if (qr <= l || r <= ql) return e();\n            if (ql <= l && r <= qr)\
+    \ return sum;\n            S res = e();\n            for (int i = max(l, ql);\
+    \ i < min(r, qr); ++i)\n                res = op(res, data[i - l]);\n        \
+    \    return res;\n        }\n    };\n    int n, bsize;\n    vector<block> blocks;\n\
+    \    sqrttree() = default;\n    sqrttree(vector<S>& base) {\n        n = base.size();\n\
+    \        bsize = sqrt(n) + 1;\n        for (int i = 0; i < n; i += bsize) {\n\
+    \            blocks.emplace_back(base, i, min(n, i + bsize));\n        }\n   \
+    \ }\n    void set(int i, S x) {\n        assert(0 <= i && i < n);\n        for\
+    \ (auto& b : blocks)\n            if (b.l <= i && i < b.r) return b.set(i, x);\n\
+    \    }\n    S get(int i) {\n        assert(0 <= i && i < n);\n        for (auto&\
+    \ b : blocks)\n            if (b.l <= i && i < b.r) return b.get(i);\n       \
+    \ assert(false);\n    }\n    S operator[](int i) {\n        return get(i);\n \
+    \   }\n    S prod(int l, int r) {\n        assert(0 <= l && l <= r && r <= n);\n\
+    \        S res = e();\n        for (auto& b : blocks)\n            res = op(res,\
+    \ b.prod(l, r));\n        return res;\n    }\n};\n"
   dependsOn: []
   isVerificationFile: false
   path: structure/sqrttree.hpp
   requiredBy: []
-  timestamp: '2025-05-12 07:20:44+00:00'
+  timestamp: '2025-05-12 07:24:17+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-point_add_range_sum.test.cpp
