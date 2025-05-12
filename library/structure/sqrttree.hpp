@@ -43,21 +43,11 @@ struct sqrttree {
     }
     void apply(int i, F f) {
         assert(0 <= i && i < n);
-        for (auto& b : blocks) {
-            if (b.l <= i && i < b.r) {
-                b.apply(i, f);
-                return;
-            }
-        }
+        blocks[i/bsize].apply(i, f);
     }
     S operator[](int i) {
         assert(0 <= i && i < n);
-        for (auto& b : blocks) {
-            if (b.l <= i && i < b.r) {
-                return b.data[i - b.l];
-            }
-        }
-        assert(false);
+        return blocks[i/bsize].data[i-blocks[i/bsize].l];
     }
     S prod(int l, int r) {
         assert(0 <= l && l <= r && r <= n);

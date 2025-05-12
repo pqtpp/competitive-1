@@ -29,15 +29,11 @@ data:
     \ base) {\n        n = base.size();\n        bsize = sqrt(n) + 1;\n        for\
     \ (int i = 0; i < n; i += bsize) {\n            blocks.push_back(block{base, i,\
     \ min(n, i + bsize)});\n        }\n    }\n    void apply(int i, F f) {\n     \
-    \   assert(0 <= i && i < n);\n        for (auto& b : blocks) {\n            if\
-    \ (b.l <= i && i < b.r) {\n                b.apply(i, f);\n                return;\n\
-    \            }\n        }\n    }\n    S operator[](int i) {\n        assert(0\
-    \ <= i && i < n);\n        for (auto& b : blocks) {\n            if (b.l <= i\
-    \ && i < b.r) {\n                return b.data[i - b.l];\n            }\n    \
-    \    }\n        assert(false);\n    }\n    S prod(int l, int r) {\n        assert(0\
-    \ <= l && l <= r && r <= n);\n        S res = e();\n        for (auto& b : blocks)\
-    \ {\n            res = op(res, b.prod(l, r));\n        }\n        return res;\n\
-    \    }\n};\n"
+    \   assert(0 <= i && i < n);\n        blocks[i/bsize].apply(i, f);\n    }\n  \
+    \  S operator[](int i) {\n        assert(0 <= i && i < n);\n        return blocks[i/bsize].data[i-blocks[i/bsize].l];\n\
+    \    }\n    S prod(int l, int r) {\n        assert(0 <= l && l <= r && r <= n);\n\
+    \        S res = e();\n        for (auto& b : blocks) {\n            res = op(res,\
+    \ b.prod(l, r));\n        }\n        return res;\n    }\n};\n"
   code: "#pragma once\n#include <bits/stdc++.h>\nusing namespace std;\ntemplate <class\
     \ S, auto op, auto e, class F, auto mapping>\nstruct sqrttree {\n    struct block\
     \ {\n        int l, r;\n        vector<S> data;\n        S sum;\n        block()\
@@ -55,20 +51,17 @@ data:
     \ e())) {}\n    sqrttree(vector<S> base) {\n        n = base.size();\n       \
     \ bsize = sqrt(n) + 1;\n        for (int i = 0; i < n; i += bsize) {\n       \
     \     blocks.push_back(block{base, i, min(n, i + bsize)});\n        }\n    }\n\
-    \    void apply(int i, F f) {\n        assert(0 <= i && i < n);\n        for (auto&\
-    \ b : blocks) {\n            if (b.l <= i && i < b.r) {\n                b.apply(i,\
-    \ f);\n                return;\n            }\n        }\n    }\n    S operator[](int\
-    \ i) {\n        assert(0 <= i && i < n);\n        for (auto& b : blocks) {\n \
-    \           if (b.l <= i && i < b.r) {\n                return b.data[i - b.l];\n\
-    \            }\n        }\n        assert(false);\n    }\n    S prod(int l, int\
-    \ r) {\n        assert(0 <= l && l <= r && r <= n);\n        S res = e();\n  \
-    \      for (auto& b : blocks) {\n            res = op(res, b.prod(l, r));\n  \
-    \      }\n        return res;\n    }\n};\n"
+    \    void apply(int i, F f) {\n        assert(0 <= i && i < n);\n        blocks[i/bsize].apply(i,\
+    \ f);\n    }\n    S operator[](int i) {\n        assert(0 <= i && i < n);\n  \
+    \      return blocks[i/bsize].data[i-blocks[i/bsize].l];\n    }\n    S prod(int\
+    \ l, int r) {\n        assert(0 <= l && l <= r && r <= n);\n        S res = e();\n\
+    \        for (auto& b : blocks) {\n            res = op(res, b.prod(l, r));\n\
+    \        }\n        return res;\n    }\n};\n"
   dependsOn: []
   isVerificationFile: false
   path: structure/sqrttree.hpp
   requiredBy: []
-  timestamp: '2025-05-12 07:58:05+00:00'
+  timestamp: '2025-05-12 08:33:28+00:00'
   verificationStatus: LIBRARY_ALL_AC
   verifiedWith:
   - verify/yosupo-point_add_range_sum.test.cpp

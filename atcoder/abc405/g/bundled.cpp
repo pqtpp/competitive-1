@@ -154,107 +154,127 @@ mint comb(int n,int k) { return (0 <= k && k <= n ) ? fac[n] * ifac[k] * ifac[n-
 // nPk を求める。buildfacの呼び出しが必須。O(1)
 mint perm(int n,int k) { return (0 <= k && k <= n ) ? fac[n] * ifac[n-k] : 0; }
 using namespace std;
-// op(op(a, b), c) = op(a, op(b, c)) が成り立つ必要がある(結合律)
-template<class S, auto op, auto e>
-struct segtree {
-    int _n, size;
-    vector<S> data;
-    // 大きさn のセグ木を構築 O(n)
-    segtree(int n) : _n(n) { build(vector<S>(n, e())); }
-    // 大きさv.size() のセグ木を構築 O(n)
-    segtree(vector<S>& v) : _n(v.size()) { build(v); }
-    void build(vector<S> v) {
-        size = __bit_ceil((unsigned int)_n);
-        data.assign(2 * size, e());
-        for (int i=0; i<_n; i++) data[size+i] = v[i];
-        for (int i=size-1; 0<i; i--) update(i);
+// Mo's algorithm
+struct Mo {
+    int n;
+    vector<pair<int, int>> queries;
+    explicit Mo(int n) : n(n) {}
+    // クエリを追加する
+    void add(int l, int r) {
+        queries.push_back({l, r});
     }
-    // p 番目の要素をx にする O(log n)
-    void set(int p, S x) {
-        assert(0 <= p && p < _n);
-        p += size;
-        data[p] = x;
-        for (p>>=1; 0<p; p>>=1) update(p);
-    }
-    // p 番目の要素を取得する O(1)
-    S get(int p) {
-        assert(0 <= p && p < _n);
-        return data[size+p];
-    }
-    // p 番目の要素を取得する O(1)
-    S operator[](int p) {
-        return get(p);
-    }
-    // [l, r) の区間クエリに答える O(log n)
-    S prod(int l, int r) {
-        assert(0 <= l && l <= r && r <= _n);
-        S ll = e(), rr = e();
-        l += size;
-        r += size;
-        while (l < r) {
-            if (l & 1) ll = op(ll, data[l++]);
-            if (r & 1) rr = op(data[--r], rr);
-            l >>= 1;
-            r >>= 1;
+    void add(vector<pair<int, int>>& qs) {
+        for(auto& q : qs) {
+            queries.push_back(q);
         }
-        return op(ll, rr);
     }
-    // [0, _n) のクエリに答える O(1)
-    S all_prod() {
-        return data[1];
+    long long hilbert_order(int x, int y, int p=20, int rotate = 0) {
+        long long d = 0;
+        for (int s=1<<(p-1); 0<s; s>>=1) {
+            int rx = 0 < (x & s);
+            int ry = 0 < (y & s);
+            int r = (rx << 1) | ry;
+            r = (r + rotate) & 3;
+            d = (d << 2) | r;
+            const int rd[4] = {3, 0, 0, 1};
+            rotate = (rotate + rd[r]) & 3;
+        }
+        return d;
     }
-    // [0, _n) の区間の値を取得する O(n)
-    vector<S> values() {
-        vector<S> re(_n);
-        for (int i=0; i<_n; i++) re[i] = data[size+i];
-        return re;
+    // クエリを実行する O((n+q) sqrt(n))
+    template <class AL, class AR, class EL, class ER, class OUT>
+    void build(const AL &add_left, const AR &add_right, const EL &erase_left, const ER &erase_right, const OUT &out) {
+        int q = queries.size();
+        vector<int> ord(q);
+        iota(begin(ord), end(ord), 0);
+        vector<long long> hs(q);
+        for (int i=0; i<q; i++) {
+            hs[i] = hilbert_order(queries[i].first, queries[i].second);
+        }
+        sort(begin(ord), end(ord), [&](int a, int b) {
+            return hs[a] < hs[b];
+        });
+        int l = 0, r = 0;
+        for(auto idx : ord) {
+            while(l > queries[idx].first) add_left(--l);
+            while(r < queries[idx].second) add_right(r++);
+            while(l < queries[idx].first) erase_left(l++);
+            while(r > queries[idx].second) erase_right(--r);
+            out(idx);
+        }
     }
-    void update(int p) {
-        data[p] = op(data[2*p], data[2*p+1]);
+    // クエリを実行する O((n+q) sqrt(n))
+    template <class A, class E, class OUT>
+    void build(const A &add, const E &erase, const OUT &out) {
+        build(add, add, erase, erase, out);
     }
-    // f(op([l, r)))=true となる最大のr を返す O(log n)
-    template <class F>
-    int max_right(int l, F f) {
-        assert(f(e()));
-        assert(0 <= l && l <= _n);
-        if (l == _n) return l;
-        l += size;
-        S s = e();
-        do {
-            while (l % 2 == 0) l >>= 1;
-            if (!f(op(s, data[l]))) {
-                while (l < size) {
-                    l = 2 * l;
-                    if (f(op(s, data[l]))) s = op(s, data[l++]);
-                }
-                return l - size;
+};
+using namespace std;
+template <class S, auto op, auto e, class F, auto mapping>
+struct sqrttree {
+    struct block {
+        int l, r;
+        vector<S> data;
+        S sum;
+        block() = default;
+        block(vector<S>& base, int l_, int r_) : l(l_), r(r_), data(base.begin() + l_, base.begin() + r_) {
+            rebuild();
+        }
+        void rebuild() {
+            sum = e();
+            for (auto& x : data) sum = op(sum, x);
+        }
+        void apply(int i, F f) {
+            data[i - l] = mapping(f, data[i - l]);
+            sum = e();
+            for (auto& x : data) sum = op(sum, x);
+        }
+        S prod(int ql, int qr) {
+            if (qr <= l || r <= ql) return e();
+            if (ql <= l && r <= qr) return sum;
+            S res = e();
+            for (int i = max(l, ql); i < min(r, qr); ++i) {
+                res = op(res, data[i - l]);
             }
-            s = op(s, data[l]);
-            l++;
-        } while (l != (l & -l));
-        return _n;
+            return res;
+        }
+    };
+    int n, bsize;
+    vector<block> blocks;
+    sqrttree() = default;
+    sqrttree(int n) : sqrttree(vector<S>(n, e())) {}
+    sqrttree(vector<S> base) {
+        n = base.size();
+        bsize = sqrt(n) + 1;
+        for (int i = 0; i < n; i += bsize) {
+            blocks.push_back(block{base, i, min(n, i + bsize)});
+        }
     }
-    // f(op([l, r)))=true となる最小のl を返す O(log n)
-    template <class F>
-    int min_left(int r, F f) {
-        assert(f(e()));
-        assert(0 <= r && r <= _n);
-        if (r == 0) return r;
-        r += size;
-        S s = e();
-        do {
-            r--;
-            while (r % 2 == 1) r >>= 1;
-            if (!f(op(data[r], s))) {
-                while (r < size) {
-                    r = 2 * r + 1;
-                    if (f(op(data[r], s))) s = op(data[r--], s);
-                }
-                return (r + 1) - size;
+    void apply(int i, F f) {
+        assert(0 <= i && i < n);
+        for (auto& b : blocks) {
+            if (b.l <= i && i < b.r) {
+                b.apply(i, f);
+                return;
             }
-            s = op(data[r], s);
-        } while(r != (r & -r));
-        return 0;
+        }
+    }
+    S operator[](int i) {
+        assert(0 <= i && i < n);
+        for (auto& b : blocks) {
+            if (b.l <= i && i < b.r) {
+                return b.data[i - b.l];
+            }
+        }
+        assert(false);
+    }
+    S prod(int l, int r) {
+        assert(0 <= l && l <= r && r <= n);
+        S res = e();
+        for (auto& b : blocks) {
+            res = op(res, b.prod(l, r));
+        }
+        return res;
     }
 };
 
@@ -265,34 +285,33 @@ int main() { IO();
     while (T--) solve();
 }
 
-map<int, int> op(const map<int, int>& a, const map<int, int>& b) {
-    map<int, int> re;
-    for (auto& [k, v] : a) re[k] = v;
-    for (auto& [k, v] : b) re[k] += v;
-    return re;
-}
-map<int, int> e() { return {}; }
-
 void solve() {
     int n, q; cin >> n >> q;
-    vi a(n); cin >> a;
-    rep(i, n) a[i]--;
-    vec<map<int, int>> b(n);
-    rep(i, n) b[i][a[i]] = 1;
-    segtree<map<int, int>, op, e> seg(b);
-    while (q--) {
-        int l, r, x; cin >> l >> r >> x; --l; --x;
-        map<int, int> p = seg.prod(l, r);
-        ll s = 0;
-        map<int, int> m;
-        for (auto& [y, z] : p) {
-            if (y < x) {
-                m[y] = z;
-                s += z;
-            }
-        }
-        mint ans = fac[s];
-        for (auto& [x, y] : m) ans *= ifac[y];
-        cout << ans << nl;
+    vi a(n); cin >> a; rep(i, n) a[i]--;
+    Mo mo(n);
+    vi queries(q), ans(q);
+    rep(i, q) {
+        int x, y, z; cin >> x >> y >> z;
+        queries[i] = z-1;
+        mo.add(x-1, y);
     }
+    sqrttree<int,[](int a,int b){return a+b;},[](){return 0;},int,[](int a,int b){return a+b;}> seg1(n);
+    auto op = [](mint a, mint b) -> mint {return a * b;};
+    auto e = []() -> mint {return mint(1);};
+    sqrttree<mint,op,e,mint,op> seg2(n);
+    vec<mint> inv(n+1); rep1(i, n) inv[i] = mint(i).inv();
+    auto add = [&](int x) {
+        seg1.apply(a[x], 1);
+        seg2.apply(a[x], inv[seg1[a[x]]]);
+    };
+    auto erase = [&](int x) {
+        seg2.apply(a[x], seg1[a[x]]);
+        seg1.apply(a[x], -1);
+    };
+    auto out = [&](int x) {
+        ans[x] = (fac[seg1.prod(0, queries[x])] * seg2.prod(0, queries[x])).val;
+    };
+    mo.build(add, erase, out);
+    range(i, ans) cout << i << nl;
 }
+
