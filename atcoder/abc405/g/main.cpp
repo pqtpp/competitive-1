@@ -18,7 +18,7 @@ void solve() {
     rep(i, q) {
         int x, y, z; cin >> x >> y >> z;
         queries[i] = z;
-        mo.add(y-1, z);
+        mo.add(x-1, y);
     }
     using S = int;
     auto op = []() {};
