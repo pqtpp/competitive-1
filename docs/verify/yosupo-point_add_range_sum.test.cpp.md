@@ -82,25 +82,25 @@ data:
     \ if (ql <= l && r <= qr) return sum;\n            S res = e();\n            for\
     \ (int i = max(l, ql); i < min(r, qr); ++i) {\n                res = op(res, data[i\
     \ - l]);\n            }\n            return res;\n        }\n    };\n    int n,\
-    \ bsize;\n    vector<block> blocks;\n    sqrttree() = default;\n    sqrttree(vector<S>&\
-    \ base) {\n        n = base.size();\n        bsize = sqrt(n) + 1;\n        for\
-    \ (int i = 0; i < n; i += bsize) {\n            blocks.push_back(block{base, i,\
-    \ min(n, i + bsize)});\n        }\n    }\n    void apply(int i, F f) {\n     \
-    \   assert(0 <= i && i < n);\n        for (auto& b : blocks) {\n            if\
-    \ (b.l <= i && i < b.r) {\n                b.apply(i, f);\n                return;\n\
-    \            }\n        }\n    }\n    S operator[](int i) {\n        assert(0\
-    \ <= i && i < n);\n        for (auto& b : blocks) {\n            if (b.l <= i\
-    \ && i < b.r) {\n                return b.data[i - b.l];\n            }\n    \
-    \    }\n        assert(false);\n    }\n    S prod(int l, int r) {\n        assert(0\
-    \ <= l && l <= r && r <= n);\n        S res = e();\n        for (auto& b : blocks)\
-    \ {\n            res = op(res, b.prod(l, r));\n        }\n        return res;\n\
-    \    }\n};\n#line 4 \"verify/yosupo-point_add_range_sum.test.cpp\"\n\r\nint main()\
-    \ { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\n\
-    }\r\n\r\nvoid solve() {\r\n    int n, q; cin >> n >> q;\r\n    vll a(n); cin >>\
-    \ a;\r\n    sqrttree<ll,[](ll a,ll b){return a+b;},[](){return 0;},ll,[](ll a,ll\
-    \ b){return a+b;}> seg(a);\r\n    while (q--) {\r\n        int x, y, z; cin >>\
-    \ x >> y >> z;\r\n        if (x == 0) {\r\n            seg.apply(y, z);\r\n  \
-    \      } else {\r\n            cout << seg.prod(y, z) << nl;\r\n        }\r\n\
+    \ bsize;\n    vector<block> blocks;\n    sqrttree() = default;\n    sqrttree(int\
+    \ n) : sqrttree(vector<S>(n, e())) {}\n    sqrttree(vector<S> base) {\n      \
+    \  n = base.size();\n        bsize = sqrt(n) + 1;\n        for (int i = 0; i <\
+    \ n; i += bsize) {\n            blocks.push_back(block{base, i, min(n, i + bsize)});\n\
+    \        }\n    }\n    void apply(int i, F f) {\n        assert(0 <= i && i <\
+    \ n);\n        for (auto& b : blocks) {\n            if (b.l <= i && i < b.r)\
+    \ {\n                b.apply(i, f);\n                return;\n            }\n\
+    \        }\n    }\n    S operator[](int i) {\n        assert(0 <= i && i < n);\n\
+    \        for (auto& b : blocks) {\n            if (b.l <= i && i < b.r) {\n  \
+    \              return b.data[i - b.l];\n            }\n        }\n        assert(false);\n\
+    \    }\n    S prod(int l, int r) {\n        assert(0 <= l && l <= r && r <= n);\n\
+    \        S res = e();\n        for (auto& b : blocks) {\n            res = op(res,\
+    \ b.prod(l, r));\n        }\n        return res;\n    }\n};\n#line 4 \"verify/yosupo-point_add_range_sum.test.cpp\"\
+    \n\r\nint main() { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--)\
+    \ solve();\r\n}\r\n\r\nvoid solve() {\r\n    int n, q; cin >> n >> q;\r\n    vll\
+    \ a(n); cin >> a;\r\n    sqrttree<ll,[](ll a,ll b){return a+b;},[](){return 0;},ll,[](ll\
+    \ a,ll b){return a+b;}> seg(a);\r\n    while (q--) {\r\n        int x, y, z; cin\
+    \ >> x >> y >> z;\r\n        if (x == 0) {\r\n            seg.apply(y, z);\r\n\
+    \        } else {\r\n            cout << seg.prod(y, z) << nl;\r\n        }\r\n\
     \    }\r\n}\n"
   code: "#define PROBLEM \"https://judge.yosupo.jp/problem/point_add_range_sum\"\r\
     \n#include \"template\"\r\n#include \"sqrttree\"\r\n\r\nint main() { IO();\r\n\
@@ -116,7 +116,7 @@ data:
   isVerificationFile: true
   path: verify/yosupo-point_add_range_sum.test.cpp
   requiredBy: []
-  timestamp: '2025-05-12 07:51:50+00:00'
+  timestamp: '2025-05-12 07:58:05+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-point_add_range_sum.test.cpp

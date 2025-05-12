@@ -33,7 +33,8 @@ struct sqrttree {
     int n, bsize;
     vector<block> blocks;
     sqrttree() = default;
-    sqrttree(vector<S>& base) {
+    sqrttree(int n) : sqrttree(vector<S>(n, e())) {}
+    sqrttree(vector<S> base) {
         n = base.size();
         bsize = sqrt(n) + 1;
         for (int i = 0; i < n; i += bsize) {
