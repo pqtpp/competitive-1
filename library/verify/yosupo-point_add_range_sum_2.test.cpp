@@ -11,7 +11,8 @@ int main() { IO();
 void solve() {
     int n, q; cin >> n >> q;
     auto op=[](ll x,ll y)->ll{return x+y;};
-    dynamicsegtree<ll, op> s(n);
+    auto e=[]()->ll{return 0;};
+    dynamicsegtree<ll, op, e> s(n);
     rep(i, n) {
         int x; cin >> x;
         s.set(i, x);

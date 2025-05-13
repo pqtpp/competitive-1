@@ -2,13 +2,13 @@
 #include<bits/stdc++.h>
 using namespace std;
 // op(op(a, b), c) = op(a, op(b, c)) が成り立つ必要がある(結合律)
-template<class S, auto op>
+template<class S, auto op, auto e>
 struct dynamicsegtree {
     long long _n, size;
     S _e;
     unordered_map<long long, S> data;
     // 大きさn, 単位元e(省略するとS{} になる) のセグ木を構築 O(log n)
-    dynamicsegtree(long long n, S e = S{}) : _n(n), _e(e) {
+    dynamicsegtree(long long n) : _n(n) {
         size = 1;
         while (size < _n) size <<= 1;
     }
