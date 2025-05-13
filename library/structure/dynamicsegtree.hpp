@@ -5,7 +5,6 @@ using namespace std;
 template<class S, auto op, auto e>
 struct dynamicsegtree {
     long long _n, size;
-    S _e;
     unordered_map<long long, S> data;
     // 大きさn, 単位元e(省略するとS{} になる) のセグ木を構築 O(log n)
     dynamicsegtree(long long n) : _n(n) {
@@ -31,31 +30,23 @@ struct dynamicsegtree {
     // [l, r) の区間クエリに答える O(log n)
     S prod(long long l, long long r) {
         assert(0 <= l && l <= r && r <= _n);
-        S ll = _e, rr = _e;
+        S sml = e(), smr = e();
         l += size;
         r += size;
         while (l < r) {
-            if (l & 1) {
-                if (data.count(l)) {
-                    ll = op(ll, data[l++]);
-                }
-            }
-            if (r & 1) {
-                if (data.count(r-1)) {
-                    rr = op(data[--r], rr);
-                }
-            }
+            if (l & 1) sml = op(sml, data.count(l) ? data[l] : e()), ++l;
+            if (r & 1) --r, smr = op(data.count(r) ? data[r] : e(), smr);
             l >>= 1;
             r >>= 1;
         }
-        return op(ll, rr);
+        return op(sml, smr);
     }
     // [0, _n) のクエリに答える O(1)
     S all_prod() {
         return data[1];
     }
     void update(long long p) {
-        S l = _e, r = _e;
+        S l = e(), r = e();
         if (data.count(2*p)) l = data[2*p];
         if (data.count(2*p+1)) r = data[2*p+1];
         data[p] = op(l, r);

@@ -164,6 +164,9 @@ data:
       path: verify/yosupo-point_set_range_composite.test.cpp
       title: verify/yosupo-point_set_range_composite.test.cpp
     - icon: ':heavy_check_mark:'
+      path: verify/yosupo-point_set_range_composite_large_array.test.cpp
+      title: verify/yosupo-point_set_range_composite_large_array.test.cpp
+    - icon: ':heavy_check_mark:'
       path: verify/yosupo-predecessor_problem.test.cpp
       title: verify/yosupo-predecessor_problem.test.cpp
     - icon: ':heavy_check_mark:'

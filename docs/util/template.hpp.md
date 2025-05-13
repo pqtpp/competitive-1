@@ -49,6 +49,9 @@ data:
     path: verify/yosupo-point_set_range_composite.test.cpp
     title: verify/yosupo-point_set_range_composite.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/yosupo-point_set_range_composite_large_array.test.cpp
+    title: verify/yosupo-point_set_range_composite_large_array.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-predecessor_problem.test.cpp
     title: verify/yosupo-predecessor_problem.test.cpp
   - icon: ':heavy_check_mark:'
@@ -198,6 +201,7 @@ data:
   - verify/aizu-DSL_2_E.test.cpp
   - verify/yosupo-shortest_path.test.cpp
   - verify/aizu-GRL_2_A.test.cpp
+  - verify/yosupo-point_set_range_composite_large_array.test.cpp
   - verify/yosupo-range_affine_range_sum.test.cpp
   - verify/yosupo-staticrmq.test.cpp
   - verify/yosupo-factorize.test.cpp
