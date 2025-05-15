@@ -20,21 +20,17 @@ void solve() {
         queries[i] = z-1;
         mo.add(x-1, y);
     }
-    sqrttree<int,[](int a,int b){return a+b;},[](){return 0;},int,[](int a,int b){return a+b;},[](int a,int b){return a+b;}> seg1(n);
-    auto op = [](ll a, ll b) -> ll {return a * b % mod;};
-    auto e = []() -> ll {return 1;};
-    sqrttree<ll,op,e,ll,op,op> seg2(n);
+    sqrttree<pll,[](pll a,pll b){return pll{a.fi+b.fi,a.se*b.se%mod};},[](){return pll{0,1};},pll,[](pll a,pll b){return pll{a.fi+b.fi,a.se*b.se%mod};},[](pll a,pll b){return pll{a.fi+b.fi,a.se*b.se%mod};}> seg(n);
     vll inve(n+1); rep1(i, n) inve[i] = mint(i).inv().val;
     auto add = [&](int x) {
-        seg1.apply(a[x], 1);
-        seg2.apply(a[x], seg1[a[x]]);
+        seg.apply(a[x], pll{1, seg[a[x]].fi+1});
     };
     auto erase = [&](int x) {
-        seg2.apply(a[x], inve[seg1[a[x]]]);
-        seg1.apply(a[x], -1);
+        seg.apply(a[x], {-1, inve[seg[a[x]].fi]});
     };
     auto out = [&](int x) {
-        ans[x] = (fac[seg1.prod(0, queries[x])] / seg2.prod(0, queries[x])).val;
+        auto [s, t] = seg.prod(0, queries[x]);
+        ans[x] = (mint(fac[s])/t).val;
     };
     mo.build(add, erase, out);
     range(i, ans) cout << i << nl;

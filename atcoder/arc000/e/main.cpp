@@ -1,5 +1,5 @@
 #include "template"
-
+#include "graph"
 int main() { IO();
     int T=1;
     // cin >> T;
@@ -7,4 +7,6 @@ int main() { IO();
 }
 
 void solve() {
+    int n; cin >> n;
+
 }
