@@ -7,4 +7,6 @@ int main() { IO();
 }
 
 void solve() {
+    int a, b, c, d; cin >> a >> b >> c >> d;
+    YN(a*60+b>c*60+d);
 }
