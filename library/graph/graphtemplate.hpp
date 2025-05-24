@@ -86,4 +86,31 @@ struct graph {
         }
         return re;
     }
+    vector<int> bfs(int x=0) {
+        vector<int> re(data.size(), numeric_limits<int>::max());
+        re[x] = 0;
+        queue<int> q; q.push(x);
+        while (!q.empty()) {
+            auto y =  q.front(); q.pop();
+            for (auto& _e : data[y]) {
+                if (re[_e.from]+1 < re[_e.to]) {
+                    re[_e.to] = re[_e.from] + 1;
+                    q.push(_e.to);
+                }
+            }
+        }
+        return re;
+    }
+    vector<int> dfs(int x=0) {
+        vector<int> re(data.size(), numeric_limits<int>::max());
+        int counter = 0;
+        auto inner_dfs = [&] (int y) -> void {
+            for (auto& _e : data[y]) {
+                
+            }
+        };
+        re[x] = 0;
+        inner_dfs(x);
+        return re;
+    }
 };
