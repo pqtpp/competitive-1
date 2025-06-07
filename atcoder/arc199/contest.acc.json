@@ -1,0 +1,53 @@
+{
+  "contest": {
+    "id": "arc199",
+    "title": "AtCoder Regular Contest 199 (Div. 1)",
+    "url": "https://atcoder.jp/contests/arc199"
+  },
+  "tasks": [
+    {
+      "id": "arc199_a",
+      "label": "A",
+      "title": "Flip Row or Col 2",
+      "url": "https://atcoder.jp/contests/arc199/tasks/arc199_a",
+      "directory": {
+        "path": "a",
+        "testdir": "test",
+        "submit": "main.cpp"
+      }
+    },
+    {
+      "id": "arc199_b",
+      "label": "B",
+      "title": "Adjacent Replace",
+      "url": "https://atcoder.jp/contests/arc199/tasks/arc199_b",
+      "directory": {
+        "path": "b",
+        "testdir": "test",
+        "submit": "main.cpp"
+      }
+    },
+    {
+      "id": "arc199_c",
+      "label": "C",
+      "title": "Circular Tree Embedding",
+      "url": "https://atcoder.jp/contests/arc199/tasks/arc199_c",
+      "directory": {
+        "path": "c",
+        "testdir": "test",
+        "submit": "main.cpp"
+      }
+    },
+    {
+      "id": "arc199_d",
+      "label": "D",
+      "title": "Limestone",
+      "url": "https://atcoder.jp/contests/arc199/tasks/arc199_d",
+      "directory": {
+        "path": "d",
+        "testdir": "test",
+        "submit": "main.cpp"
+      }
+    }
+  ]
+}
