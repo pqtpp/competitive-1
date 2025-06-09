@@ -10,6 +10,9 @@ data:
     title: math/convolution.hpp
   _extendedVerifiedWith:
   - icon: ':heavy_check_mark:'
+    path: verify/yosupo-bitwise_xor_convolution.test.cpp
+    title: verify/yosupo-bitwise_xor_convolution.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-convolution_mod.test.cpp
     title: verify/yosupo-convolution_mod.test.cpp
   - icon: ':heavy_check_mark:'
@@ -136,6 +139,7 @@ data:
   - verify/yosupo-range_affine_range_sum.test.cpp
   - verify/yosupo-point_set_range_composite.test.cpp
   - verify/yosupo-range_affine_point_get.test.cpp
+  - verify/yosupo-bitwise_xor_convolution.test.cpp
   - verify/yosupo-convolution_mod.test.cpp
 documentation_of: math/modint.hpp
 layout: document

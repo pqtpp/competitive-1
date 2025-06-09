@@ -31,6 +31,9 @@ data:
     path: verify/aizu-GRL_2_A.test.cpp
     title: verify/aizu-GRL_2_A.test.cpp
   - icon: ':heavy_check_mark:'
+    path: verify/yosupo-bitwise_xor_convolution.test.cpp
+    title: verify/yosupo-bitwise_xor_convolution.test.cpp
+  - icon: ':heavy_check_mark:'
     path: verify/yosupo-convolution_mod.test.cpp
     title: verify/yosupo-convolution_mod.test.cpp
   - icon: ':heavy_check_mark:'
@@ -216,6 +219,7 @@ data:
   - verify/aizu-GRL_1_A.test.cpp
   - verify/yosupo-point_add_range_sum_2.test.cpp
   - verify/yosupo-range_affine_point_get.test.cpp
+  - verify/yosupo-bitwise_xor_convolution.test.cpp
   - verify/yosupo-primality_test.test.cpp
   - verify/yosupo-convolution_mod.test.cpp
   - verify/yosupo-static_range_sum.test.cpp

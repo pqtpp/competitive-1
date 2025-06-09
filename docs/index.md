@@ -44,6 +44,9 @@ data:
       path: math/FFT.hpp
       title: math/FFT.hpp
     - icon: ':heavy_check_mark:'
+      path: math/FWT.hpp
+      title: math/FWT.hpp
+    - icon: ':heavy_check_mark:'
       path: math/NTT.hpp
       title: math/NTT.hpp
     - icon: ':heavy_check_mark:'
@@ -61,6 +64,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: math/prime.hpp
       title: math/prime.hpp
+    - icon: ':heavy_check_mark:'
+      path: math/xorconvolution.hpp
+      title: math/xorconvolution.hpp
   - name: string
     pages:
     - icon: ':warning:'
@@ -145,6 +151,9 @@ data:
     - icon: ':heavy_check_mark:'
       path: verify/aizu-GRL_2_A.test.cpp
       title: verify/aizu-GRL_2_A.test.cpp
+    - icon: ':heavy_check_mark:'
+      path: verify/yosupo-bitwise_xor_convolution.test.cpp
+      title: verify/yosupo-bitwise_xor_convolution.test.cpp
     - icon: ':heavy_check_mark:'
       path: verify/yosupo-convolution_mod.test.cpp
       title: verify/yosupo-convolution_mod.test.cpp
