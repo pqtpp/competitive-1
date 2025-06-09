@@ -1,3 +1,9 @@
+/**
+ *    author:  mackerel38
+ *    created: 13.05.2025 01:31:42
+**/
+
+#line 2 "/workspaces/competitive/library/util/template.hpp"
 #ifdef poe
 #define debug(x) cerr<<#x<<": "<<x<<endl
 #else
@@ -85,6 +91,7 @@ void IO() {
 }
 
 void solve();
+#line 3 "/workspaces/competitive/library/math/modint.hpp"
 using namespace std;
 long long modint_MOD = 998244353;
 // mod の値を変更する(デフォルトは998244353)
@@ -153,6 +160,7 @@ void buildfac(int n) {
 mint comb(int n,int k) { return (0 <= k && k <= n ) ? fac[n] * ifac[k] * ifac[n-k] : 0; }
 // nPk を求める。buildfacの呼び出しが必須。O(1)
 mint perm(int n,int k) { return (0 <= k && k <= n ) ? fac[n] * ifac[n-k] : 0; }
+#line 3 "/workspaces/competitive/library/util/Mo.hpp"
 using namespace std;
 // Mo's algorithm
 struct Mo {
@@ -209,6 +217,7 @@ struct Mo {
         build(add, add, erase, erase, out);
     }
 };
+#line 3 "/workspaces/competitive/library/structure/sqrttree.hpp"
 using namespace std;
 template <class S, auto op, auto e, class F, auto mapping, auto mapping2>
 struct sqrttree {
@@ -265,6 +274,7 @@ struct sqrttree {
         return re;
     }
 };
+#line 5 "main.cpp"
 
 int main() { IO();
     buildfac(300000);

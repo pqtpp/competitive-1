@@ -17,7 +17,7 @@
     "key": "ctrl+/",
     "command": "command-runner.run",
     "args": {
-      "command": "cd ${fileDirname} && oj-bundle -I /workspaces/competitive/library ${file} | grep -v '^#line' > ${fileDirname}/bundled.cpp && acc submit ${fileDirname}/bundled.cpp -- -y && cd /workspaces/competitive || cd /workspaces/competitive"
+      "command": "cd ${fileDirname} && (echo '/**'; echo ' *    author:  mackerel38'; echo \" *    created: $(date '+%d.%m.%Y %H:%M:%S')\"; echo '**/'; echo; oj-bundle -I /workspaces/competitive/library ${file}) > ${fileDirname}/bundled.cpp && acc submit ${fileDirname}/bundled.cpp -- -y && cd /workspaces/competitive || cd /workspaces/competitive"
     }
   },
   {
@@ -52,7 +52,7 @@
     "key": "alt+/",
     "command": "command-runner.run",
     "args": {
-      "command": "cd ${fileDirname} && oj-bundle -I /workspaces/competitive/library ${file} | grep -v '^#line' > ${fileDirname}/bundled.cpp && acc submit ${fileDirname}/bundled.cpp -- -y && cd /workspaces/competitive || cd /workspaces/competitive"
+      "command": "cd ${fileDirname} && (echo '/**'; echo ' *    author:  mackerel38'; echo \" *    created: $(date '+%d.%m.%Y %H:%M:%S')\"; echo '**/'; echo; oj-bundle -I /workspaces/competitive/library ${file}) > ${fileDirname}/bundled.cpp && acc submit ${fileDirname}/bundled.cpp -- -y && cd /workspaces/competitive || cd /workspaces/competitive"
     }
   },
   {
