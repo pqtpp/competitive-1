@@ -109,24 +109,27 @@ data:
     \ {\n                if (_e.to == v[i+1]) {\n                    re.push_back(_e);\n\
     \                    break;\n                }\n            }\n        }\n   \
     \     return re;\n    }\n};\n#line 4 \"graph/minimumsteinertree.hpp\"\nusing namespace\
-    \ std;\ntemplate <class T, bool directed = false, bool weighted = true>\ngraph<T,\
-    \ false, true> minimumsteinertree(graph<T, directed, weighted> &g, vector<int>\
-    \ &v) {\n    vector<vector<T>> dp(1<<v.size(), vector<T>(g.size(), numeric_limits<T>::max()));\n\
-    \    vector<vector<T>> d(g.size(), vector<T>(g.size(), numeric_limits<T>::max()));\n\
-    \    vector<vector<int>> id(g.size(), vector<int>(g.size(), -1));\n    vector<vector<pair<int,\
-    \ int>>> par(1<<v.size(), vector<pair<int, int>>(g.size(), {-1, -1}));\n    for\
-    \ (auto& _e : g._edges) {\n        if (_e.cost < d[_e.from][_e.to]) {\n      \
-    \      d[_e.from][_e.to] = _e.cost;\n            d[_e.to][_e.from] = _e.cost;\n\
-    \            id[_e.from][_e.to] = _e.id;\n            id[_e.to][_e.from] = _e.id;\n\
-    \        }\n    }\n    for (int i=0; i<g.size(); i++) {\n        d[i][i] = 0;\n\
-    \    }\n    for (int i=0; i<v.size(); i++) {\n        dp[1<<i][v[i]] = 0;\n  \
-    \  }\n    for (int i=0; i<(1<<v.size()); i++) {\n        for (int j=i; 0<j; j=(j-1)&i)\
-    \ {\n            for (int k=0; k<g.size(); k++) {\n                if (dp[j][k]\
-    \ == numeric_limits<T>::max() || dp[i^j][k] == numeric_limits<T>::max()) continue;\n\
+    \ std;\n// \u6700\u5C0F\u30B7\u30E5\u30BF\u30A4\u30CA\u30FC\u6728\u3092\u6C42\u3081\
+    \u308B O(n*3^k + m*2^t log n) \u305F\u3060\u3057\u3001\u8CA0\u9589\u8DEF\u304C\
+    \u5B58\u5728\u3057\u306A\u3044\u3053\u3068\ntemplate <class T, bool directed =\
+    \ false, bool weighted = true>\ngraph<T, false, true> minimumsteinertree(graph<T,\
+    \ directed, weighted> &g, vector<int> &v) {\n    vector<vector<T>> dp(1<<v.size(),\
+    \ vector<T>(g.size(), numeric_limits<T>::max()));\n    vector<vector<T>> d(g.size(),\
+    \ vector<T>(g.size(), numeric_limits<T>::max()));\n    vector<vector<int>> id(g.size(),\
+    \ vector<int>(g.size(), -1));\n    vector<vector<pair<int, int>>> par(1<<v.size(),\
+    \ vector<pair<int, int>>(g.size(), {-1, -1}));\n    for (auto& _e : g._edges)\
+    \ {\n        if (_e.cost < d[_e.from][_e.to]) {\n            d[_e.from][_e.to]\
+    \ = _e.cost;\n            d[_e.to][_e.from] = _e.cost;\n            id[_e.from][_e.to]\
+    \ = _e.id;\n            id[_e.to][_e.from] = _e.id;\n        }\n    }\n    for\
+    \ (int i=0; i<(int)g.size(); i++) {\n        d[i][i] = 0;\n    }\n    for (int\
+    \ i=0; i<(int)v.size(); i++) {\n        dp[1<<i][v[i]] = 0;\n    }\n    for (int\
+    \ i=0; i<(1<<v.size()); i++) {\n        for (int j=i; 0<j; j=(j-1)&i) {\n    \
+    \        for (int k=0; k<(int)g.size(); k++) {\n                if (dp[j][k] ==\
+    \ numeric_limits<T>::max() || dp[i^j][k] == numeric_limits<T>::max()) continue;\n\
     \                if (dp[j][k] + dp[i^j][k] < dp[i][k]) {\n                   \
     \ dp[i][k] = dp[j][k] + dp[i^j][k];\n                    par[i][k] = {0, j};\n\
     \                }\n            }\n        }\n        priority_queue<pair<T, int>,\
-    \ vector<pair<T, int>>, greater<pair<T, int>>> q;\n        for (int j=0; j<g.size();\
+    \ vector<pair<T, int>>, greater<pair<T, int>>> q;\n        for (int j=0; j<(int)g.size();\
     \ j++) {\n            if (dp[i][j] != numeric_limits<T>::max()) q.push({dp[i][j],\
     \ j});\n        }\n        while (!q.empty()) {\n            auto [x, y] = q.top();\
     \ q.pop();\n            if (dp[i][y] < x) continue;\n            for (auto& _e\
@@ -134,8 +137,8 @@ data:
     \       dp[i][_e.to] = x + _e.cost;\n                    q.push({x + _e.cost,\
     \ _e.to});\n                    par[i][_e.to] = {1, _e.from};\n              \
     \  }\n            }\n        }\n    }\n    int c = -1;\n    T ans = numeric_limits<T>::max();\n\
-    \    for (int i=0; i<g.size(); i++) {\n        if (dp.back()[i] < ans) {\n   \
-    \         ans = dp.back()[i];\n            c = i;\n        }\n    }\n    graph<T,\
+    \    for (int i=0; i<(int)g.size(); i++) {\n        if (dp.back()[i] < ans) {\n\
+    \            ans = dp.back()[i];\n            c = i;\n        }\n    }\n    graph<T,\
     \ false, true> res(g.size());\n    vector<int> used(g._edges.size());\n    if\
     \ (c == -1) return res;\n    stack<pair<int, int>> s;\n    s.push({(1<<v.size())-1,\
     \ c});\n    while (!s.empty()) {\n        auto [x, y] = s.top(); s.pop();\n  \
@@ -166,7 +169,7 @@ data:
   isVerificationFile: true
   path: verify/yosupo-minimum_steiner_tree.test.cpp
   requiredBy: []
-  timestamp: '2025-05-09 08:40:27+00:00'
+  timestamp: '2025-06-12 05:06:33+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-minimum_steiner_tree.test.cpp
