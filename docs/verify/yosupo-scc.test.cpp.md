@@ -112,8 +112,8 @@ data:
     \u30C8\u30DD\u30ED\u30B8\u30AB\u30EB\u9806\u306B\u4E26\u3079\u305F\u3082\u306E\
     \u3092\u8FD4\u3059 O(n + m)\ntemplate<class T = int, bool directed = true, bool\
     \ weighted = false>\nvector<vector<int>> scc(graph<T, directed, weighted>& g)\
-    \ {\n    int n = g.size();\n    vector<int> low(n), num(n, -1);\n    stack<int>\
-    \ st;\n    vector<bool> onStack(n);\n    vector<vector<int>> re;\n    auto dfs\
+    \ {\n    vector<int> low(g.size()), num(g.size(), -1);\n    stack<int> st;\n \
+    \   vector<bool> onStack(g.size());\n    vector<vector<int>> re;\n    auto dfs\
     \ = [&](auto& self, int x) -> void {\n        low[x] = num[x] = st.size();\n \
     \       st.push(x);\n        onStack[x] = true;\n        for (auto& _e : g[x])\
     \ {\n            int y = _e.to;\n            if (num[y] == -1) {\n           \
@@ -123,7 +123,7 @@ data:
     \ component;\n            int y = -1;\n            while (y != x) {\n        \
     \        y = st.top(); st.pop(); onStack[y] = false;\n                component.push_back(y);\n\
     \            }\n            re.push_back(component);\n        }\n    };\n    for\
-    \ (int i=0; i<n; i++) if (num[i] == -1) dfs(dfs, i);\n    reverse(re.begin(),\
+    \ (int i=0; i<(int)g.size(); i++) if (num[i] == -1) dfs(dfs, i);\n    reverse(re.begin(),\
     \ re.end());\n    return re;\n}\n#line 5 \"verify/yosupo-scc.test.cpp\"\nint main()\
     \ { IO();\r\n    int T=1;\r\n    // cin >> T;\r\n    while (T--) solve();\r\n\
     }\r\n\r\nvoid solve() {\r\n    int n, m; cin >> n >> m;\r\n    graph<int, true,\
@@ -144,7 +144,7 @@ data:
   isVerificationFile: true
   path: verify/yosupo-scc.test.cpp
   requiredBy: []
-  timestamp: '2025-05-09 08:40:27+00:00'
+  timestamp: '2025-06-12 05:08:08+00:00'
   verificationStatus: TEST_ACCEPTED
   verifiedWith: []
 documentation_of: verify/yosupo-scc.test.cpp

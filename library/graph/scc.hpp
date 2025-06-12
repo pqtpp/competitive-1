@@ -5,10 +5,9 @@ using namespace std;
 // グラフを強連結成分分解し、トポロジカル順に並べたものを返す O(n + m)
 template<class T = int, bool directed = true, bool weighted = false>
 vector<vector<int>> scc(graph<T, directed, weighted>& g) {
-    int n = g.size();
-    vector<int> low(n), num(n, -1);
+    vector<int> low(g.size()), num(g.size(), -1);
     stack<int> st;
-    vector<bool> onStack(n);
+    vector<bool> onStack(g.size());
     vector<vector<int>> re;
     auto dfs = [&](auto& self, int x) -> void {
         low[x] = num[x] = st.size();
@@ -33,7 +32,7 @@ vector<vector<int>> scc(graph<T, directed, weighted>& g) {
             re.push_back(component);
         }
     };
-    for (int i=0; i<n; i++) if (num[i] == -1) dfs(dfs, i);
+    for (int i=0; i<(int)g.size(); i++) if (num[i] == -1) dfs(dfs, i);
     reverse(re.begin(), re.end());
     return re;
 }
